@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import Head from 'next/head';
 import Header from '../components/HeaderBis';
 import Footer from '../components/Footer';
+import ScrollToTop from '../components/ScrollToTop';
 import "./globals.css";
 
 export default function RootLayout({ children }) {
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
         <Header />
         <main className="flex-grow">{children}</main>
         <Footer />
+        <ScrollToTop />
       </div>
     </>
   );

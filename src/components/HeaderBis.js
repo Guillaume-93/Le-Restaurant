@@ -24,8 +24,8 @@ export default function Header() {
                     <Link href="/">
                         <span className="sr-only">Le Neuilly</span>
                         <img
-                            alt="Le Neuilly"
-                            src="images/le-neuilly-canva.png"
+                            alt="Image représentant le logo du restaurant Le Neuilly"
+                            src="images/logos/le-neuilly-canva.png"
                             className="h-12 w-auto rounded-lg"
                         />
                     </Link>

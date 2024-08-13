@@ -65,7 +65,7 @@ export default function Example() {
                     Que vous soyez de passage pour un déjeuner rapide ou pour une soirée gourmande, nous avons un menu qui répondra à vos attentes.
                 </p>
                 <div className="mt-10 flex justify-center">
-                    <Link href="/menu#a-la-carte" className="text-base font-semibold leading-7 text-[#112E34]">
+                    <Link href="/menu#a-la-carte" className="text-base font-semibold leading-7 text-[#112E34] after:block after:h-0.5 after:w-0 after:bg-slate-600 after:duration-300 hover:after:w-full">
                         Voir la carte <span aria-hidden="true">&rarr;</span>
                     </Link>
                 </div>
@@ -120,9 +120,9 @@ export default function Example() {
                                 aria-describedby={menu.id}
                                 className={classNames(
                                     menu.mostPopular
-                                        ? 'bg-[#112E34] text-white shadow-sm hover:bg-[#1c4d57]'
+                                        ? 'bg-[#112E34] text-white hover:bg-[#1c4d57]'
                                         : 'text-[#112E34] ring-1 ring-inset ring-[#112E34] hover:ring-[#297c8d]',
-                                    'mt-8 block rounded-md px-3 py-2 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600',
+                                    'mt-8 block rounded-md px-3 py-2 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 shadow-default transition-all duration-200 active:scale-95 active:shadow-inner',
                                 )}
                             >
                                 Réserver

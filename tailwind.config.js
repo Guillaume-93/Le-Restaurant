@@ -49,6 +49,7 @@ module.exports = {
         'text-highlight': 'var(--text-color-highlight)',
       },
       boxShadow: {
+        'default': '2px 3px 3px rgba(0, 0, 0, 0.3)',
         '3xl': '2px 3px 3px 3px rgba(0, 0, 0, 0.4)',
         '4xl': '2px 5px 3px 3px rgba(0, 0, 0, 0.4)',
         '5xl': '8px 8px 3px 3px rgba(0, 0, 0, 0.4)',

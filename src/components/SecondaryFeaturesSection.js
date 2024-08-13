@@ -1,11 +1,11 @@
 'use client'
 
 import {
-  HomeModernIcon,
-  ShoppingCartIcon,
+  BookOpenIcon,
   ComputerDesktopIcon,
-  BookOpenIcon
-} from '@heroicons/react/24/outline'
+  HomeModernIcon,
+  ShoppingCartIcon
+} from '@heroicons/react/24/outline';
 
 const features = [
   {
@@ -52,7 +52,7 @@ const SecondaryFeaturesSection = () => {
             {features.map((feature) => (
               <div key={feature.name} className="relative pl-16">
                 <dt className="text-base font-semibold leading-7 text-slate-900">
-                  <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-[#112E34]">
+                  <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-[#112E34] shadow-default">
                     <feature.icon aria-hidden="true" className="h-6 w-6 text-slate-100" />
                   </div>
                   {feature.name}
@@ -64,7 +64,6 @@ const SecondaryFeaturesSection = () => {
         </div>
       </div>
     </div>
-
   );
 };
 

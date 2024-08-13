@@ -46,7 +46,7 @@ export default function Example() {
                                     >
                                         <Link
                                             href="/contact"
-                                            className="rounded-md bg-[--link-color-background] px-4 py-3 text-center text-sm font-semibold text-[--link-color-text] shadow-3xl transition-all duration-200 hover:bg-[--link-color-hover] active:scale-95 active:shadow-inner"
+                                            className="rounded-md bg-[--link-color-background] px-4 py-3 text-center text-sm font-semibold text-[--link-color-text] shadow-default transition-all duration-200 hover:bg-[--link-color-hover] active:scale-95 active:shadow-inner"
                                         >
                                             Réserver une table
                                         </Link>
@@ -69,7 +69,7 @@ export default function Example() {
                                             <img
                                                 alt=""
                                                 src="images/dalle-1.webp"
-                                                className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-3xl"
+                                                className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
                                             />
                                             <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-slate-900/10" />
                                         </motion.div>
@@ -83,8 +83,8 @@ export default function Example() {
                                         >
                                             <img
                                                 alt=""
-                                                src="images/sole-meuniere.webp"
-                                                className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-3xl"
+                                                src="images/menus/plats/sole-meuniere.webp"
+                                                className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
                                             />
                                             <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-slate-900/10" />
                                         </motion.div>
@@ -97,7 +97,7 @@ export default function Example() {
                                             <img
                                                 alt=""
                                                 src="images/dalle-4.webp"
-                                                className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-3xl"
+                                                className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
                                             />
                                             <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-slate-900/10" />
                                         </motion.div>
@@ -111,8 +111,8 @@ export default function Example() {
                                         >
                                             <img
                                                 alt=""
-                                                src="images/entrecote.webp"
-                                                className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-3xl"
+                                                src="images/menus/plats/entrecote.webp"
+                                                className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
                                             />
                                             <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-slate-900/10" />
                                         </motion.div>
@@ -125,7 +125,7 @@ export default function Example() {
                                             <img
                                                 alt=""
                                                 src="images/menus/desserts/mousse-au-chocolat.webp"
-                                                className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-3xl"
+                                                className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
                                             />
                                             <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-slate-900/10" />
                                         </motion.div>

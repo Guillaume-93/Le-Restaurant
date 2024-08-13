@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const navigation = {
     main: [
         { name: 'Accueil', href: '/' },
@@ -77,22 +79,22 @@ export default function Example() {
                 <nav aria-label="Footer" className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12">
                     {navigation.main.map((item) => (
                         <div key={item.name} className="pb-6">
-                            <a href={item.href} className="text-sm leading-6 text-slate-600 hover:text-slate-900">
+                            <Link href={item.href} className="text-sm leading-6 text-slate-600 hover:text-slate-900">
                                 {item.name}
-                            </a>
+                            </Link>
                         </div>
                     ))}
                 </nav>
                 <div className="mt-10 flex justify-center space-x-10">
                     {navigation.social.map((item) => (
-                        <a key={item.name} href={item.href} className="text-slate-400 hover:text-slate-500">
+                        <a key={item.name} href={item.href} className="text-slate-600 hover:text-slate-800">
                             <span className="sr-only">{item.name}</span>
                             <item.icon aria-hidden="true" className="h-6 w-6" />
                         </a>
                     ))}
                 </div>
-                <p className="mt-10 text-center text-xs leading-5 text-slate-500">
-                &copy; 2024 Le Neuilly. Tous droits réservés.
+                <p className="mt-10 text-center text-xs leading-5 text-slate-600">
+                &copy; 2024 Le Neuilly. Tous droits réservés. | <Link href="/legals" className="text-slate-600 hover:text-slate-800">Mentions légales</Link>
                 </p>
             </div>
         </footer>

@@ -44,7 +44,7 @@ const FeaturesSection = () => {
           {primaryFeatures.map((feature) => (
             <div key={feature.name} className="flex flex-col">
               <dt className="text-base font-semibold leading-7 text-white">
-                <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-[#112E34]">
+                <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-[#112E34] shadow-default">
                   <feature.icon aria-hidden="true" className="h-6 w-6 text-slate-100" />
                 </div>
                 <span className="text-slate-900">{feature.name}</span>

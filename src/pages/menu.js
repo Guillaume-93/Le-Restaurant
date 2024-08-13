@@ -52,7 +52,7 @@ const menuCarte = [
         title: 'Double Carpaccio de boeuf',
         description:
             'Accompagné de sa sauce pesto, de ses copeaux de parmesan et de ses frites maison.',
-        imageUrl: 'images/menus/double-carpaccio-de-boeuf.webp',
+        imageUrl: 'images/menus/plats/double-carpaccio-de-boeuf.webp',
         price: '18,90€',
         category: { title: 'PLATS' },
     },
@@ -61,7 +61,7 @@ const menuCarte = [
         title: 'La César',
         description:
             'Salade mêlée, tomates, poulet, parmesan, croûtons.',
-        imageUrl: 'images/menus/la-cesar.webp',
+        imageUrl: 'images/menus/plats/la-cesar.webp',
         price: '16,90€',
         category: { title: 'PLATS' },
     },
@@ -70,7 +70,7 @@ const menuCarte = [
         title: 'Burrata à la truffe (150g)',
         description:
             'Accompagnée de tomates cerises et de son fameux vinaigre balsamique caramélisé maison, pain toasté.',
-        imageUrl: 'images/menus/burrata-a-la-truffe.webp',
+        imageUrl: 'images/menus/plats/burrata-a-la-truffe.webp',
         price: '16,90€',
         category: { title: 'PLATS' },
     },
@@ -79,7 +79,7 @@ const menuCarte = [
         title: 'Cuisse de canard confite',
         description:
             'Et ses accompagnements au choix.',
-        imageUrl: 'images/menus/cuisse-de-canard-confite.webp',
+        imageUrl: 'images/menus/plats/cuisse-de-canard-confite.webp',
         price: '17,90€',
         category: { title: 'PLATS' },
     },
@@ -88,7 +88,7 @@ const menuCarte = [
         title: 'Burger',
         description:
             'Servi avec frites maison.',
-        imageUrl: 'images/menus/burger.webp',
+        imageUrl: 'images/menus/plats/burger.webp',
         price: '15,90€',
         category: { title: 'PLATS' },
     },
@@ -97,7 +97,7 @@ const menuCarte = [
         title: 'Entrecôte grillée',
         description:
             'À la fleur de sel et poivre concassé. Sauce au choix : béarnaise, poivre vert.',
-        imageUrl: 'images/menus/entrecote-grillee.webp',
+        imageUrl: 'images/menus/plats/entrecote-grillee.webp',
         price: '23,00€',
         category: { title: 'PLATS' },
     },
@@ -115,7 +115,7 @@ const menuCarte = [
         title: 'Accompagnements',
         description:
             'Frites maison / Garniture du moment.',
-        imageUrl: 'images/menus/accompagnements.webp',
+        imageUrl: 'images/menus/accompagnements/accompagnements.webp',
         price: '4,00€',
         category: { title: 'PLATS' },
     },
@@ -124,7 +124,7 @@ const menuCarte = [
         title: 'Café gourmand',
         description:
             'Un assortiment de desserts en format mini.',
-        imageUrl: 'images/menus/cafe-gourmand.webp',
+        imageUrl: 'images/menus/desserts/cafe-gourmand.webp',
         price: '7,00€',
         category: { title: 'DESSERTS' },
     },
@@ -133,7 +133,7 @@ const menuCarte = [
         title: 'Thé gourmand',
         description:
             'Un assortiment de desserts en format mini, accompagné de thé.',
-        imageUrl: 'images/menus/the-gourmand.webp',
+        imageUrl: 'images/menus/desserts/the-gourmand.webp',
         price: '8,00€',
         category: { title: 'DESSERTS' },
     },
@@ -310,9 +310,9 @@ export default function Example() {
                                     aria-describedby={menu.id}
                                     className={classNames(
                                         menu.mostPopular
-                                            ? 'bg-[#112E34] text-white shadow-sm hover:bg-[#1c4d57]'
+                                            ? 'bg-[#112E34] text-white hover:bg-[#1c4d57]'
                                             : 'text-[#112E34] ring-1 ring-inset ring-[#112E34] hover:ring-[#297c8d]',
-                                        'mt-8 block rounded-md px-3 py-2 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600',
+                                        'mt-8 block rounded-md px-3 py-2 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 shadow-default transition-all duration-200 active:scale-95 active:shadow-inner',
                                     )}
                                 >
                                     Réserver
@@ -338,7 +338,7 @@ export default function Example() {
                                         <img
                                             alt=""
                                             src={post.imageUrl}
-                                            className="aspect-[16/9] w-full rounded-2xl bg-slate-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
+                                            className="aspect-[16/9] w-full rounded-2xl bg-slate-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2] shadow-default"
                                         />
                                         <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-slate-900/10" />
                                     </div>
@@ -376,7 +376,7 @@ export default function Example() {
                                         <img
                                             alt=""
                                             src={dessert.imageUrl}
-                                            className="aspect-[16/9] w-full rounded-2xl bg-slate-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
+                                            className="aspect-[16/9] w-full rounded-2xl bg-slate-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2] shadow-default"
                                         />
                                         <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-slate-900/10" />
                                     </div>
@@ -413,7 +413,7 @@ export default function Example() {
                                         <img
                                             alt=""
                                             src={wine.imageUrl}
-                                            className="aspect-[16/9] w-full rounded-2xl bg-slate-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
+                                            className="aspect-[16/9] w-full rounded-2xl bg-slate-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2] shadow-default"
                                         />
                                         <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-slate-900/10" />
                                     </div>
