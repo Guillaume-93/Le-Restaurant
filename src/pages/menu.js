@@ -1,249 +1,27 @@
 import Layout from '../app/layout';
-import { CheckIcon } from '@heroicons/react/20/solid'
-import Link from 'next/link'
-
-const menusPrices = [
-    {
-        name: 'Menu Déjeuner',
-        infos: true,
-        id: 'menu-dejeuner',
-        href: '/contact',
-        price: '20€',
-        description: 'Un menu parfait pour un déjeuner rapide et délicieux.',
-        features: ['Entrée au choix', 'Plat principal au choix', 'Dessert du jour', 'Café inclus'],
-        mostPopular: false,
-    },
-    {
-        name: 'Menu Gourmand',
-        infos: false,
-        id: 'menu-gourmand',
-        href: '/contact',
-        price: '30€',
-        description: 'Un menu pour les gourmands, avec des plats généreux et raffinés.',
-        features: [
-            'Entrée au choix',
-            'Deux plats principaux au choix',
-            'Fromage ou dessert',
-            'Un verre de vin inclus',
-        ],
-        mostPopular: true,
-    },
-    {
-        name: 'Menu Dégustation',
-        infos: false,
-        id: 'menu-degustation',
-        href: '/contact',
-        price: '55€',
-        description: 'Découvrez notre cuisine avec un menu dégustation de cinq services.',
-        features: [
-            'Amuse-bouche',
-            'Trois plats principaux',
-            'Plateau de fromages',
-            'Dessert au choix',
-            'Accords mets et vins inclus',
-        ],
-        mostPopular: false,
-    },
-]
-
-const menuCarte = [
-    {
-        id: 1,
-        title: 'Double Carpaccio de boeuf',
-        description:
-            'Accompagné de sa sauce pesto, de ses copeaux de parmesan et de ses frites maison.',
-        imageUrl: 'images/menus/plats/double-carpaccio-de-boeuf.webp',
-        price: '18,90€',
-        category: { title: 'PLATS' },
-    },
-    {
-        id: 2,
-        title: 'La César',
-        description:
-            'Salade mêlée, tomates, poulet, parmesan, croûtons.',
-        imageUrl: 'images/menus/plats/la-cesar.webp',
-        price: '16,90€',
-        category: { title: 'PLATS' },
-    },
-    {
-        id: 3,
-        title: 'Burrata à la truffe (150g)',
-        description:
-            'Accompagnée de tomates cerises et de son fameux vinaigre balsamique caramélisé maison, pain toasté.',
-        imageUrl: 'images/menus/plats/burrata-a-la-truffe.webp',
-        price: '16,90€',
-        category: { title: 'PLATS' },
-    },
-    {
-        id: 4,
-        title: 'Cuisse de canard confite',
-        description:
-            'Et ses accompagnements au choix.',
-        imageUrl: 'images/menus/plats/cuisse-de-canard-confite.webp',
-        price: '17,90€',
-        category: { title: 'PLATS' },
-    },
-    {
-        id: 5,
-        title: 'Burger',
-        description:
-            'Servi avec frites maison.',
-        imageUrl: 'images/menus/plats/burger.webp',
-        price: '15,90€',
-        category: { title: 'PLATS' },
-    },
-    {
-        id: 6,
-        title: 'Entrecôte grillée',
-        description:
-            'À la fleur de sel et poivre concassé. Sauce au choix : béarnaise, poivre vert.',
-        imageUrl: 'images/menus/plats/entrecote-grillee.webp',
-        price: '23,00€',
-        category: { title: 'PLATS' },
-    },
-    {
-        id: 7,
-        title: 'Menu enfant',
-        description:
-            'Steak haché frites, boules de glace vanille et sirop à l’eau.',
-        imageUrl: 'images/menus/menu-enfant.webp',
-        price: '10,00€',
-        category: { title: 'PLATS' },
-    },
-    {
-        id: 8,
-        title: 'Accompagnements',
-        description:
-            'Frites maison / Garniture du moment.',
-        imageUrl: 'images/menus/accompagnements/accompagnements.webp',
-        price: '4,00€',
-        category: { title: 'PLATS' },
-    },
-    {
-        id: 9,
-        title: 'Café gourmand',
-        description:
-            'Un assortiment de desserts en format mini.',
-        imageUrl: 'images/menus/desserts/cafe-gourmand.webp',
-        price: '7,00€',
-        category: { title: 'DESSERTS' },
-    },
-    {
-        id: 10,
-        title: 'Thé gourmand',
-        description:
-            'Un assortiment de desserts en format mini, accompagné de thé.',
-        imageUrl: 'images/menus/desserts/the-gourmand.webp',
-        price: '8,00€',
-        category: { title: 'DESSERTS' },
-    },
-]
-
-const dessertsMenu = [
-    {
-        id: 1,
-        title: 'Tarte Tatin',
-        description: 'Délicieuse tarte aux pommes caramélisées, servie avec une boule de glace vanille.',
-        imageUrl: 'images/menus/desserts/tarte-tatin.webp',
-        price: '8,00€',
-        category: { title: 'Desserts' },
-    },
-    {
-        id: 2,
-        title: 'Crème Brûlée',
-        description: 'Crème onctueuse à la vanille avec une croûte de sucre caramélisé.',
-        imageUrl: 'images/menus/desserts/creme-brulee.webp',
-        price: '7,50€',
-        category: { title: 'Desserts' },
-    },
-    {
-        id: 3,
-        title: 'Mousse au Chocolat',
-        description: 'Mousse légère et onctueuse au chocolat noir.',
-        imageUrl: 'images/menus/desserts/mousse-au-chocolat.webp',
-        price: '9,00€',
-        category: { title: 'Desserts' },
-    },
-]
-
-const wineMenu = [
-    {
-        id: 1,
-        title: 'Maranges',
-        description: 'Domaine Bonnardot, Bourgogne.',
-        imageUrl: 'images/menus/vins/maranges.webp',
-        year: '2018/2019',
-        volume: '75 cl',
-        price: '42,00€',
-        category: { title: 'Rouge - Bourgogne' },
-    },
-    {
-        id: 2,
-        title: 'Pinot Noir',
-        description: 'Domaine Saint-Germain, Bourgogne.',
-        imageUrl: 'images/menus/vins/pinot-noir.webp',
-        year: '2019',
-        volume: '75 cl',
-        price: '39,00€',
-        category: { title: 'Rouge - Bourgogne' },
-    },
-    {
-        id: 3,
-        title: 'Santenay',
-        description: 'Domaine Bonnardot, Bourgogne.',
-        imageUrl: 'images/menus/vins/santenay.webp',
-        year: '2020',
-        volume: '75 cl',
-        price: '44,00€',
-        category: { title: 'Rouge - Bourgogne' },
-    },
-    {
-        id: 4,
-        title: 'Morgon Côte du Py',
-        description: 'Domaine Arnaud Aucoeur, Beaujolais.',
-        imageUrl: 'images/menus/vins/morgon-cote-du-py.webp',
-        year: '2020',
-        volume: '75 cl',
-        price: '36,00€',
-        category: { title: 'Beaujolais' },
-    },
-    {
-        id: 5,
-        title: 'Domaine LeVieux',
-        description: 'Beaumes de Venise, Rhône.',
-        imageUrl: 'images/menus/vins/domaine-levieux.webp',
-        year: '2021',
-        volume: '75 cl',
-        price: '32,00€',
-        category: { title: 'Rhône' },
-    },
-    {
-        id: 6,
-        title: 'Château Tour St-Joseph',
-        description: 'Haut-Médoc, Bordeaux.',
-        imageUrl: 'images/menus/vins/chateau-tour-st-joseph.webp',
-        year: '2018',
-        volume: '75 cl',
-        price: '39,00€',
-        category: { title: 'Haut-Médoc' },
-    },
-    {
-        id: 7,
-        title: 'Château Forçats',
-        description: 'Côte Roussillon.',
-        imageUrl: 'images/menus/vins/chateau-forcats.webp',
-        year: '2018',
-        volume: '75 cl',
-        price: '34,00€',
-        category: { title: 'Côte Roussillon' },
-    },
-]
+import { CheckIcon } from '@heroicons/react/20/solid';
+import Link from 'next/link';
+import { useState, useEffect } from 'react';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+export default function Menu() {
+    const [menuData, setMenuData] = useState({
+        menusPrices: [],
+        menuCarte: [],
+        dessertsMenu: [],
+        wineMenu: []
+    });
+
+    useEffect(() => {
+        fetch('/menu-data.json')
+            .then((response) => response.json())
+            .then((data) => setMenuData(data))
+            .catch((error) => console.error('Error loading menu data:', error));
+    }, []);
+
     return (
         <Layout>
             <div className="py-24 sm:py-32">
@@ -260,13 +38,13 @@ export default function Example() {
                         Que vous soyez de passage pour un déjeuner rapide ou pour une soirée gourmande, nous avons un menu qui répondra à vos attentes.
                     </p>
                     <div className="isolate mx-auto mt-16 grid max-w-md grid-cols-1 gap-y-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                        {menusPrices.map((menu, menuIdx) => (
+                        {menuData.menusPrices.map((menu, menuIdx) => (
                             <div
                                 key={menu.id}
                                 className={classNames(
                                     menu.mostPopular ? 'lg:z-10 lg:rounded-b-none' : 'lg:mt-20',
                                     menuIdx === 0 ? 'lg:rounded-r-none' : '',
-                                    menuIdx === menusPrices.length - 1 ? 'lg:rounded-l-none' : '',
+                                    menuIdx === menuData.menusPrices.length - 1 ? 'lg:rounded-l-none' : '',
                                     'flex flex-col justify-between rounded-3xl bg-white p-8 ring-1 ring-slate-200 xl:p-10',
                                 )}
                             >
@@ -297,13 +75,18 @@ export default function Example() {
                                         <span className="text-4xl font-bold tracking-tight text-slate-900">{menu.price}</span>
                                     </p>
                                     <ul role="list" className="mt-8 space-y-3 text-sm leading-6 text-slate-600">
-                                        {menu.features.map((feature) => (
-                                            <li key={feature} className="flex gap-x-3">
-                                                <CheckIcon aria-hidden="true" className="h-6 w-5 flex-none text-[#112E34]" />
-                                                {feature}
-                                            </li>
-                                        ))}
+                                        {Array.isArray(menu.features) ? (
+                                            menu.features.map((feature) => (
+                                                <li key={feature} className="flex gap-x-3">
+                                                    <CheckIcon aria-hidden="true" className="h-6 w-5 flex-none text-[#112E34]" />
+                                                    {feature}
+                                                </li>
+                                            ))
+                                        ) : (
+                                            <li>Caractéristiques non disponibles</li>
+                                        )}
                                     </ul>
+
                                 </div>
                                 <Link
                                     href={menu.href}
@@ -332,7 +115,7 @@ export default function Example() {
                             </p>
                         </div>
                         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                            {menuCarte.map((post) => (
+                            {menuData.menuCarte.map((post) => (
                                 <article key={post.id} className="flex flex-col items-start justify-between">
                                     <div className="relative w-full">
                                         <img
@@ -370,7 +153,7 @@ export default function Example() {
                             </p>
                         </div>
                         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                            {dessertsMenu.map((dessert) => (
+                            {menuData.dessertsMenu.map((dessert) => (
                                 <article key={dessert.id} className="flex flex-col items-start justify-between">
                                     <div className="relative w-full">
                                         <img
@@ -396,7 +179,6 @@ export default function Example() {
                     </div>
                 </div>
 
-
                 {/* Carte des Vins */}
                 <div className="py-24 sm:py-32">
                     <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -407,7 +189,7 @@ export default function Example() {
                             </p>
                         </div>
                         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                            {wineMenu.map((wine) => (
+                            {menuData.wineMenu.map((wine) => (
                                 <article key={wine.id} className="flex flex-col items-start justify-between">
                                     <div className="relative w-full">
                                         <img

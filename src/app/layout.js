@@ -1,11 +1,12 @@
+// src/app/layout.js
+
 "use client";
 
 import { useEffect } from 'react';
-import { Inter } from "next/font/google";
 import Head from 'next/head';
-import Header from '../components/HeaderBis';
-import Footer from '../components/Footer';
-import ScrollToTop from '../components/ScrollToTop';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import ScrollToTop from '@/components/ScrollToTop';
 import "./globals.css";
 
 export default function RootLayout({ children }) {

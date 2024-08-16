@@ -1,0 +1,270 @@
+{
+  "menusPrices": [
+    {
+      "name": "Menu Déjeuner",
+      "infos": true,
+      "id": "menu-dejeuner",
+      "href": "/contact",
+      "price": "20€",
+      "description": "Un menu parfait pour un déjeuner rapide et délicieux.",
+      "features": [
+        "Entrée au choix",
+        "Plat principal au choix",
+        "Dessert du jour",
+        "Café inclus"
+      ],
+      "mostPopular": false
+    },
+    {
+      "name": "Menu Gourmand",
+      "infos": false,
+      "id": "menu-gourmand",
+      "href": "/contact",
+      "price": "30€",
+      "description": "Un menu pour les gourmands, avec des plats généreux et raffinés.",
+      "features": [
+        "Entrée au choix",
+        "Deux plats principaux au choix",
+        "Fromage ou dessert",
+        "Un verre de vin inclus"
+      ],
+      "mostPopular": true
+    },
+    {
+      "name": "Menu Dégustation",
+      "infos": false,
+      "id": "menu-degustation",
+      "href": "/contact",
+      "price": "60€",
+      "description": "Découvrez notre cuisine avec un menu dégustation de cinq services.",
+      "features": [
+        "Amuse-bouche",
+        "Trois plats principaux",
+        "Plateau de fromages",
+        "Dessert au choix",
+        "Accords mets et vins inclus"
+      ],
+      "mostPopular": false
+    }
+  ],
+  "menuCarte": [
+    {
+      "id": 1,
+      "title": "Double Carpaccio de bœuf",
+      "description": "Accompagné de sa sauce pesto, de ses copeaux de parmesan et de ses frites maison.",
+      "imageUrl": "/images/upload/menuCarte/image-0-0.webp",
+      "price": "18,90€",
+      "category": {
+        "title": "PLATS"
+      }
+    },
+    {
+      "id": 2,
+      "title": "La César",
+      "description": "Salade mêlée, tomates, poulet, parmesan, croûtons.",
+      "imageUrl": "images/menus/plats/la-cesar.webp",
+      "price": "16,90€",
+      "category": {
+        "title": "PLATS"
+      }
+    },
+    {
+      "id": 3,
+      "title": "Burrata à la truffe (150g)",
+      "description": "Accompagnée de tomates cerises et de son fameux vinaigre balsamique caramélisé maison, pain toasté.",
+      "imageUrl": "images/menus/plats/burrata-a-la-truffe.webp",
+      "price": "16,90€",
+      "category": {
+        "title": "PLATS"
+      }
+    },
+    {
+      "id": 4,
+      "title": "Cuisse de canard confite",
+      "description": "Et ses accompagnements au choix.",
+      "imageUrl": "images/menus/plats/cuisse-de-canard-confite.webp",
+      "price": "17,90€",
+      "category": {
+        "title": "PLATS"
+      }
+    },
+    {
+      "id": 5,
+      "title": "Burger",
+      "description": "Servi avec frites maison.",
+      "imageUrl": "images/menus/plats/burger.webp",
+      "price": "15,90€",
+      "category": {
+        "title": "PLATS"
+      }
+    },
+    {
+      "id": 6,
+      "title": "Entrecôte grillée",
+      "description": "À la fleur de sel et poivre concassé. Sauce au choix : béarnaise, poivre vert.",
+      "imageUrl": "images/menus/plats/entrecote-grillee.webp",
+      "price": "23,00€",
+      "category": {
+        "title": "PLATS"
+      }
+    },
+    {
+      "id": 7,
+      "title": "Menu enfant",
+      "description": "Steak haché frites, boules de glace vanille et sirop à l’eau.",
+      "imageUrl": "images/menus/menu-enfant.webp",
+      "price": "10,00€",
+      "category": {
+        "title": "PLATS"
+      }
+    },
+    {
+      "id": 8,
+      "title": "Accompagnements",
+      "description": "Frites maison / Garniture du moment.",
+      "imageUrl": "images/menus/accompagnements/accompagnements.webp",
+      "price": "4,00€",
+      "category": {
+        "title": "PLATS"
+      }
+    },
+    {
+      "id": 9,
+      "title": "Café gourmand",
+      "description": "Un assortiment de desserts en format mini.",
+      "imageUrl": "images/menus/desserts/cafe-gourmand.webp",
+      "price": "7,00€",
+      "category": {
+        "title": "Desserts"
+      }
+    },
+    {
+      "id": 10,
+      "title": "Thé gourmand",
+      "description": "Un assortiment de desserts en format mini, accompagné de thé.",
+      "imageUrl": "images/menus/desserts/the-gourmand.webp",
+      "price": "8,00€",
+      "category": {
+        "title": "Desserts"
+      }
+    }
+  ],
+  "dessertsMenu": [
+    {
+      "id": 1,
+      "title": "Tarte Tatin",
+      "description": "Délicieuse tarte aux pommes caramélisées, servie avec une boule de glace vanille.",
+      "imageUrl": "/images/upload/dessertsMenu/image-0-0.webp",
+      "price": "8,00€",
+      "category": {
+        "title": "Desserts"
+      }
+    },
+    {
+      "id": 2,
+      "title": "Crème Brûlée",
+      "description": "Crème onctueuse à la vanille avec une croûte de sucre caramélisé.",
+      "imageUrl": "/images/upload/dessertsMenu/image-1-0.webp",
+      "price": "7,50€",
+      "category": {
+        "title": "Desserts"
+      }
+    },
+    {
+      "id": 3,
+      "title": "Mousse au Chocolat",
+      "description": "Mousse légère et onctueuse au chocolat noir.",
+      "imageUrl": "images/menus/desserts/mousse-au-chocolat.webp",
+      "price": "9,00€",
+      "category": {
+        "title": "Desserts"
+      }
+    }
+  ],
+  "wineMenu": [
+    {
+      "id": 1,
+      "title": "Maranges",
+      "description": "Domaine Bonnardot, Bourgogne.",
+      "imageUrl": "images/menus/vins/maranges.webp",
+      "year": "2018/2019",
+      "volume": "75 cl",
+      "price": "42,00€",
+      "category": {
+        "title": "Rouge - Bourgogne"
+      }
+    },
+    {
+      "id": 2,
+      "title": "Pinot Noir",
+      "description": "Domaine Saint-Germain, Bourgogne.",
+      "imageUrl": "images/menus/vins/pinot-noir.webp",
+      "year": "2019",
+      "volume": "75 cl",
+      "price": "39,00€",
+      "category": {
+        "title": "Rouge - Bourgogne"
+      }
+    },
+    {
+      "id": 3,
+      "title": "Santenay",
+      "description": "Domaine Bonnardot, Bourgogne.",
+      "imageUrl": "images/menus/vins/santenay.webp",
+      "year": "2020",
+      "volume": "75 cl",
+      "price": "44,00€",
+      "category": {
+        "title": "Rouge - Bourgogne"
+      }
+    },
+    {
+      "id": 4,
+      "title": "Morgon Côte du Py",
+      "description": "Domaine Arnaud Aucoeur, Beaujolais.",
+      "imageUrl": "images/menus/vins/morgon-cote-du-py.webp",
+      "year": "2020",
+      "volume": "75 cl",
+      "price": "36,00€",
+      "category": {
+        "title": "Beaujolais"
+      }
+    },
+    {
+      "id": 5,
+      "title": "Domaine LeVieux",
+      "description": "Beaumes de Venise, Rhône.",
+      "imageUrl": "images/menus/vins/domaine-levieux.webp",
+      "year": "2021",
+      "volume": "75 cl",
+      "price": "32,00€",
+      "category": {
+        "title": "Rhône"
+      }
+    },
+    {
+      "id": 6,
+      "title": "Château Tour St-Joseph",
+      "description": "Haut-Médoc, Bordeaux.",
+      "imageUrl": "images/menus/vins/chateau-tour-st-joseph.webp",
+      "year": "2018",
+      "volume": "75 cl",
+      "price": "39,00€",
+      "category": {
+        "title": "Haut-Médoc"
+      }
+    },
+    {
+      "id": 7,
+      "title": "Château Forçats",
+      "description": "Côte Roussillon.",
+      "imageUrl": "images/menus/vins/chateau-forcats.webp",
+      "year": "2018",
+      "volume": "75 cl",
+      "price": "34,00€",
+      "category": {
+        "title": "Côte Roussillon"
+      }
+    }
+  ]
+}

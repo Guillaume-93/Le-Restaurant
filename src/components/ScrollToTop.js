@@ -20,7 +20,7 @@ export default function ScrollToTop() {
 
     const scrollToTop = () => {
         const start = window.scrollY;
-        const duration = 2000;
+        const duration = 1500;
         const startTime = performance.now();
 
         const scroll = (currentTime) => {

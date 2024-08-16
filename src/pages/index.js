@@ -1,7 +1,9 @@
+// pages/index.js
+
 import DishesCarousel from "@/components/DishesCarousel";
 import Faq from "@/components/Faq.js";
 import FeaturesSection from "@/components/FeaturesSection";
-import HeroSection from "@/components/HeroSectionBis";
+import HeroSection from "@/components/HeroSection";
 import MenusPrices from "@/components/MenusPrices";
 import SecondaryFeaturesSection from "@/components/SecondaryFeaturesSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
