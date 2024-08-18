@@ -1,5 +1,5 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftStartOnRectangleIcon, Bars3Icon, ArrowUturnLeftIcon, XMarkIcon, StarIcon, LockClosedIcon } from '@heroicons/react/24/outline';
 import "../app/globals.css";
 import { useState, useEffect } from 'react';
 import { useSession, signIn, signOut } from 'next-auth/react';
@@ -52,15 +52,18 @@ function normalizeWineMenuItem(item) {
 }
 
 const userNavigation = [
-    { name: 'Déconnexion', href: '#', action: () => signOut() },
+    { name: 'Retour au site', action: () => window.location.href = '/' },
+    { name: 'Déconnexion', action: () => signOut() },
 ];
 
 const navigation = [
-    { name: 'Menus', href: '', section: 'menusPrices', current: true },
+    { name: 'Accueil', href: '', section: 'heroSection', current: true },
+    { name: 'Menus', href: '', section: 'menusPrices', current: false },
     { name: 'Plats', href: '', section: 'menuCarte', current: false },
     { name: 'Desserts', href: '', section: 'dessertsMenu', current: false },
     { name: 'Vins', href: '', section: 'wineMenu', current: false },
 ];
+
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -73,20 +76,48 @@ export default function Admin() {
         menusPrices: [],
         menuCarte: [],
         dessertsMenu: [],
-        wineMenu: []
+        wineMenu: [],
+        heroSection: {
+            title: "",
+            subtitle: "",
+            buttonText1: "",
+            buttonLink1: "",
+            buttonText2: "",
+            buttonLink2: "",
+            images: [
+                { src: "", alt: "" },
+                { src: "", alt: "" },
+                { src: "", alt: "" },
+                { src: "", alt: "" },
+                { src: "", alt: "" }
+            ],
+        }
     });
-    const [activeSection, setActiveSection] = useState('menusPrices');
+    const [activeSection, setActiveSection] = useState('heroSection');
+
+    const renderPremiumBadge = () => (
+        <div className={`flex items-center space-x-1 mt-2 text-sm`}>
+            <span className="flex items-center gap-x-2 text-sm font-bold text-white bg-yellow-500 px-2 py-2 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-5">
+                    <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clipRule="evenodd" />
+                </svg>
+                Passer à l'offre Premium
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-5">
+                    <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clipRule="evenodd" />
+                </svg>
+            </span>
+        </div>
+    );
 
     useEffect(() => {
         if (status === 'authenticated') {
-            // console.log('Session valide, récupération des données...');
             fetch('/api/check-authorization', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ email: session.user.email }),
-                credentials: 'include',  // Ajoute cette ligne
+                credentials: 'include',
             })
                 .then(res => res.json())
                 .then(data => {
@@ -94,7 +125,7 @@ export default function Admin() {
                         router.replace('/unauthorized');
                     } else {
                         fetch('/api/menu-data', {
-                            credentials: 'include',  // Ajoute cette ligne
+                            credentials: 'include',
                         })
                             .then((res) => res.json())
                             .then((data) => {
@@ -103,6 +134,15 @@ export default function Admin() {
                                     menuCarte: data.menuCarte.map(normalizeMenuCarteOrDessertsItem),
                                     dessertsMenu: data.dessertsMenu.map(normalizeMenuCarteOrDessertsItem),
                                     wineMenu: data.wineMenu.map(normalizeWineMenuItem),
+                                    heroSection: data.heroSection || {
+                                        title: '',
+                                        subtitle: '',
+                                        buttonText1: '',
+                                        buttonLink1: '',
+                                        buttonText2: '',
+                                        buttonLink2: '',
+                                        images: [{ src: '', alt: 'Divers photos de présentation' }]
+                                    }
                                 };
                                 setMenuData(normalizedData);
                             })
@@ -111,11 +151,10 @@ export default function Admin() {
                 })
                 .catch(err => {
                     console.error("Error checking authorization:", err);
-                    toast.error('Une erreur est survenue lors de la vérification de l\'autorisation.'); // Alerte pour mieux comprendre quand cela arrive
+                    toast.error('Une erreur est survenue lors de la vérification de l\'autorisation.');
                 });
         }
     }, [session, status]);
-
 
     const handleSectionChange = (section) => {
         setActiveSection(section);
@@ -125,21 +164,31 @@ export default function Admin() {
     const handleInputChange = (e, section, index, field) => {
         const value = e.target.value;
         setMenuData(prevData => {
-            const updatedSection = [...prevData[section]];
-            if (field.includes('.')) {
-                const [parentField, childField] = field.split('.');
-                updatedSection[index][parentField] = {
-                    ...updatedSection[index][parentField],
-                    [childField]: value,
-                };
+            if (Array.isArray(prevData[section])) {
+                // Si la section est un tableau
+                const updatedSection = [...prevData[section]];
+                if (field.includes('.')) {
+                    const [parentField, childField] = field.split('.');
+                    updatedSection[index][parentField] = {
+                        ...updatedSection[index][parentField],
+                        [childField]: value,
+                    };
+                } else {
+                    updatedSection[index][field] = value;
+                }
+                return { ...prevData, [section]: updatedSection };
             } else {
-                updatedSection[index][field] = value;
+                // Si la section est un objet
+                const updatedSection = { ...prevData[section], [field]: value };
+                return { ...prevData, [section]: updatedSection };
             }
-            return { ...prevData, [section]: updatedSection };
         });
     };
 
+
     const handleAddItem = (section) => {
+        if (!Array.isArray(menuData[section])) return; // Ne pas ajouter d'élément si ce n'est pas un tableau
+
         setMenuData(prevData => {
             let newItem;
             switch (section) {
@@ -163,23 +212,17 @@ export default function Admin() {
     };
 
     const handleRemoveItem = (section, index) => {
+        if (!Array.isArray(menuData[section])) return; // Ne pas supprimer d'élément si ce n'est pas un tableau
+
         setMenuData(prevData => {
             const updatedSection = prevData[section].filter((_, i) => i !== index);
             return { ...prevData, [section]: updatedSection };
         });
     };
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const validatedData = {
-            menusPrices: [...menusPrices], // Remplacer par vos données réelles
-            menuCarte: [...menuCarte],     // Remplacer par vos données réelles
-            dessertsMenu: [...dessertsMenu], // Remplacer par vos données réelles
-            wineMenu: [...wineMenu]         // Remplacer par vos données réelles
-        };
-
-        // console.log("Données envoyées :", JSON.stringify(validatedData, null, 2));
 
         const res = await fetch('/api/menu-data', {
             method: 'POST',
@@ -187,7 +230,7 @@ export default function Admin() {
                 'Content-Type': 'application/json',
             },
             credentials: 'include',
-            body: JSON.stringify(validatedData), // Envoyer les données correctes
+            body: JSON.stringify(menuData),
         });
 
         if (res.ok) {
@@ -198,7 +241,7 @@ export default function Admin() {
     };
 
     if (status === "loading") {
-        return <div><Loader/></div>;
+        return <div><Loader /></div>;
     }
 
     if (status === 'unauthenticated') {
@@ -236,17 +279,13 @@ export default function Admin() {
                                         <img
                                             alt="Le Neuilly Logo"
                                             src="images/logos/le-neuilly-canva.png"
-                                            className="h-8"
+                                            className="h-8 cursor-pointer"
+                                            onClick={() => window.location.href = '/'}
                                         />
                                     </div>
                                     <div className="hidden md:block">
                                         <div className="ml-10 flex items-baseline space-x-4">
-                                            <button
-                                                onClick={() => window.location.href = '/'}
-                                                className="rounded-md px-3 py-2 text-sm font-medium text-slate-900 hover:bg-slate-700 hover:text-white"
-                                            >
-                                                Accueil
-                                            </button>
+
                                             {navigation.map((item) => (
                                                 <Link
                                                     key={item.name}
@@ -281,15 +320,20 @@ export default function Admin() {
                                                 transition
                                                 className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
                                             >
+                                                {/* <button
+                                                    onClick={() => window.location.href = '/'}
+                                                    className="block px-4 py-2 text-sm font-medium text-slate-700 data-[focus]:bg-slate-100"
+                                                >
+                                                    Retour au site
+                                                </button> */}
                                                 {userNavigation.map((item) => (
                                                     <MenuItem key={item.name}>
-                                                        <Link
-                                                            href={item.href}
+                                                        <button
                                                             onClick={item.action}
-                                                            className="block px-4 py-2 text-sm text-slate-700 data-[focus]:bg-slate-100"
+                                                            className="inline-flex w-full px-4 py-2 text-sm font-medium text-slate-700 data-[focus]:bg-slate-100"
                                                         >
                                                             {item.name}
-                                                        </Link>
+                                                        </button>
                                                     </MenuItem>
                                                 ))}
                                             </MenuItems>
@@ -309,12 +353,6 @@ export default function Admin() {
                     </div>
                     <DisclosurePanel className="border-b border-slate-700 md:hidden">
                         <div className="space-y-1 px-2 py-3 sm:px-3">
-                            <button
-                                onClick={() => window.location.href = '/'}
-                                className="flex w-full rounded-md px-3 py-2 text-base font-medium text-slate-700 hover:bg-slate-700 hover:text-slate-100"
-                            >
-                                Accueil
-                            </button>
                             {navigation.map((item) => (
                                 <DisclosureButton
                                     key={item.name}
@@ -341,25 +379,33 @@ export default function Admin() {
                                     <div className="text-sm font-medium leading-none text-slate-500">{session?.user?.email || user.email}</div>
                                 </div>
                             </div>
-                            <div className="mt-3 space-y-1 px-2">
-                                {userNavigation.map((item) => (
-                                    <DisclosureButton
-                                        key={item.name}
-                                        as="a"
-                                        href={item.href}
-                                        onClick={item.action}
-                                        className="inline-flex bg-red-600 rounded-md px-3 py-2 text-base font-medium text-slate-100 hover:bg-red-500 hover:text-white"
-                                    >
-                                        {item.name}
-                                    </DisclosureButton>
-                                ))}
+                            <div className="mt-6 space-y-4 px-2 flex flex-col items-start">
+                                <DisclosureButton
+                                    as="a"
+                                    href="/"
+                                    onClick={() => window.location.href = '/'}
+                                    className="w-auto flex items-center px-3 py-1 text-base font-medium bg-slate-900 text-white rounded-md"
+                                >
+                                    <ArrowUturnLeftIcon className="h-4 w-4 mr-2" />
+                                    Retour au site
+                                </DisclosureButton>
+                                <DisclosureButton
+                                    as="a"
+                                    href=""
+                                    onClick={() => signOut()}
+                                    className="w-auto flex items-center rounded-md px-3 py-1 text-base font-medium text-slate-100 bg-red-600"
+                                >
+                                    <ArrowLeftStartOnRectangleIcon className="h-4 w-4 mr-2" />
+                                    Déconnexion
+                                </DisclosureButton>
                             </div>
                         </div>
                     </DisclosurePanel>
                 </Disclosure>
                 <header className="py-10">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <h1 className="text-3xl font-bold tracking-tight text-slate-900">Dashboard</h1>
+                        <h1 className="ml-1 text-3xl font-bold tracking-tight text-slate-900">Tableau de bord</h1>
+                        {renderPremiumBadge()}
                     </div>
                 </header>
             </div>
@@ -375,7 +421,8 @@ export default function Admin() {
                                 handleAddItem={handleAddItem}
                                 handleRemoveItem={handleRemoveItem}
                                 setMenuData={setMenuData}
-                                menuData={menuData} // Passez menuData ici
+                                menuData={menuData}
+                                renderPremiumBadge={renderPremiumBadge}
                             />
                         )}
                     </div>

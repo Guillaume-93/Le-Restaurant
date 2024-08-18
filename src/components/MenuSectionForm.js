@@ -1,11 +1,18 @@
-// components/MenuSectionForm.js
-
 import { useState, useEffect } from 'react';
 import { getSession, signIn } from 'next-auth/react';
 import { toast } from 'react-toastify';
+import { LockClosedIcon, LockOpenIcon, StarIcon } from '@heroicons/react/24/outline';
+
+const sectionTitles = {
+    menusPrices: "Menus",
+    menuCarte: "Plats",
+    dessertsMenu: "Desserts",
+    wineMenu: "Vins",
+    heroSection: "Accueil"
+};
 
 function MenuSectionForm({
-    sectionData,
+    sectionData = {},
     sectionName,
     handleInputChange,
     handleSubmit,
@@ -13,6 +20,7 @@ function MenuSectionForm({
     handleAddItem,
     handleRemoveItem,
     menuData,
+    renderPremiumBadge
 }) {
     const [temporaryImages, setTemporaryImages] = useState({});
     const [filesToUpload, setFilesToUpload] = useState({});
@@ -22,25 +30,59 @@ function MenuSectionForm({
         setFilesToUpload({});
     }, [sectionName]);
 
-    const handleImageChange = (e, index) => {
+    const handleImageChange = async (e, index) => {
         const file = e.target.files[0];
         if (file) {
+            const validImageTypes = ['image/jpeg', 'image/png', 'image/webp'];
+            if (!validImageTypes.includes(file.type)) {
+                toast.error('Seuls les fichiers PNG, JPG et WEBP sont acceptés.');
+                return;
+            }
+
             const imageUrl = URL.createObjectURL(file);
-    
-            // Affiche l'image temporaire
+
             setTemporaryImages(prevState => ({
                 ...prevState,
                 [`${sectionName}-${index}`]: imageUrl,
             }));
-    
-            // Stocke le fichier à télécharger
-            setFilesToUpload(prevState => ({
-                ...prevState,
-                [`${sectionName}-${index}`]: file,
-            }));
+
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('section', sectionName);
+            formData.append('index', index);
+
+            try {
+                const uploadResponse = await fetch('/api/upload-image', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (uploadResponse.ok) {
+                    const data = await uploadResponse.json();
+                    const imageUrlFromServer = data.images[0].imageUrl;
+
+                    setMenuData(prevData => {
+                        if (Array.isArray(prevData[sectionName])) {
+                            const updatedSection = [...prevData[sectionName]];
+                            updatedSection[index].imageUrl = imageUrlFromServer;
+                            return { ...prevData, [sectionName]: updatedSection };
+                        } else {
+                            const updatedSection = { ...prevData[sectionName] };
+                            updatedSection.images[index].src = imageUrlFromServer;
+                            return { ...prevData, [sectionName]: updatedSection };
+                        }
+                    });
+
+                    toast.success('Image téléchargée avec succès.');
+                } else {
+                    toast.error('Échec du téléchargement de l\'image.');
+                }
+            } catch (error) {
+                console.error('Erreur lors du téléchargement de l\'image:', error);
+                toast.error('Échec du téléchargement de l\'image.');
+            }
         }
     };
-    
 
     const handleFeatureChange = (e, section, itemIndex, featureIndex) => {
         const value = e.target.value;
@@ -69,40 +111,39 @@ function MenuSectionForm({
 
     const handleSave = async (e) => {
         e.preventDefault();
-    
+
         const session = await getSession();
         if (!session) {
             toast.error('Votre session a expiré. Veuillez vous reconnecter.');
             signIn();
             return;
         }
-    
-        // Vérifiez d'abord si des images doivent être téléchargées
+
         const formData = new FormData();
         Object.keys(filesToUpload).forEach(key => {
             formData.append('image', filesToUpload[key]);
             formData.append('section', sectionName);
             formData.append('index', key.split('-')[1]);
         });
-    
-        // Upload des images
+
         if (Object.keys(filesToUpload).length > 0) {
             const uploadResponse = await fetch('/api/upload-image', {
                 method: 'POST',
                 body: formData,
             });
-    
+
             if (uploadResponse.ok) {
                 const data = await uploadResponse.json();
-                // console.log('Images uploaded:', data);
-    
-                // Mettez à jour `menuData` avec les nouvelles URLs des images
                 data.images.forEach((image, i) => {
                     const section = sectionName;
                     const index = Object.keys(filesToUpload)[i].split('-')[1];
                     setMenuData(prevData => {
-                        const updatedSection = [...prevData[section]];
-                        updatedSection[index].imageUrl = image.imageUrl;
+                        const updatedSection = isHeroSection ? { ...prevData[section] } : [...prevData[section]];
+                        if (isHeroSection) {
+                            updatedSection.images[index].src = image.imageUrl;
+                        } else {
+                            updatedSection[index].imageUrl = image.imageUrl;
+                        }
                         return { ...prevData, [section]: updatedSection };
                     });
                 });
@@ -112,8 +153,7 @@ function MenuSectionForm({
                 return;
             }
         }
-    
-        // Envoyer ensuite les données réelles du formulaire
+
         const saveResponse = await fetch('/api/menu-data', {
             method: 'POST',
             headers: {
@@ -122,7 +162,7 @@ function MenuSectionForm({
             credentials: 'include',
             body: JSON.stringify(menuData),
         });
-    
+
         if (saveResponse.ok) {
             toast.success('Données sauvegardées avec succès !');
         } else {
@@ -131,17 +171,157 @@ function MenuSectionForm({
         }
     };
 
+    const isHeroSection = sectionName === 'heroSection';
+    const data = isHeroSection ? sectionData || {
+        title: '',
+        subtitle: '',
+        buttonText1: '',
+        buttonLink1: '',
+        buttonText2: '',
+        buttonLink2: '',
+        images: [{ src: '', alt: '' }]
+    } : sectionData;
+
+    const isClickable = false;
+
+    const renderCadenasPremium = () => (
+        <div className={`flex items-center space-x-1 text-sm ${!isClickable && 'pointer-events-none'}`}>
+            <LockClosedIcon className="h-4 w-4 text-red-600" aria-hidden="true" />
+        </div>
+    );
+
+    const renderCadenasFree = () => (
+        <div className={`${!isClickable && 'pointer-events-none'}`}>
+            <LockOpenIcon className="h-4 w-4 text-slate-900 hidden" aria-hidden="true" />
+        </div>
+    );
+
     return (
         <form onSubmit={handleSave} className="space-y-8 divide-y divide-gray-200">
             <div className="space-y-12">
                 <div className="flex flex-col sm:flex-none sm:block border-b border-gray-900/10 pb-12">
-                    <h2 className="text-xl font-semibold leading-7 text-gray-900">{sectionName}</h2>
+                    <h2 className="text-xl font-semibold leading-7 text-gray-900">{sectionTitles[sectionName]}</h2>
                     <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        {sectionData.map((item, index) => (
+                        {isHeroSection && (
+                            <div className="flex flex-col sm:flex-none sm:block col-span-full ring-1 ring-slate-300 p-4 rounded-lg shadow-default">
+                                <div className="mb-1 flex items-center gap-x-2">
+                                    <label htmlFor={`title`} className="block text-sm font-medium leading-6 text-gray-900">Titre</label>
+                                    {renderCadenasFree()}
+                                </div>
+                                <input
+                                    type="text"
+                                    id={`title`}
+                                    value={data.title}
+                                    onChange={(e) => handleInputChange(e, sectionName, 0, 'title')}
+                                    className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                />
+
+                                <div className="mb-1 flex items-center mt-4 gap-x-2">
+                                    <label htmlFor={`subtitle`} className="block text-sm font-medium leading-6 text-gray-900">Sous-titre</label>
+                                    {renderCadenasFree()}
+                                </div>
+                                <textarea
+                                    id={`subtitle`}
+                                    value={data.subtitle}
+                                    onChange={(e) => handleInputChange(e, sectionName, 0, 'subtitle')}
+                                    className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                />
+
+                                <div className="mb-1 flex items-center mt-4 gap-x-2">
+                                    <label htmlFor={`buttonText1`} className={`block text-sm font-medium leading-6 text-gray-900 ${!isClickable && 'pointer-events-none'}`}>Texte du Bouton 1</label>
+                                    {renderCadenasPremium()}
+                                </div>
+                                <input
+                                    type="text"
+                                    id={`buttonText1`}
+                                    value={data.buttonText1}
+                                    onChange={(e) => handleInputChange(e, sectionName, 0, 'buttonText1')}
+                                    className={`px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${!isClickable && 'pointer-events-none'}`}
+                                />
+
+                                <div className="mb-1 flex items-center mt-4 gap-x-2">
+                                    <label htmlFor={`buttonLink1`} className={`block text-sm font-medium leading-6 text-gray-900 ${!isClickable && 'pointer-events-none'}`}>Lien du Bouton 1</label>
+                                    {renderCadenasPremium()}
+                                </div>
+                                <input
+                                    type="text"
+                                    id={`buttonLink1`}
+                                    value={data.buttonLink1}
+                                    onChange={(e) => handleInputChange(e, sectionName, 0, 'buttonLink1')}
+                                    className={`px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${!isClickable && 'pointer-events-none'}`}
+                                />
+
+                                <div className="mb-1 flex items-center mt-4 gap-x-2">
+                                    <label htmlFor={`buttonText2`} className={`block text-sm font-medium leading-6 text-gray-900 ${!isClickable && 'pointer-events-none'}`}>Texte du Bouton 2</label>
+                                    {renderCadenasPremium()}
+                                </div>
+                                <input
+                                    type="text"
+                                    id={`buttonText2`}
+                                    value={data.buttonText2}
+                                    onChange={(e) => handleInputChange(e, sectionName, 0, 'buttonText2')}
+                                    className={`px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${!isClickable && 'pointer-events-none'}`}
+                                />
+
+                                <div className="mb-1 flex items-center mt-4 gap-x-2">
+                                    <label htmlFor={`buttonLink2`} className={`block text-sm font-medium leading-6 text-gray-900 ${!isClickable && 'pointer-events-none'}`}>Lien du Bouton 2</label>
+                                    {renderCadenasPremium()}
+                                </div>
+                                <input
+                                    type="text"
+                                    id={`buttonLink2`}
+                                    value={data.buttonLink2}
+                                    onChange={(e) => handleInputChange(e, sectionName, 0, 'buttonLink2')}
+                                    className={`px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${!isClickable && 'pointer-events-none'}`}
+                                />
+
+                                <div className="mt-6">
+                                    <div className="mb-1 flex items-center mt-4 gap-x-2">
+                                        <label className="block text-sm font-medium text-gray-700">Images</label>
+                                        {renderCadenasFree()}
+                                    </div>
+                                    <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                                        <div className="text-center">
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-4">
+                                                {data.images.map((image, index) => (
+                                                    <div key={index} className="relative">
+                                                        <img
+                                                            src={temporaryImages[`${sectionName}-${index}`] || image.src}
+                                                            alt={image.alt}
+                                                            className="mx-auto h-40 w-40 sm:h-52 sm:w-52 rounded-md object-cover shadow-default"
+                                                        />
+                                                        <div className="mt-4 flex flex-col text-sm leading-6 text-gray-600">
+                                                            <label
+                                                                htmlFor={`file-upload-${index}`}
+                                                                className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                                                            >
+                                                                <span>Changer d'image</span>
+                                                                <input
+                                                                    id={`file-upload-${index}`}
+                                                                    name={`file-upload-${index}`}
+                                                                    type="file" className="sr-only"
+                                                                    onChange={(e) => handleImageChange(e, index)} />
+                                                            </label>
+                                                            <p className="pl-1">ou glisser déposer</p>
+                                                        </div>
+                                                        <p className="text-xs leading-5 text-gray-600 mt-2">PNG, JPG, WEBP jusqu'à 10MB</p>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {!isHeroSection && sectionData.map((item, index) => (
                             <div key={item.id || index} className="flex flex-col sm:flex-none sm:block col-span-full ring-1 ring-slate-300 p-4 rounded-lg shadow-default">
                                 {'name' in item && (
                                     <>
-                                        <label htmlFor={`name-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Nom</label>
+                                        <div className="flex items-center gap-x-2">
+                                            <label htmlFor={`name-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Nom</label>
+                                            {renderCadenasFree()}
+                                        </div>
                                         <input
                                             type="text"
                                             id={`name-${index}`}
@@ -153,7 +333,10 @@ function MenuSectionForm({
                                 )}
                                 {'title' in item && (
                                     <>
-                                        <label htmlFor={`title-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Titre</label>
+                                        <div className="mb-1 flex items-center mt-4 gap-x-2">
+                                            <label htmlFor={`title-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Titre</label>
+                                            {renderCadenasFree()}
+                                        </div>
                                         <input
                                             type="text"
                                             id={`title-${index}`}
@@ -165,7 +348,10 @@ function MenuSectionForm({
                                 )}
                                 {'description' in item && (
                                     <>
-                                        <label htmlFor={`description-${index}`} className="block text-sm font-medium leading-6 text-gray-900 mt-4">Description</label>
+                                        <div className="mb-1 flex items-center mt-4 gap-x-2">
+                                            <label htmlFor={`description-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Description</label>
+                                            {renderCadenasFree()}
+                                        </div>
                                         <textarea
                                             id={`description-${index}`}
                                             value={item.description}
@@ -176,7 +362,10 @@ function MenuSectionForm({
                                 )}
                                 {'price' in item && (
                                     <>
-                                        <label htmlFor={`price-${index}`} className="block text-sm font-medium leading-6 text-gray-900 mt-4">Prix</label>
+                                        <div className="mb-1 flex items-center mt-4 gap-x-2">
+                                            <label htmlFor={`price-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Prix</label>
+                                            {renderCadenasFree()}
+                                        </div>
                                         <input
                                             type="text"
                                             id={`price-${index}`}
@@ -188,17 +377,22 @@ function MenuSectionForm({
                                 )}
                                 {sectionName === 'menusPrices' && (
                                     <>
-                                        <div className='flex items-center mt-8 mb-2'>
-                                            <label className="text-sm font-medium leading-6 text-gray-900">
-                                                Caractéristiques
-                                            </label>
-                                            <button
-                                                type="button"
-                                                onClick={() => handleAddFeature(sectionName, index)}
-                                                className="ml-2 px-2 py-0.5 rounded-md bg-indigo-600 text-sm font-semibold text-white shadow-sm hover:bg-indigo-900"
-                                            >
-                                                Ajouter +
-                                            </button>
+                                        <div className='mt-8'>
+                                            <div className='flex flex-col sm:flex-row items-start gap-x-2'>
+                                                <label className="mb-2 sm:mb-0 text-sm font-medium leading-6 text-gray-900">
+                                                    Caractéristiques
+                                                </label>
+                                                <div className='flex gap-x-2 mb-2'>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => handleAddFeature(sectionName, index)}
+                                                        className={`rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 ${!isClickable && 'pointer-events-none'}`}
+                                                    >
+                                                        Ajouter +
+                                                    </button>
+                                                    {renderCadenasPremium()}
+                                                </div>
+                                            </div>
                                         </div>
                                         {item.features.map((feature, featureIndex) => (
                                             <div key={featureIndex} className="flex flex-col sm:flex-row col-span-full gap-x-2">
@@ -208,22 +402,27 @@ function MenuSectionForm({
                                                     onChange={(e) => handleFeatureChange(e, sectionName, index, featureIndex)}
                                                     className="px-2 flex-grow block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 mb-2"
                                                 />
-                                                <button
-                                                    type="button"
-                                                    onClick={() => handleRemoveFeature(sectionName, index, featureIndex)}
-                                                    className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 mb-6 sm:mb-2"
-                                                >
-                                                    Supprimer
-                                                </button>
+                                                <div className='flex gap-x-2 items-center justify-start mb-4 sm:mb-2'>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => handleRemoveFeature(sectionName, index, featureIndex)}
+                                                        className={`rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700 ${!isClickable && 'pointer-events-none'}`}
+                                                    >
+                                                        Supprimer
+                                                    </button>
+                                                    {renderCadenasPremium()}
+                                                </div>
                                             </div>
                                         ))}
                                     </>
                                 )}
                                 {'imageUrl' in item && (
                                     <div className="col-span-full">
-                                        <label htmlFor={`cover-photo-${index}`} className="block text-sm font-medium leading-6 text-gray-900 mt-4">
-                                            Image
-                                        </label>
+                                        <div className="mb-1 flex items-center mt-4">
+                                            <label htmlFor={`cover-photo-${index}`} className="block text-sm font-medium leading-6 text-gray-900">
+                                                Image
+                                            </label>
+                                        </div>
                                         <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                                             <div className="text-center">
                                                 <img
@@ -241,28 +440,36 @@ function MenuSectionForm({
                                                     </label>
                                                     <p className="pl-1">ou glisser déposer</p>
                                                 </div>
-                                                <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF jusqu'à 10MB</p>
+                                                <p className="text-xs leading-5 text-gray-600">PNG, JPG, WEBP jusqu'à 10MB</p>
                                             </div>
                                         </div>
                                     </div>
                                 )}
-                                <button
-                                    type="button"
-                                    onClick={() => handleRemoveItem(sectionName, index)}
-                                    className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-                                >
-                                    Supprimer cet élément
-                                </button>
+                                <div className='flex gap-x-2 mt-4'>
+                                    <button
+                                        type="button"
+                                        onClick={() => handleRemoveItem(sectionName, index)}
+                                        className={`rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700 ${!isClickable && 'pointer-events-none'}`}
+                                    >
+                                        Supprimer cet élément
+                                    </button>
+                                    {renderCadenasPremium()}
+                                </div>
                             </div>
                         ))}
                     </div>
-                    <button
-                        type="button"
-                        onClick={() => handleAddItem(sectionName)}
-                        className="mt-6 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    >
-                        Ajouter un nouvel élément
-                    </button>
+                    {!isHeroSection && (
+                        <div className="flex items-center mt-6 gap-x-2">
+                            <button
+                                type="button"
+                                onClick={() => handleAddItem(sectionName)}
+                                className={`rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 ${!isClickable && 'pointer-events-none'}`}
+                            >
+                                Ajouter un nouvel élément
+                            </button>
+                            {renderCadenasPremium()}
+                        </div>
+                    )}
                 </div>
             </div>
             <div className="mt-6 flex items-center justify-end gap-x-6">

@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import sharp from 'sharp';  // Importer sharp
 import { IncomingForm } from 'formidable';
 import { getSession } from 'next-auth/react';
 
@@ -9,49 +10,44 @@ export const config = {
     },
 };
 
-// Fonction pour mettre à jour le fichier JSON
 const updateJsonFile = (filePath, section, index, imageUrl) => {
     try {
-        // console.log("Chemin du fichier JSON:", filePath);
-        // console.log("Section:", section, "Index:", index, "ImageUrl:", imageUrl);
-
         const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-        // console.log("Contenu du fichier JSON avant modification:", data);
-
         const menuSection = data[section];
-        // console.log("Section sélectionnée:", menuSection);
 
-        if (menuSection && menuSection[index]) {
-            menuSection[index].imageUrl = imageUrl;
-            // console.log("Image URL mise à jour pour l'index", index);
+        if (Array.isArray(menuSection)) {
+            if (menuSection[index]) {
+                menuSection[index].imageUrl = imageUrl;
+            } else {
+                console.error('Index non trouvé dans le tableau');
+            }
+        } else if (menuSection && menuSection.images) {
+            if (menuSection.images[index]) {
+                menuSection.images[index].src = imageUrl;
+            } else {
+                console.error('Index non trouvé dans l\'objet images');
+            }
         } else {
             console.error('La section ou l\'index n\'a pas été trouvé dans le fichier JSON');
         }
 
         fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
-        // console.log('Fichier JSON mis à jour avec succès');
-        // console.log("Contenu du fichier JSON après modification:", data);
     } catch (error) {
         console.error('Erreur lors de la mise à jour du fichier JSON:', error);
     }
 };
 
-
 export default async function handler(req, res) {
     const session = await getSession({ req });
 
     if (!session) {
-        console.error("Session non trouvée ou utilisateur non authentifié lors de l'upload");
         return res.status(401).json({ message: 'Unauthorized' });
     }
-
-    // console.log("Session trouvée lors de l'upload d'image : ", session);
 
     const form = new IncomingForm();
 
     form.parse(req, (err, fields, files) => {
         if (err) {
-            console.error("Erreur lors du parsing du formulaire: ", err);
             return res.status(500).json({ message: 'Erreur lors du traitement du formulaire' });
         }
 
@@ -67,7 +63,6 @@ export default async function handler(req, res) {
             const originalFilename = f.originalFilename;
 
             if (!filePath || !originalFilename) {
-                console.error("Aucun fichier valide fourni");
                 return res.status(400).json({ message: 'Aucun fichier valide fourni' });
             }
 
@@ -81,22 +76,30 @@ export default async function handler(req, res) {
                 const fileName = `image-${index}-${i}${path.extname(originalFilename)}`;
                 const destinationPath = path.join(uploadDir, fileName);
 
-                fs.renameSync(filePath, destinationPath);
-                // console.log('Fichier déplacé avec succès:', destinationPath);
+                // Redimensionner l'image avec sharp
+                sharp(filePath)
+                    .resize({ width: 600, height: 600, fit: 'inside' })  // Redimensionnez selon les dimensions désirées
+                    .toFile(destinationPath, (err, info) => {
+                        if (err) {
+                            console.error('Erreur lors du redimensionnement de l\'image:', err);
+                            return res.status(500).json({ message: 'Erreur lors du redimensionnement de l\'image' });
+                        }
 
-                const imageUrl = `/images/upload/${section}/${fileName}`;
-                responses.push({ imageUrl });
+                        const imageUrl = `/images/upload/${section}/${fileName}`;
+                        responses.push({ imageUrl });
 
-                const jsonFilePath = path.join(process.cwd(), 'public/menu-data.json');
-                updateJsonFile(jsonFilePath, section, index, imageUrl);
-                
+                        const jsonFilePath = path.join(process.cwd(), 'public/menu-data.json');
+                        updateJsonFile(jsonFilePath, section, index, imageUrl);
+
+                        // Si toutes les images ont été traitées, envoyer la réponse
+                        if (responses.length === filesArray.length) {
+                            res.status(200).json({ images: responses });
+                        }
+                    });
+
             } catch (error) {
-                console.error('Erreur lors du déplacement du fichier:', error);
-                return res.status(500).json({ message: 'Erreur lors du déplacement du fichier' });
+                return res.status(500).json({ message: 'Erreur lors du traitement du fichier' });
             }
         });
-
-        // Envoi de la réponse après le traitement
-        res.status(200).json({ images: responses });
     });
 }

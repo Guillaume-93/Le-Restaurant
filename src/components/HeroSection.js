@@ -2,8 +2,22 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 export default function HeroSection() {
+    const [heroData, setHeroData] = useState(null);
+
+    useEffect(() => {
+        fetch('/menu-data.json')
+            .then((response) => response.json())
+            .then((data) => setHeroData(data.heroSection))
+            .catch((error) => console.error('Error loading hero data:', error));
+    }, []);
+
+    if (!heroData) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <div className="bg-white">
             <main>
@@ -12,8 +26,8 @@ export default function HeroSection() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1 }}
-                        alt=""
-                        src="images/le-neuilly-pattern-3.png"
+                        alt={heroData.images[0].alt}
+                        src={heroData.images[0].src}
                         className="absolute inset-0 -z-10 h-full w-full object-cover"
                     />
                     <div className="overflow-hidden">
@@ -26,7 +40,7 @@ export default function HeroSection() {
                                         transition={{ duration: 0.8 }}
                                         className="text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl"
                                     >
-                                        Découvrez notre cuisine raffinée
+                                        {heroData.title}
                                     </motion.h1>
                                     <motion.p
                                         initial={{ opacity: 0, x: -20 }}
@@ -34,9 +48,7 @@ export default function HeroSection() {
                                         transition={{ duration: 0.8, delay: 0.2 }}
                                         className="mt-6 text-lg leading-8 text-[--text-color-secondary] sm:max-w-md lg:max-w-none"
                                     >
-                                        Découvrez une expérience culinaire unique dans un cadre élégant et
-                                        chaleureux. <br/> <span className='font-bold'>Le Neuilly</span> vous propose une cuisine française raffinée,
-                                        préparée avec des ingrédients frais et de qualité.
+                                        {heroData.subtitle}
                                     </motion.p>
                                     <motion.div 
                                         initial={{ opacity: 0, scale: 0.8 }}
@@ -45,16 +57,16 @@ export default function HeroSection() {
                                         className="mt-10 flex items-center gap-x-6"
                                     >
                                         <Link
-                                            href="/contact"
+                                            href={heroData.buttonLink1}
                                             className="rounded-md bg-[--link-color-background] px-4 py-3 text-center text-sm font-semibold text-[--link-color-text] shadow-default transition-all duration-200 hover:bg-[--link-color-hover] active:scale-95 active:shadow-inner"
                                         >
-                                            Réserver une table
+                                            {heroData.buttonText1}
                                         </Link>
                                         <Link
-                                            href="/menu"
+                                            href={heroData.buttonLink2}
                                             className="after:transition-width relative text-sm font-semibold leading-6 text-slate-900 after:block after:h-0.5 after:w-0 after:bg-slate-900 after:duration-300 hover:after:w-full"
                                         >
-                                            Voir le menu <span aria-hidden="true">→</span>
+                                            {heroData.buttonText2} <span aria-hidden="true">→</span>
                                         </Link>
                                     </motion.div>
                                 </div>
@@ -67,8 +79,8 @@ export default function HeroSection() {
                                             className="relative"
                                         >
                                             <img
-                                                alt=""
-                                                src="images/dalle-1.webp"
+                                                alt={heroData.images[1].alt}
+                                                src={heroData.images[1].src}
                                                 className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
                                             />
                                             <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-slate-900/10" />
@@ -82,8 +94,8 @@ export default function HeroSection() {
                                             className="relative"
                                         >
                                             <img
-                                                alt=""
-                                                src="images/menus/plats/sole-meuniere.webp"
+                                                alt={heroData.images[2].alt}
+                                                src={heroData.images[2].src}
                                                 className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
                                             />
                                             <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-slate-900/10" />
@@ -95,8 +107,8 @@ export default function HeroSection() {
                                             className="relative"
                                         >
                                             <img
-                                                alt=""
-                                                src="images/dalle-4.webp"
+                                                alt={heroData.images[3].alt}
+                                                src={heroData.images[3].src}
                                                 className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
                                             />
                                             <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-slate-900/10" />
@@ -110,8 +122,8 @@ export default function HeroSection() {
                                             className="relative"
                                         >
                                             <img
-                                                alt=""
-                                                src="images/menus/plats/entrecote.webp"
+                                                alt={heroData.images[4].alt}
+                                                src={heroData.images[4].src}
                                                 className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
                                             />
                                             <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-slate-900/10" />
@@ -123,8 +135,8 @@ export default function HeroSection() {
                                             className="relative"
                                         >
                                             <img
-                                                alt=""
-                                                src="images/menus/desserts/mousse-au-chocolat.webp"
+                                                alt={heroData.images[5].alt}
+                                                src={heroData.images[5].src}
                                                 className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
                                             />
                                             <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-slate-900/10" />

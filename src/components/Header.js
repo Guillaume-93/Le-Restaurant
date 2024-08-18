@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { useSession, signOut } from 'next-auth/react';
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
@@ -16,6 +17,8 @@ const navigation = [
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [activeLink, setActiveLink] = useState('');
+    const { data: session, status } = useSession();
+    const isLoading = status === 'loading';
     const router = useRouter();
 
     useEffect(() => {
@@ -41,20 +44,50 @@ export default function Header() {
                 </div>
                 <div className="hidden lg:flex lg:gap-x-12">
                     {navigation.map((item) => (
-                        <Link key={item.name} href={item.href} onClick={() => handleNavigationChange(item.href)}>
+                        <Link
+                            key={item.name}
+                            href={item.href}
+                            onClick={() => handleNavigationChange(item.href)}
+                        >
                             <div
-                                className={`relative text-sm font-semibold leading-6 text-slate-900 after:block after:h-0.5 ${activeLink === item.href ? "after:w-full" : "after:w-0"
-                                    } after:bg-gray-900`}
+                                className={`relative text-sm font-semibold leading-6 py-0.5 text-slate-900 after:block after:h-0.5 ${activeLink === item.href ? "after:w-full" : "after:w-0"} after:bg-gray-900`}
                             >
                                 {item.name}
                             </div>
                         </Link>
                     ))}
+                    {!isLoading && session && (
+                        <Link
+                            href="/admin"
+                            onClick={() => handleNavigationChange('/admin')}
+                        >
+                            <div
+                                className={`relative text-sm font-semibold leading-6 px-3 py-0.5 text-slate-100 bg-indigo-600 rounded-full after:block after:h-0.5 ${activeLink === '/admin' ? "after:w-full" : "after:w-0"} after:bg-indigo-600`}
+                            >
+                                Tableau de bord
+                            </div>
+                        </Link>
+                    )}
                 </div>
-                <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                    <Link href="/admin" className="text-sm font-semibold leading-6 text-gray-900">
-                        Admin <span aria-hidden="true">&rarr;</span>
-                    </Link>
+                <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-x-4">
+                    {!isLoading && (
+                        <>
+                            {session ? (
+                                <button
+                                    onClick={() => signOut()}
+                                    className="text-sm font-semibold leading-6 py-0.5 text-red-600 hover:text-red-900"
+                                >
+                                    Déconnexion <span aria-hidden="true">&rarr;</span>
+                                </button>
+                            ) : (
+                                <div className="flex items-center">
+                                    <Link href="/admin" className="text-sm font-semibold leading-6 text-gray-900">
+                                        Se connecter <span aria-hidden="true">&rarr;</span>
+                                    </Link>
+                                </div>
+                            )}
+                        </>
+                    )}
                 </div>
                 <div className="flex lg:hidden justify-end flex-1">
                     <button
@@ -69,7 +102,7 @@ export default function Header() {
             </nav>
             <Dialog open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} className="lg:hidden">
                 <div className="fixed inset-0 z-50" />
-                <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-[#DFDFDF] px-4 py-4 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+                <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-[--background-color-primary] px-4 py-4 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                     <div className="flex items-center justify-between">
                         <Link href="/" className='sm:hidden' onClick={() => handleNavigationChange('/')}>
                             <span className="sr-only">Le Neuilly</span>
@@ -106,14 +139,40 @@ export default function Header() {
                                         </div>
                                     </Link>
                                 ))}
+                                {!isLoading && session && (
+                                    <Link
+                                        href="/admin"
+                                        className="inline-flex justify-center rounded-lg px-3 py-2 text-base font-semibold leading-7 text-indigo-600"
+                                        onClick={() => handleNavigationChange('/admin')}
+                                    >
+                                        <div
+                                            className={`relative text-sm font-semibold leading-6 px-3 text-slate-100 bg-indigo-600 rounded-full after:block after:h-0.5 ${activeLink === '/admin' ? "after:w-full" : "after:w-0"
+                                                } after:bg-indigo-600`}
+                                        >
+                                            Tableau de bord
+                                        </div>
+                                    </Link>
+                                )}
                             </div>
-                            <div className="flex flex-col py-6">
-                                <Link
-                                    href="/admin"
-                                    className="-mx-3 inline-flex rounded-lg px-3 py-2 text-base font-semibold leading-7 justify-center"
-                                >
-                                    Admin
-                                </Link>
+                            <div className="flex flex-col py-6 space-y-4">
+                                {!isLoading && (
+                                    <>
+                                        {session ? (
+                                            <button
+                                                onClick={() => signOut()}
+                                                className="inline-flex justify-center text-sm font-semibold leading-6 text-red-600 hover:text-red-900"
+                                            >
+                                                Déconnexion <span aria-hidden="true">&rarr;</span>
+                                            </button>
+                                        ) : (
+                                            <div className="flex items-center justify-center">
+                                                <Link href="/admin" className="text-sm font-semibold leading-6 text-gray-900">
+                                                    Se connecter <span aria-hidden="true">&rarr;</span>
+                                                </Link>
+                                            </div>
+                                        )}
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>

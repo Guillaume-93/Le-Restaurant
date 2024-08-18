@@ -62,7 +62,7 @@
       "id": 2,
       "title": "La César",
       "description": "Salade mêlée, tomates, poulet, parmesan, croûtons.",
-      "imageUrl": "images/menus/plats/la-cesar.webp",
+      "imageUrl": "/images/upload/menuCarte/image-1-0.webp",
       "price": "16,90€",
       "category": {
         "title": "PLATS"
@@ -72,7 +72,7 @@
       "id": 3,
       "title": "Burrata à la truffe (150g)",
       "description": "Accompagnée de tomates cerises et de son fameux vinaigre balsamique caramélisé maison, pain toasté.",
-      "imageUrl": "images/menus/plats/burrata-a-la-truffe.webp",
+      "imageUrl": "/images/upload/menuCarte/image-2-0.webp",
       "price": "16,90€",
       "category": {
         "title": "PLATS"
@@ -82,7 +82,7 @@
       "id": 4,
       "title": "Cuisse de canard confite",
       "description": "Et ses accompagnements au choix.",
-      "imageUrl": "images/menus/plats/cuisse-de-canard-confite.webp",
+      "imageUrl": "/images/upload/menuCarte/image-3-0.webp",
       "price": "17,90€",
       "category": {
         "title": "PLATS"
@@ -92,7 +92,7 @@
       "id": 5,
       "title": "Burger",
       "description": "Servi avec frites maison.",
-      "imageUrl": "images/menus/plats/burger.webp",
+      "imageUrl": "/images/upload/menuCarte/image-4-0.webp",
       "price": "15,90€",
       "category": {
         "title": "PLATS"
@@ -102,7 +102,7 @@
       "id": 6,
       "title": "Entrecôte grillée",
       "description": "À la fleur de sel et poivre concassé. Sauce au choix : béarnaise, poivre vert.",
-      "imageUrl": "images/menus/plats/entrecote-grillee.webp",
+      "imageUrl": "/images/upload/menuCarte/image-5-0.webp",
       "price": "23,00€",
       "category": {
         "title": "PLATS"
@@ -112,7 +112,7 @@
       "id": 7,
       "title": "Menu enfant",
       "description": "Steak haché frites, boules de glace vanille et sirop à l’eau.",
-      "imageUrl": "images/menus/menu-enfant.webp",
+      "imageUrl": "/images/upload/menuCarte/image-6-0.webp",
       "price": "10,00€",
       "category": {
         "title": "PLATS"
@@ -122,7 +122,7 @@
       "id": 8,
       "title": "Accompagnements",
       "description": "Frites maison / Garniture du moment.",
-      "imageUrl": "images/menus/accompagnements/accompagnements.webp",
+      "imageUrl": "/images/upload/menuCarte/image-7-0.webp",
       "price": "4,00€",
       "category": {
         "title": "PLATS"
@@ -132,7 +132,7 @@
       "id": 9,
       "title": "Café gourmand",
       "description": "Un assortiment de desserts en format mini.",
-      "imageUrl": "images/menus/desserts/cafe-gourmand.webp",
+      "imageUrl": "/images/upload/menuCarte/image-8-0.webp",
       "price": "7,00€",
       "category": {
         "title": "Desserts"
@@ -142,7 +142,7 @@
       "id": 10,
       "title": "Thé gourmand",
       "description": "Un assortiment de desserts en format mini, accompagné de thé.",
-      "imageUrl": "images/menus/desserts/the-gourmand.webp",
+      "imageUrl": "/images/upload/menuCarte/image-9-0.webp",
       "price": "8,00€",
       "category": {
         "title": "Desserts"
@@ -174,7 +174,7 @@
       "id": 3,
       "title": "Mousse au Chocolat",
       "description": "Mousse légère et onctueuse au chocolat noir.",
-      "imageUrl": "images/menus/desserts/mousse-au-chocolat.webp",
+      "imageUrl": "/images/upload/dessertsMenu/image-2-0.webp",
       "price": "9,00€",
       "category": {
         "title": "Desserts"
@@ -186,7 +186,7 @@
       "id": 1,
       "title": "Maranges",
       "description": "Domaine Bonnardot, Bourgogne.",
-      "imageUrl": "images/menus/vins/maranges.webp",
+      "imageUrl": "/images/upload/wineMenu/image-0-0.webp",
       "year": "2018/2019",
       "volume": "75 cl",
       "price": "42,00€",
@@ -198,7 +198,7 @@
       "id": 2,
       "title": "Pinot Noir",
       "description": "Domaine Saint-Germain, Bourgogne.",
-      "imageUrl": "images/menus/vins/pinot-noir.webp",
+      "imageUrl": "/images/upload/wineMenu/image-1-0.webp",
       "year": "2019",
       "volume": "75 cl",
       "price": "39,00€",
@@ -210,7 +210,7 @@
       "id": 3,
       "title": "Santenay",
       "description": "Domaine Bonnardot, Bourgogne.",
-      "imageUrl": "images/menus/vins/santenay.webp",
+      "imageUrl": "/images/upload/wineMenu/image-2-0.webp",
       "year": "2020",
       "volume": "75 cl",
       "price": "44,00€",
@@ -222,7 +222,7 @@
       "id": 4,
       "title": "Morgon Côte du Py",
       "description": "Domaine Arnaud Aucoeur, Beaujolais.",
-      "imageUrl": "images/menus/vins/morgon-cote-du-py.webp",
+      "imageUrl": "/images/upload/wineMenu/image-3-0.webp",
       "year": "2020",
       "volume": "75 cl",
       "price": "36,00€",
@@ -234,7 +234,7 @@
       "id": 5,
       "title": "Domaine LeVieux",
       "description": "Beaumes de Venise, Rhône.",
-      "imageUrl": "images/menus/vins/domaine-levieux.webp",
+      "imageUrl": "/images/upload/wineMenu/image-4-0.webp",
       "year": "2021",
       "volume": "75 cl",
       "price": "32,00€",
@@ -246,7 +246,7 @@
       "id": 6,
       "title": "Château Tour St-Joseph",
       "description": "Haut-Médoc, Bordeaux.",
-      "imageUrl": "images/menus/vins/chateau-tour-st-joseph.webp",
+      "imageUrl": "/images/upload/wineMenu/image-5-0.webp",
       "year": "2018",
       "volume": "75 cl",
       "price": "39,00€",
@@ -266,5 +266,39 @@
         "title": "Côte Roussillon"
       }
     }
-  ]
+  ],
+  "heroSection": {
+    "title": "Découvrez notre cuisine raffinée",
+    "subtitle": "Découvrez une expérience culinaire unique dans un cadre élégant et chaleureux. Le Neuilly vous propose une cuisine française raffinée, préparée avec des ingrédients frais et de qualité.",
+    "buttonText1": "Réserver une table",
+    "buttonLink1": "/contact",
+    "buttonText2": "Voir le menu",
+    "buttonLink2": "/menu",
+    "images": [
+      {
+        "src": "images/le-neuilly-pattern-3.png",
+        "alt": "Hero Image Background"
+      },
+      {
+        "src": "/images/upload/heroSection/image-1-0.webp",
+        "alt": "Image 1"
+      },
+      {
+        "src": "/images/upload/heroSection/image-2-0.webp",
+        "alt": "Image 2"
+      },
+      {
+        "src": "/images/upload/heroSection/image-3-0.webp",
+        "alt": "Image 3"
+      },
+      {
+        "src": "/images/upload/heroSection/image-4-0.webp",
+        "alt": "Image 4"
+      },
+      {
+        "src": "/images/upload/heroSection/image-5-0.webp",
+        "alt": "Image 5"
+      }
+    ]
+  }
 }
