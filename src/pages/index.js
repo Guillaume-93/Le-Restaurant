@@ -9,10 +9,6 @@ import SecondaryFeaturesSection from "@/components/SecondaryFeaturesSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import Layout from "../app/layout";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
 export default function Example() {
   return (
     <Layout>

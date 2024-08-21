@@ -2,12 +2,14 @@ import Layout from '../app/layout';
 import { CheckIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import Loader from '@/components/Loader/Loader.js';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 export default function Menu() {
+    const [loading, setLoading] = useState(true);
     const [menuData, setMenuData] = useState({
         menusPrices: [],
         menuCarte: [],
@@ -16,11 +18,26 @@ export default function Menu() {
     });
 
     useEffect(() => {
-        fetch('/menu-data.json')
-            .then((response) => response.json())
-            .then((data) => setMenuData(data))
-            .catch((error) => console.error('Error loading menu data:', error));
+        const fetchMenuData = async () => {
+            try {
+                const response = await fetch('/api/menu-data');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch menu data');
+                }
+                const data = await response.json();
+                setMenuData(data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error loading menu data:', error);
+            }
+        };
+
+        fetchMenuData();
     }, []);
+
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <Layout>
@@ -119,7 +136,7 @@ export default function Menu() {
                                 <article key={post.id} className="flex flex-col items-start justify-between">
                                     <div className="relative w-full">
                                         <img
-                                            alt=""
+                                            alt={post.title || 'alt indisponible'}
                                             src={post.imageUrl}
                                             className="aspect-[16/9] w-full rounded-2xl bg-slate-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2] shadow-default"
                                         />
@@ -155,7 +172,7 @@ export default function Menu() {
                                 <article key={dessert.id} className="flex flex-col items-start justify-between">
                                     <div className="relative w-full">
                                         <img
-                                            alt=""
+                                            alt={dessert.title || 'alt indisponible'}
                                             src={dessert.imageUrl}
                                             className="aspect-[16/9] w-full rounded-2xl bg-slate-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2] shadow-default"
                                         />
@@ -191,7 +208,7 @@ export default function Menu() {
                                 <article key={wine.id} className="flex flex-col items-start justify-between">
                                     <div className="relative w-full">
                                         <img
-                                            alt=""
+                                            alt={wine.title || 'alt indisponible'}
                                             src={wine.imageUrl}
                                             className="aspect-[16/9] w-full rounded-2xl bg-slate-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2] shadow-default"
                                         />

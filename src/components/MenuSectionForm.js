@@ -59,7 +59,7 @@ function MenuSectionForm({
 
                 if (uploadResponse.ok) {
                     const data = await uploadResponse.json();
-                    const imageUrlFromServer = data.images[0].imageUrl;
+                    const imageUrlFromServer = data.imageUrl;
 
                     setMenuData(prevData => {
                         if (Array.isArray(prevData[sectionName])) {
@@ -458,7 +458,7 @@ function MenuSectionForm({
                             </div>
                         ))}
                     </div>
-                    {!isHeroSection && (
+                    {!isHeroSection && sectionName !== 'menusPrices' && (
                         <div className="flex items-center mt-6 gap-x-2">
                             <button
                                 type="button"

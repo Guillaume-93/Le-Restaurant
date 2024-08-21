@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { useSession, signOut } from 'next-auth/react';
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 const navigation = [
     { name: "Accueil", href: "/" },

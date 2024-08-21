@@ -1,8 +1,9 @@
-import fs from 'fs';
-import path from 'path';
-import sharp from 'sharp';  // Importer sharp
 import { IncomingForm } from 'formidable';
 import { getSession } from 'next-auth/react';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { db, storage } from '../../../firebase.js';
+import { doc, updateDoc, getDoc } from 'firebase/firestore';
+import fs from 'fs';
 
 export const config = {
     api: {
@@ -10,96 +11,114 @@ export const config = {
     },
 };
 
-const updateJsonFile = (filePath, section, index, imageUrl) => {
-    try {
-        const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-        const menuSection = data[section];
-
-        if (Array.isArray(menuSection)) {
-            if (menuSection[index]) {
-                menuSection[index].imageUrl = imageUrl;
-            } else {
-                console.error('Index non trouvé dans le tableau');
-            }
-        } else if (menuSection && menuSection.images) {
-            if (menuSection.images[index]) {
-                menuSection.images[index].src = imageUrl;
-            } else {
-                console.error('Index non trouvé dans l\'objet images');
-            }
-        } else {
-            console.error('La section ou l\'index n\'a pas été trouvé dans le fichier JSON');
-        }
-
-        fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
-    } catch (error) {
-        console.error('Erreur lors de la mise à jour du fichier JSON:', error);
-    }
-};
-
 export default async function handler(req, res) {
+    // console.log("Upload image API handler called.");
+
     const session = await getSession({ req });
+    // console.log("Session retrieved:", session);
 
     if (!session) {
-        return res.status(401).json({ message: 'Unauthorized' });
+        console.error("User not authenticated.");
+        return res.status(401).json({ message: "Non authentifié" });
     }
 
     const form = new IncomingForm();
+    form.keepExtensions = true;
 
-    form.parse(req, (err, fields, files) => {
+    form.parse(req, async (err, fields, files) => {
         if (err) {
-            return res.status(500).json({ message: 'Erreur lors du traitement du formulaire' });
+            console.error("Error parsing form:", err);
+            return res.status(500).json({ message: "Erreur lors du traitement du formulaire" });
         }
 
-        const section = Array.isArray(fields.section) ? fields.section[0] : fields.section;
-        const index = Array.isArray(fields.index) ? fields.index[0] : fields.index;
+        // console.log("Fields:", fields);
+        // console.log("Files:", files);
 
-        const filesArray = Array.isArray(files.image) ? files.image : [files.image];
+        const section = fields.section[0];
+        const index = parseInt(fields.index[0], 10);
+        const file = files.image?.[0];
 
-        const responses = [];
+        if (!file || !file.filepath) {
+            console.error("Invalid file received or file path missing");
+            return res.status(400).json({ message: "Aucun fichier valide reçu" });
+        }
 
-        filesArray.forEach((f, i) => {
-            const filePath = f.filepath;
-            const originalFilename = f.originalFilename;
+        const fileName = file.originalFilename || `image-${index}-${Date.now()}`;
+        const storageRef = ref(storage, `${section}/image-${index}-${fileName}`);
 
-            if (!filePath || !originalFilename) {
-                return res.status(400).json({ message: 'Aucun fichier valide fourni' });
-            }
+        try {
+            // Lire le fichier depuis le chemin temporaire fourni par formidable
+            const buffer = fs.readFileSync(file.filepath);
 
-            try {
-                const uploadDir = path.join(process.cwd(), 'public', 'images', 'upload', section);
+            // Uploader le fichier à Firebase Storage
+            const snapshot = await uploadBytes(storageRef, buffer);
+            const downloadURL = await getDownloadURL(snapshot.ref);
+            // console.log("File uploaded successfully. Download URL:", downloadURL);
 
-                if (!fs.existsSync(uploadDir)) {
-                    fs.mkdirSync(uploadDir, { recursive: true });
+            // Mise à jour dans Firestore
+            const documentRef = doc(db, "menuData", "menus");
+            const docSnap = await getDoc(documentRef);
+
+            if (docSnap.exists()) {
+                // console.log("Document found, updating Firestore...");
+
+                const currentData = docSnap.data();
+
+                if (section === 'heroSection') {
+                    const heroSection = currentData.heroSection || { images: [] };
+
+                    if (!Array.isArray(heroSection.images)) {
+                        heroSection.images = [];
+                    }
+
+                    // S'assurer que l'index est dans les limites du tableau
+                    while (heroSection.images.length <= index) {
+                        heroSection.images.push({});
+                    }
+
+                    // Mettre à jour l'image à l'index spécifié
+                    heroSection.images[index] = {
+                        ...heroSection.images[index],  // Conserver les autres données de l'image (ex: alt)
+                        src: downloadURL
+                    };
+
+                    const updateField = { heroSection };
+
+                    await updateDoc(documentRef, updateField);
+                } else {
+                    // Mise à jour des autres sections qui sont des tableaux d'objets
+                    const sectionData = currentData[section] || [];
+
+                    // Vérifier que sectionData est un tableau
+                    if (!Array.isArray(sectionData)) {
+                        throw new Error(`La section ${section} n'est pas un tableau`);
+                    }
+
+                    // S'assurer que l'index est dans les limites du tableau
+                    while (sectionData.length <= index) {
+                        sectionData.push({});
+                    }
+
+                    sectionData[index] = {
+                        ...sectionData[index],  // Conserver les autres données de l'objet
+                        imageUrl: downloadURL
+                    };
+
+                    const updateField = { [section]: sectionData };
+
+                    await updateDoc(documentRef, updateField);
                 }
 
-                const fileName = `image-${index}-${i}${path.extname(originalFilename)}`;
-                const destinationPath = path.join(uploadDir, fileName);
-
-                // Redimensionner l'image avec sharp
-                sharp(filePath)
-                    .resize({ width: 600, height: 600, fit: 'inside' })  // Redimensionnez selon les dimensions désirées
-                    .toFile(destinationPath, (err, info) => {
-                        if (err) {
-                            console.error('Erreur lors du redimensionnement de l\'image:', err);
-                            return res.status(500).json({ message: 'Erreur lors du redimensionnement de l\'image' });
-                        }
-
-                        const imageUrl = `/images/upload/${section}/${fileName}`;
-                        responses.push({ imageUrl });
-
-                        const jsonFilePath = path.join(process.cwd(), 'public/menu-data.json');
-                        updateJsonFile(jsonFilePath, section, index, imageUrl);
-
-                        // Si toutes les images ont été traitées, envoyer la réponse
-                        if (responses.length === filesArray.length) {
-                            res.status(200).json({ images: responses });
-                        }
-                    });
-
-            } catch (error) {
-                return res.status(500).json({ message: 'Erreur lors du traitement du fichier' });
+                // console.log("Firestore document updated successfully.");
+            } else {
+                console.error("Document not found in Firestore.");
+                throw new Error("Document not found");
             }
-        });
+
+            res.status(200).json({ imageUrl: downloadURL });
+        } catch (error) {
+            console.error("Error during image upload or Firestore update:", error);
+            res.status(500).json({ message: "Error uploading image" });
+        }
     });
 }

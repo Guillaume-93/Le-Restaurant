@@ -1,6 +1,14 @@
+import { useState } from 'react';
 import Layout from '../app/layout';
+import Loader from '../components/Loader/Loader';
 
 export default function Example() {
+    const [loading, setLoading] = useState(true);
+
+    const handleIframeLoad = () => {
+        setLoading(false);
+    };
+
     return (
         <Layout>
             <div className="py-24 sm:py-32 relative">
@@ -29,14 +37,20 @@ export default function Example() {
                                     <p className="mt-4 text-base leading-7 text-gray-600">
                                         2 Rue Louis Vannini, 93330 Neuilly-sur-Marne
                                     </p>
-                                    <div className="mt-6">
+                                    <div className="mt-6 h-64 md:h-80 lg:h-96 w-full relative">
+                                        {loading && (
+                                            <div className="absolute inset-0 flex items-center justify-center">
+                                                <Loader />
+                                            </div>
+                                        )}
                                         <iframe
                                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.992300320199!2d2.5287343156748314!3d48.8512635792875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e610aa949c585f%3A0x52a19f0072e1186e!2s2%20Rue%20Louis%20Vannini%2C%2093330%20Neuilly-sur-Marne%2C%20France!5e0!3m2!1sen!2sfr!4v1693840820000!5m2!1sen!2sfr"
-                                            className="w-full h-64 md:h-80 lg:h-96"
+                                            className={`w-full h-full ${loading ? 'opacity-0' : 'opacity-100'}`}
                                             style={{ border: 0 }}
                                             allowFullScreen=""
                                             loading="lazy"
                                             referrerPolicy="no-referrer-when-downgrade"
+                                            onLoad={handleIframeLoad}
                                         ></iframe>
                                     </div>
                                 </div>
@@ -64,5 +78,5 @@ export default function Example() {
                 </div>
             </div>
         </Layout>
-    )
+    );
 }

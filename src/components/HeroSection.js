@@ -3,19 +3,37 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import Loader from './Loader/Loader.js';
 
 export default function HeroSection() {
     const [heroData, setHeroData] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('/menu-data.json')
-            .then((response) => response.json())
-            .then((data) => setHeroData(data.heroSection))
-            .catch((error) => console.error('Error loading hero data:', error));
+        async function fetchHeroData() {
+            try {
+                const response = await fetch('/api/menu-data', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch hero data');
+                }
+
+                const data = await response.json();
+                setHeroData(data.heroSection);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error loading hero data:', error);
+            }
+        }
+
+        fetchHeroData();
     }, []);
 
-    if (!heroData) {
-        return <div>Loading...</div>;
+    if (loading) {
+        return <Loader />;
     }
 
     return (
@@ -26,7 +44,7 @@ export default function HeroSection() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1 }}
-                        alt={heroData.images[0].alt}
+                        alt={heroData.images[0].alt || 'Hero image'}
                         src={heroData.images[0].src}
                         className="absolute inset-0 -z-10 h-full w-full object-cover"
                     />
@@ -79,7 +97,7 @@ export default function HeroSection() {
                                             className="relative"
                                         >
                                             <img
-                                                alt={heroData.images[1].alt}
+                                                alt={heroData.images[1].alt || 'Hero image'}
                                                 src={heroData.images[1].src}
                                                 className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
                                             />
@@ -94,7 +112,7 @@ export default function HeroSection() {
                                             className="relative"
                                         >
                                             <img
-                                                alt={heroData.images[2].alt}
+                                                alt={heroData.images[2].alt || 'Hero image'}
                                                 src={heroData.images[2].src}
                                                 className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
                                             />
@@ -107,7 +125,7 @@ export default function HeroSection() {
                                             className="relative"
                                         >
                                             <img
-                                                alt={heroData.images[3].alt}
+                                                alt={heroData.images[3].alt || 'Hero image'}
                                                 src={heroData.images[3].src}
                                                 className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
                                             />
@@ -122,7 +140,7 @@ export default function HeroSection() {
                                             className="relative"
                                         >
                                             <img
-                                                alt={heroData.images[4].alt}
+                                                alt={heroData.images[4].alt || 'Hero image'}
                                                 src={heroData.images[4].src}
                                                 className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
                                             />
@@ -135,7 +153,7 @@ export default function HeroSection() {
                                             className="relative"
                                         >
                                             <img
-                                                alt={heroData.images[5].alt}
+                                                alt={heroData.images[5].alt || 'Hero image'}
                                                 src={heroData.images[5].src}
                                                 className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
                                             />

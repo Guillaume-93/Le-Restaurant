@@ -8,7 +8,7 @@ import MenuSectionForm from '../components/MenuSectionForm';
 import ScrollToTop from '../components/ScrollToTop';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
-import Loader from '@/components/Loader.js';
+import Loader from '@/components/Loader/Loader.js';
 
 function normalizeMenusPricesItem(item) {
     return {
@@ -18,7 +18,7 @@ function normalizeMenusPricesItem(item) {
         href: item.href || '/contact',
         price: item.price || '',
         description: item.description || '',
-        features: item.features || [],
+        features: Array.isArray(item.features) ? item.features : [],
         mostPopular: item.mostPopular || false,
     };
 }
@@ -30,9 +30,7 @@ function normalizeMenuCarteOrDessertsItem(item) {
         description: item.description || '',
         imageUrl: item.imageUrl || '',
         price: item.price || '',
-        category: {
-            title: item.category?.title || '',
-        },
+        category: item.category ? JSON.stringify(item.category) : 'Non spécifié',
     };
 }
 
@@ -45,11 +43,10 @@ function normalizeWineMenuItem(item) {
         year: item.year || '',
         volume: item.volume || '',
         price: item.price || '',
-        category: {
-            title: item.category?.title || '',
-        },
+        category: item.category ? JSON.stringify(item.category) : 'Non spécifié',
     };
 }
+
 
 const userNavigation = [
     { name: 'Retour au site', action: () => window.location.href = '/' },
@@ -111,48 +108,29 @@ export default function Admin() {
 
     useEffect(() => {
         if (status === 'authenticated') {
-            fetch('/api/check-authorization', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email: session.user.email }),
+            fetch('/api/menu-data', {
                 credentials: 'include',
             })
-                .then(res => res.json())
-                .then(data => {
-                    if (!data.isAuthorized) {
-                        router.replace('/unauthorized');
-                    } else {
-                        fetch('/api/menu-data', {
-                            credentials: 'include',
-                        })
-                            .then((res) => res.json())
-                            .then((data) => {
-                                const normalizedData = {
-                                    menusPrices: data.menusPrices.map(normalizeMenusPricesItem),
-                                    menuCarte: data.menuCarte.map(normalizeMenuCarteOrDessertsItem),
-                                    dessertsMenu: data.dessertsMenu.map(normalizeMenuCarteOrDessertsItem),
-                                    wineMenu: data.wineMenu.map(normalizeWineMenuItem),
-                                    heroSection: data.heroSection || {
-                                        title: '',
-                                        subtitle: '',
-                                        buttonText1: '',
-                                        buttonLink1: '',
-                                        buttonText2: '',
-                                        buttonLink2: '',
-                                        images: [{ src: '', alt: 'Divers photos de présentation' }]
-                                    }
-                                };
-                                setMenuData(normalizedData);
-                            })
-                            .catch(err => console.error("Error fetching menu data:", err));
+            .then((res) => res.json())
+            .then((data) => {
+                const normalizedData = {
+                    menusPrices: data.menusPrices.map(normalizeMenusPricesItem),
+                    menuCarte: data.menuCarte.map(normalizeMenuCarteOrDessertsItem),
+                    dessertsMenu: data.dessertsMenu.map(normalizeMenuCarteOrDessertsItem),
+                    wineMenu: data.wineMenu.map(normalizeWineMenuItem),
+                    heroSection: data.heroSection || {
+                        title: '',
+                        subtitle: '',
+                        buttonText1: '',
+                        buttonLink1: '',
+                        buttonText2: '',
+                        buttonLink2: '',
+                        images: [{ src: '', alt: 'Divers photos de présentation' }]
                     }
-                })
-                .catch(err => {
-                    console.error("Error checking authorization:", err);
-                    toast.error('Une erreur est survenue lors de la vérification de l\'autorisation.');
-                });
+                };
+                setMenuData(normalizedData);
+            })
+            .catch(err => console.error("Error fetching menu data:", err));
         }
     }, [session, status]);
 
@@ -187,7 +165,7 @@ export default function Admin() {
 
 
     const handleAddItem = (section) => {
-        if (!Array.isArray(menuData[section])) return; // Ne pas ajouter d'élément si ce n'est pas un tableau
+        if (!Array.isArray(menuData[section])) return;
 
         setMenuData(prevData => {
             let newItem;
@@ -212,7 +190,7 @@ export default function Admin() {
     };
 
     const handleRemoveItem = (section, index) => {
-        if (!Array.isArray(menuData[section])) return; // Ne pas supprimer d'élément si ce n'est pas un tableau
+        if (!Array.isArray(menuData[section])) return;
 
         setMenuData(prevData => {
             const updatedSection = prevData[section].filter((_, i) => i !== index);
@@ -241,7 +219,7 @@ export default function Admin() {
     };
 
     if (status === "loading") {
-        return <div><Loader /></div>;
+        return <Loader />;
     }
 
     if (status === 'unauthenticated') {
@@ -320,12 +298,6 @@ export default function Admin() {
                                                 transition
                                                 className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
                                             >
-                                                {/* <button
-                                                    onClick={() => window.location.href = '/'}
-                                                    className="block px-4 py-2 text-sm font-medium text-slate-700 data-[focus]:bg-slate-100"
-                                                >
-                                                    Retour au site
-                                                </button> */}
                                                 {userNavigation.map((item) => (
                                                     <MenuItem key={item.name}>
                                                         <button
