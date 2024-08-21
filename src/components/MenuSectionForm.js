@@ -182,7 +182,7 @@ function MenuSectionForm({
         images: [{ src: '', alt: '' }]
     } : sectionData;
 
-    const isClickable = true;
+    const isClickable = false;
 
     const renderCadenasPremium = () => (
         <div className={`flex items-center space-x-1 text-sm ${!isClickable && 'pointer-events-none'}`}>
