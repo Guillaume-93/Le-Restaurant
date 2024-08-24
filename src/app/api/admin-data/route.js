@@ -3,7 +3,7 @@
 import fs from "fs";
 import path from "path";
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../../auth/[...nextauth]/route'; 
+import { authOptions } from '../auth/[...nextauth]/route.js'; 
 
 export async function GET(req) {
     const session = await getServerSession(req, authOptions);
