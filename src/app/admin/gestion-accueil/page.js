@@ -75,7 +75,7 @@ export default function HeroSectionPage() {
     return (
         <AdminLayout>
             <header className="py-10">
-                <h1 className="text-3xl font-bold">Gestion de la page d'accueil</h1>
+                <h1 className="text-3xl font-bold">Gestion de la page d&apos;accueil</h1>
             </header>
             <main>
                 <MenuSectionForm

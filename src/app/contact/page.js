@@ -13,9 +13,9 @@ export default function Contact() {
                         <div>
                             <h2 className="text-3xl font-bold tracking-tight text-gray-900">Contactez-nous</h2>
                             <p className="mt-4 text-lg leading-8 text-gray-600">
-                                Nous serions ravis de vous accueillir dans notre restaurant. Vous trouverez ici toutes les informations nécessaires pour nous contacter. Pour toute question ou réservation, n'hésitez pas à nous joindre par email ou par téléphone. Notre équipe est à votre disposition pour répondre à toutes vos demandes.
+                                Nous serions ravis de vous accueillir dans notre restaurant. Vous trouverez ici toutes les informations nécessaires pour nous contacter. Pour toute question ou réservation, n&apos;hésitez pas à nous joindre par email ou par téléphone. Notre équipe est à votre disposition pour répondre à toutes vos demandes.
                             </p>
-                            <h3 className="mt-8 text-xl font-semibold leading-6 text-slate-900">Horaires d'ouverture</h3>
+                            <h3 className="mt-8 text-xl font-semibold leading-6 text-slate-900">Horaires d&apos;ouverture</h3>
                             <ul className="mt-4 space-y-1 text-base leading-6 text-slate-600">
                                 <li><strong>Lundi :</strong> Fermé</li>
                                 <li><strong>Mardi :</strong> 11:30–14:30</li>
@@ -48,7 +48,7 @@ export default function Contact() {
                             <div className="rounded-2xl bg-[--background-color-primary] shadow-lg p-8">
                                 <h3 className="text-xl font-semibold leading-7 text-gray-900">Adresse Email</h3>
                                 <p className="mt-4 text-base leading-7 text-gray-600">
-                                    Pour toute information ou réservation, contactez-nous à l'adresse suivante :
+                                    Pour toute information ou réservation, contactez-nous à l&apos;adresse suivante :
                                 </p>
                                 <p className="mt-2">
                                     <a href="mailto:leneuilly93@gmail.com" className="font-semibold text-indigo-600">

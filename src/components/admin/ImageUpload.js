@@ -50,12 +50,12 @@ export default function ImageUpload({ sectionName, index, imageUrl, onImageChang
                             htmlFor={`file-upload-${imageIndex !== undefined ? imageIndex : index}`}
                             className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                         >
-                            <span>Changer d'image</span>
+                            <span>Changer d&apos;image</span>
                             <input id={`file-upload-${imageIndex !== undefined ? imageIndex : index}`} name={`file-upload-${imageIndex !== undefined ? imageIndex : index}`} type="file" className="sr-only" onChange={handleImageChange} />
                         </label>
                         <p className="pl-1">ou glisser déposer</p>
                     </div>
-                    <p className="text-xs leading-5 text-gray-600">PNG, JPG, WEBP jusqu'à 10MB</p>
+                    <p className="text-xs leading-5 text-gray-600">PNG, JPG, WEBP jusqu&apos;à 10MB</p>
                 </div>
             </div>
         </div>
