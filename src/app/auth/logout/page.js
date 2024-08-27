@@ -1,7 +1,5 @@
 // app/auth/logout/page.js
 
-// app/auth/logout/page.js
-
 'use client';
 
 import { signOut } from 'next-auth/react';

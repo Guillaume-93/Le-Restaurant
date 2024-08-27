@@ -13,7 +13,6 @@ import Head from 'next/head';
 export default function RootLayout({ children }) {
   const pathname = usePathname();
 
-  // Si le chemin commence par "/admin" ou "/auth", n'utilisez pas Header et Footer
   const isAdminRoute = pathname.startsWith('/admin');
   const isAuthRoute = pathname.startsWith('/auth');
 

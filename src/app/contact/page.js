@@ -1,24 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
-import Loader from '@/components/Loader/Loader.js';
+import { useRef } from 'react';
 
 export default function Contact() {
-    // const [loading, setLoading] = useState(true);
     const iframeRef = useRef(null);
-
-    // const handleIframeLoad = () => {
-    //     console.log("Iframe loaded");
-    //     setLoading(false);
-    // };
-
-    // useEffect(() => {
-    //     const timeout = setTimeout(() => {
-    //         setLoading(false);
-    //     }, 300); // Timeout après 5 secondes au cas où l'onLoad ne se déclenche pas
-
-    //     return () => clearTimeout(timeout);
-    // }, []);
 
     return (
         <div className="py-24 sm:py-32 relative">

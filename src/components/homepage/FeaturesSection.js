@@ -52,11 +52,6 @@ const FeaturesSection = () => {
               </dt>
               <dd className="mt-1 flex flex-auto flex-col text-base leading-7 text-slate-600">
                 <p className="flex-auto">{feature.description}</p>
-                {/* <p className="mt-6">
-                  <Link href={feature.href} className="relative inline-block text-sm font-semibold leading-6 text-gray-900 after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-gray-900 after:transition-all after:duration-300 hover:after:w-full">
-                    En savoir plus <span aria-hidden="true">→</span>
-                  </Link>
-                </p> */}
               </dd>
             </div>
           ))}

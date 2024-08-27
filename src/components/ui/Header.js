@@ -17,12 +17,11 @@ const navigation = [
 export default function Header() {
     const router = useRouter();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [activeLink, setActiveLink] = useState(router.pathname); // Initialisation à la valeur actuelle de pathname
+    const [activeLink, setActiveLink] = useState(router.pathname);
     const { data: session, status } = useSession();
     const isLoading = status === 'loading';
 
     useEffect(() => {
-        // Met à jour activeLink lorsque le pathname change
         if (router.pathname) {
             setActiveLink(router.pathname);
         }
@@ -30,6 +29,7 @@ export default function Header() {
 
     const handleNavigationChange = (href) => {
         setActiveLink(href);
+        setMobileMenuOpen(false);
     };
 
     return (
@@ -84,7 +84,7 @@ export default function Header() {
                                 </button>
                             ) : (
                                 <div className="flex items-center">
-                                    <Link href="/admin" className="text-sm font-semibold leading-6 text-gray-900">
+                                    <Link href="/auth/login" className="text-sm font-semibold leading-6 text-gray-900">
                                         Se connecter <span aria-hidden="true">&rarr;</span>
                                     </Link>
                                 </div>
@@ -169,7 +169,7 @@ export default function Header() {
                                             </button>
                                         ) : (
                                             <div className="flex items-center justify-center">
-                                                <Link href="/admin" className="text-sm font-semibold leading-6 text-gray-900">
+                                                <Link href="/auth/login" className="text-sm font-semibold leading-6 text-gray-900">
                                                     Se connecter <span aria-hidden="true">&rarr;</span>
                                                 </Link>
                                             </div>

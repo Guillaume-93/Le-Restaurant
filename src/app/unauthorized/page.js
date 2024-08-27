@@ -2,7 +2,7 @@
 
 "use client";
 
-import { signOut } from 'next-auth/react';
+import Link from 'next/link';
 
 export default function Unauthorized() {
     return (
@@ -10,12 +10,12 @@ export default function Unauthorized() {
             <div className="flex flex-col gap-y-4">
                 <h1 className="text-3xl font-bold">Accès refusé</h1>
                 <p className="text-lg">Vous n'êtes pas autorisé à accéder à cette page.</p>
-                <button
-                    onClick={() => signOut({ callbackUrl: "/" })}
-                    className="bg-indigo-600 text-white py-2 px-4 rounded-md shadow hover:bg-indigo-700"
+                <Link
+                    href={'/'}
+                    className="bg-indigo-600 text-white py-2 px-4 rounded-md shadow hover:bg-indigo-700 text-center"
                 >
                     Retour à l'accueil
-                </button>
+                </Link>
             </div>
         </div>
     );

@@ -14,7 +14,7 @@ export default function SignIn() {
                 <img className='sm:h-32 w-auto' src="/images/logos/le-neuilly-canva.png" alt="Le Neuilly Logo" />
                 <p className="text-lg text-center">Connectez-vous pour continuer</p>
                 <button
-                    onClick={() => signIn('google', { callbackUrl: '/' })}
+                    onClick={() => signIn('google', { callbackUrl: '/admin' })}
                     className="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow hover:bg-blue-600"
                 >
                     Se connecter avec Google

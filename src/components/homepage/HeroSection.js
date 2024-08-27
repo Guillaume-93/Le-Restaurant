@@ -8,34 +8,39 @@ import Loader from '../Loader/Loader.js';
 export default function HeroSection() {
     const [heroData, setHeroData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         async function fetchHeroData() {
             try {
-                const response = await fetch('/api/menu-data', {
+                const response = await fetch('/api/menu-data?page=gestion-accueil', {
                     method: 'GET',
-                    credentials: 'include'
+                    credentials: 'include',
                 });
-    
+
                 if (!response.ok) {
                     throw new Error('Failed to fetch hero data');
                 }
-    
+
                 const data = await response.json();
-                setHeroData(data.heroSection);
-                console.log("Data fetched successfully, setting loading to false");
+                setHeroData(data);
                 setLoading(false);
             } catch (error) {
                 console.error('Error loading hero data:', error);
+                setError('Error loading hero data.');
                 setLoading(false);
             }
         }
-    
+
         fetchHeroData();
     }, []);
 
     if (loading) {
         return <Loader />;
+    }
+
+    if (error) {
+        return <div>{error}</div>;
     }
 
     if (!heroData || !Array.isArray(heroData.images)) {

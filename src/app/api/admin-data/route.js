@@ -1,46 +1,47 @@
 // app/api/admin-data/route.js
 
-import fs from "fs";
-import path from "path";
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]/route.js'; 
+import { getToken } from 'next-auth/jwt';
+import { getFirestore } from 'firebase-admin/firestore';
+import { adminApp } from '../../../../firebaseAdmin.js';
+
+const db = getFirestore(adminApp);
 
 export async function GET(req) {
-    const session = await getServerSession(req, authOptions);
-
-    if (!session || session.user.role !== 'admin') {
-        return new Response(JSON.stringify({ message: 'Accès interdit' }), { status: 403 });
-    }
-
-    const filePath = path.join(process.cwd(), "public", "admin-data.json");
-
     try {
-        if (!fs.existsSync(filePath)) {
-            return new Response(JSON.stringify({ message: "Le fichier admin-data.json est manquant." }), { status: 404 });
+        console.log("[API /menu-data] GET request received.");
+        const documentRef = db.collection("menuData").doc("menus");
+        const docSnap = await documentRef.get();
+
+        if (docSnap.exists()) {
+            console.log("[API /menu-data] Document found:", docSnap.data());
+            return new Response(JSON.stringify(docSnap.data()), { status: 200 });
+        } else {
+            console.log("[API /menu-data] Document not found.");
+            return new Response(JSON.stringify({ message: "Document non trouvé" }), { status: 404 });
         }
-        const jsonData = fs.readFileSync(filePath, "utf8");
-        return new Response(jsonData, { status: 200 });
     } catch (error) {
-        console.error("Erreur lors de la lecture des données admin:", error);
-        return new Response(JSON.stringify({ message: "Erreur lors de la lecture des données admin" }), { status: 500 });
+        console.error("[API /menu-data] Error handling request:", error);
+        return new Response(JSON.stringify({ message: `Internal Server Error: ${error.message}` }), { status: 500 });
     }
 }
 
 export async function POST(req) {
-    const session = await getServerSession(req, authOptions);
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+    console.log("[API /menu-data] POST request received. Token:", token);
 
-    if (!session || session.user.role !== 'admin') {
+    if (!token || token.role !== 'admin') {
+        console.log("[API /menu-data] Access denied.");
         return new Response(JSON.stringify({ message: 'Accès interdit' }), { status: 403 });
     }
 
-    const filePath = path.join(process.cwd(), "public", "admin-data.json");
-
     try {
-        const data = await req.json();
-        fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-        return new Response(JSON.stringify({ message: "Données mises à jour avec succès !" }), { status: 200 });
+        const documentRef = db.collection("menuData").doc("menus");
+        const updatedData = await req.json();
+        console.log("[API /menu-data] Data to update:", updatedData);
+        await documentRef.set(updatedData, { merge: true });
+        return new Response(JSON.stringify({ message: "Data updated successfully" }), { status: 200 });
     } catch (error) {
-        console.error("Erreur lors de la mise à jour des données admin:", error);
-        return new Response(JSON.stringify({ message: "Erreur lors de la mise à jour des données admin" }), { status: 500 });
+        console.error("[API /menu-data] Error handling request:", error);
+        return new Response(JSON.stringify({ message: "Internal Server Error" }), { status: 500 });
     }
 }

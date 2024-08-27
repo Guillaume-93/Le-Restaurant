@@ -1,26 +1,14 @@
 // app/api/upload-image/route.js
-
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, storage } from '../../../../firebase.js';
-import { doc, updateDoc, getDoc } from 'firebase/firestore';
-import { NextResponse } from 'next/server';
+import { getStorage } from 'firebase-admin/storage';
 import { getToken } from 'next-auth/jwt';
-
-export const runtime = 'nodejs';
+import { NextResponse } from 'next/server';
+import { adminDb } from '../../../../firebaseAdmin';
 
 export async function POST(req) {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-    console.log("Token retrieved:", token);
-
-    if (!token) {
-        console.error("No token found. Unauthorized access attempt.");
-        return NextResponse.json({ message: "Unauthorized - No token" }, { status: 401 });
-    }
-
-    if (token.role !== 'admin') {
-        console.error(`Unauthorized access attempt by user with role: ${token.role}`);
-        return NextResponse.json({ message: "Unauthorized - Insufficient role" }, { status: 401 });
+    if (!token || token.role !== 'admin') {
+        return NextResponse.json({ message: 'Accès non autorisé' }, { status: 403 });
     }
 
     try {
@@ -29,58 +17,51 @@ export async function POST(req) {
         const index = parseInt(formData.get('index'), 10);
         const file = formData.get('image');
 
-        console.log("Form Data Received:", { section, index, file });
-
         if (!file) {
-            console.error("No file received");
             return NextResponse.json({ message: "Aucun fichier reçu" }, { status: 400 });
         }
 
         const arrayBuffer = await file.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
-        const fileName = file.name || `image-${index}-${Date.now()}`;
-        const storageRef = ref(storage, `${section}/image-${index}-${fileName}`);
-        console.log("Firebase Storage Reference Path:", storageRef.toString());
+        const fileName = `image-${index}-${Date.now()}.${file.type.split('/')[1]}`;
 
-        console.log("Uploading image to storage with fileName:", fileName);
+        const bucket = getStorage().bucket();
+        const fileRef = bucket.file(`${section}/${fileName}`);
 
-        const snapshot = await uploadBytes(storageRef, buffer, { contentType: file.type });
-        const downloadURL = await getDownloadURL(snapshot.ref);
+        await fileRef.save(buffer, {
+            contentType: file.type,
+            public: true,
+        });
 
-        console.log("Image uploaded successfully. Download URL:", downloadURL);
+        const downloadURL = `https://storage.googleapis.com/${bucket.name}/${section}/${fileName}`;
 
-        const documentRef = doc(db, "menuData", "menus");
-        const docSnap = await getDoc(documentRef);
+        const documentRef = adminDb.collection("menuData").doc("menus");
+        const docSnap = await documentRef.get();
 
-        if (!docSnap.exists()) {
-            console.error("Document not found");
+        if (!docSnap.exists) {
             return NextResponse.json({ message: "Document non trouvé" }, { status: 404 });
         }
 
         const currentData = docSnap.data();
-        console.log("Current data from Firestore:", currentData);
-
         if (section === 'heroSection') {
             const heroSection = currentData.heroSection || { images: [] };
             while (heroSection.images.length <= index) {
                 heroSection.images.push({});
             }
             heroSection.images[index].src = downloadURL;
-            await updateDoc(documentRef, { heroSection });
+            await documentRef.update({ heroSection });
         } else {
             const sectionData = currentData[section] || [];
             while (sectionData.length <= index) {
                 sectionData.push({});
             }
             sectionData[index].imageUrl = downloadURL;
-            await updateDoc(documentRef, { [section]: sectionData });
+            await documentRef.update({ [section]: sectionData });
         }
-
-        console.log("Document updated successfully");
 
         return NextResponse.json({ imageUrl: downloadURL }, { status: 200 });
     } catch (error) {
-        console.error("Error during image upload", error);
+        console.error("Erreur lors du téléchargement de l'image :", error);
         return NextResponse.json({ message: "Erreur lors du téléchargement de l'image" }, { status: 500 });
     }
 }

@@ -141,7 +141,6 @@ const TestimonialsSection = () => {
                                     <div className="font-semibold">{featuredTestimonial.author.name}</div>
                                     <div className="text-slate-600">{`@${featuredTestimonial.author.handle}`}</div>
                                 </div>
-                                {/* <img alt="" src={featuredTestimonial.author.logoUrl} className="h-10 w-auto flex-none" /> */}
                             </figcaption>
                         </figure>
                         {testimonials.map((columnGroup, columnGroupIdx) => (
