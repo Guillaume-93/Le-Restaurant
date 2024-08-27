@@ -5,6 +5,7 @@ import { getFirestore } from 'firebase-admin/firestore';
 import { getStorage } from 'firebase-admin/storage';
 // import serviceAccount from './keys/serviceAccountKey.json';
 
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
 let adminApp;
 
 if (!getApps().length) {
