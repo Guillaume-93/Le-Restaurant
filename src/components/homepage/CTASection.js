@@ -38,10 +38,10 @@ const CTASection = () => {
         <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
           Réservez dès maintenant.
           <br />
-          Profitez d'une expérience culinaire unique.
+          Profitez d&apos;une expérience culinaire unique.
         </h2>
         <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-slate-600">
-          Réservez votre table facilement en ligne et assurez-vous d'avoir
+          Réservez votre table facilement en ligne et assurez-vous d&apos;avoir
           une place lors de votre visite.
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">

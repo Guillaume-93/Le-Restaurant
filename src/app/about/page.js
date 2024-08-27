@@ -44,7 +44,7 @@ export default function Example() {
                                     <ChatBubbleBottomCenterTextIcon aria-hidden="true" className="mt-1 h-10 w-auto flex-none text-slate-100" />
                                     <blockquote className="mt-2 text-xl font-semibold leading-8 text-slate-100">
                                         <p>
-                                            “Notre mission est de créer une atmosphère conviviale et chaleureuse, où chaque client se sent comme chez lui. Nous sommes passionnés par la cuisine française et nous nous efforçons d'offrir une expérience culinaire mémorable.”
+                                            “Notre mission est de créer une atmosphère conviviale et chaleureuse, où chaque client se sent comme chez lui. Nous sommes passionnés par la cuisine française et nous nous efforçons d&apos;offrir une expérience culinaire mémorable.”
                                         </p>
                                     </blockquote>
                                     <figcaption className="mt-6 text-sm leading-6 text-slate-300">
@@ -67,7 +67,7 @@ export default function Example() {
                                         Depuis notre ouverture en 2022, nous nous efforçons de créer une atmosphère conviviale où nos clients peuvent se détendre et profiter de repas délicieux. Notre menu varié met en avant les saveurs traditionnelles françaises tout en y apportant une touche contemporaine.
                                     </p>
                                     <p className="mt-8">
-                                        Situé au 2 Rue Louis Vanini, 93330 Neuilly-sur-Marne, Le Neuilly est plus qu'un simple restaurant, c'est un lieu de rencontre pour les amis et la famille, où chaque plat est préparé avec passion et souci du détail.
+                                        Situé au 2 Rue Louis Vanini, 93330 Neuilly-sur-Marne, Le Neuilly est plus qu&apos;un simple restaurant, c&apos;est un lieu de rencontre pour les amis et la famille, où chaque plat est préparé avec passion et souci du détail.
                                     </p>
                                 </div>
                             </div>
