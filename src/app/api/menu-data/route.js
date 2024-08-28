@@ -40,18 +40,26 @@ export async function GET(req) {
 export async function POST(req) {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-    if (!token || token.role !== 'admin') {
+    if (!token || !token.firebaseUid) {
         return new Response(JSON.stringify({ message: 'Accès interdit' }), { status: 403 });
     }
 
-    const { searchParams } = new URL(req.url);
-    const page = searchParams.get('page');
-
-    if (!page || !pageMap[page]) {
-        return new Response(JSON.stringify({ message: "Page parameter is invalid or missing" }), { status: 400 });
-    }
-
     try {
+        // Vérifier le rôle de l'utilisateur dans Firestore
+        const userDocRef = db.collection('users').doc(token.firebaseUid);
+        const userDocSnap = await userDocRef.get();
+
+        if (!userDocSnap.exists || userDocSnap.data().role !== 'admin') {
+            return new Response(JSON.stringify({ message: 'Accès interdit : rôle non autorisé' }), { status: 403 });
+        }
+
+        const { searchParams } = new URL(req.url);
+        const page = searchParams.get('page');
+
+        if (!page || !pageMap[page]) {
+            return new Response(JSON.stringify({ message: "Paramètre de page invalide ou manquant" }), { status: 400 });
+        }
+
         const documentRef = db.collection('menuData').doc('menus');
         const updatedData = await req.json();
 
@@ -60,9 +68,9 @@ export async function POST(req) {
             { merge: true }
         );
 
-        return new Response(JSON.stringify({ message: "Data updated successfully" }), { status: 200 });
+        return new Response(JSON.stringify({ message: "Données mises à jour avec succès" }), { status: 200 });
     } catch (error) {
-        console.error("Error handling request:", error);
-        return new Response(JSON.stringify({ message: `Internal Server Error: ${error.message}` }), { status: 500 });
+        console.error("Erreur lors de la mise à jour des données:", error);
+        return new Response(JSON.stringify({ message: `Erreur interne : ${error.message}` }), { status: 500 });
     }
 }

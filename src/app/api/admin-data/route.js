@@ -27,21 +27,25 @@ export async function GET(req) {
 
 export async function POST(req) {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-    console.log("[API /menu-data] POST request received. Token:", token);
 
-    if (!token || token.role !== 'admin') {
-        console.log("[API /menu-data] Access denied.");
+    if (!token || !token.firebaseUid) {
         return new Response(JSON.stringify({ message: 'Accès interdit' }), { status: 403 });
     }
 
     try {
+        const userDocRef = db.collection('users').doc(token.firebaseUid);
+        const userDocSnap = await userDocRef.get();
+
+        if (!userDocSnap.exists || userDocSnap.data().role !== 'admin') {
+            return new Response(JSON.stringify({ message: 'Accès interdit : rôle non autorisé' }), { status: 403 });
+        }
+
         const documentRef = db.collection("menuData").doc("menus");
         const updatedData = await req.json();
-        console.log("[API /menu-data] Data to update:", updatedData);
         await documentRef.set(updatedData, { merge: true });
-        return new Response(JSON.stringify({ message: "Data updated successfully" }), { status: 200 });
+        return new Response(JSON.stringify({ message: "Données mises à jour avec succès" }), { status: 200 });
     } catch (error) {
-        console.error("[API /menu-data] Error handling request:", error);
-        return new Response(JSON.stringify({ message: "Internal Server Error" }), { status: 500 });
+        console.error("Erreur lors de la mise à jour des données:", error);
+        return new Response(JSON.stringify({ message: "Erreur interne" }), { status: 500 });
     }
 }

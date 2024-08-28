@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import Loader from '@/components/Loader/Loader';
+import { signOut } from 'next-auth/react';
 
 const normalizeDessertsMenuItem = (item) => ({
     id: item.id || Date.now(),
@@ -27,7 +28,7 @@ export default function DessertsMenuPage() {
         if (status === 'authenticated') {
             if (session?.user?.role !== 'admin') {
                 toast.error("Vous n'êtes pas autorisé à accéder à cette page.");
-                router.push('/unauthorized');
+                signOut({ callbackUrl: '/unauthorized' });
             } else {
                 fetch('/api/menu-data?page=gestion-desserts', { credentials: 'include' })
                     .then((res) => {
