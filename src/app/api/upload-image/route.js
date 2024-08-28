@@ -8,7 +8,7 @@ export async function POST(req) {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
     if (!token || token.role !== 'admin') {
-        return NextResponse.json({ message: 'Accès non autorisé' }, { status: 403 });
+        return NextResponse.json({ message: 'Accès non autorisé. Vous devez être administrateur pour effectuer cette action.' }, { status: 403 });
     }
 
     try {
@@ -18,7 +18,7 @@ export async function POST(req) {
         const file = formData.get('image');
 
         if (!file) {
-            return NextResponse.json({ message: "Aucun fichier reçu" }, { status: 400 });
+            return NextResponse.json({ message: "Erreur : Aucun fichier reçu. Veuillez sélectionner une image à télécharger." }, { status: 400 });
         }
 
         const arrayBuffer = await file.arrayBuffer();
@@ -28,10 +28,15 @@ export async function POST(req) {
         const bucket = getStorage().bucket();
         const fileRef = bucket.file(`${section}/${fileName}`);
 
-        await fileRef.save(buffer, {
-            contentType: file.type,
-            public: true,
-        });
+        try {
+            await fileRef.save(buffer, {
+                contentType: file.type,
+                public: true,
+            });
+        } catch (error) {
+            console.error("Erreur lors de la sauvegarde de l'image dans le stockage :", error);
+            return NextResponse.json({ message: "Erreur lors du téléchargement de l'image. Veuillez réessayer plus tard." }, { status: 500 });
+        }
 
         const downloadURL = `https://storage.googleapis.com/${bucket.name}/${section}/${fileName}`;
 
@@ -39,7 +44,7 @@ export async function POST(req) {
         const docSnap = await documentRef.get();
 
         if (!docSnap.exists) {
-            return NextResponse.json({ message: "Document non trouvé" }, { status: 404 });
+            return NextResponse.json({ message: "Erreur : Le document de données du menu n'a pas été trouvé." }, { status: 404 });
         }
 
         const currentData = docSnap.data();
@@ -49,19 +54,29 @@ export async function POST(req) {
                 heroSection.images.push({});
             }
             heroSection.images[index].src = downloadURL;
-            await documentRef.update({ heroSection });
+            try {
+                await documentRef.update({ heroSection });
+            } catch (error) {
+                console.error("Erreur lors de la mise à jour du document heroSection :", error);
+                return NextResponse.json({ message: "Erreur lors de la mise à jour des données de la section Hero. Veuillez réessayer." }, { status: 500 });
+            }
         } else {
             const sectionData = currentData[section] || [];
             while (sectionData.length <= index) {
                 sectionData.push({});
             }
             sectionData[index].imageUrl = downloadURL;
-            await documentRef.update({ [section]: sectionData });
+            try {
+                await documentRef.update({ [section]: sectionData });
+            } catch (error) {
+                console.error("Erreur lors de la mise à jour du document de la section :", error);
+                return NextResponse.json({ message: `Erreur lors de la mise à jour des données pour la section ${section}. Veuillez réessayer.` }, { status: 500 });
+            }
         }
 
-        return NextResponse.json({ imageUrl: downloadURL }, { status: 200 });
+        return NextResponse.json({ imageUrl: downloadURL, message: "Image téléchargée et données mises à jour avec succès !" }, { status: 200 });
     } catch (error) {
-        console.error("Erreur lors du téléchargement de l'image :", error);
-        return NextResponse.json({ message: "Erreur lors du téléchargement de l'image" }, { status: 500 });
+        console.error("Erreur générale lors du téléchargement de l'image :", error);
+        return NextResponse.json({ message: "Erreur lors du téléchargement de l'image. Veuillez réessayer plus tard." }, { status: 500 });
     }
 }
