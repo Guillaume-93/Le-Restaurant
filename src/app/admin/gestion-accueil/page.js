@@ -1,3 +1,4 @@
+// app/admin/gestion-accueil/page.js
 "use client";
 
 import MenuSectionForm from '@/components/admin/MenuSectionForm';
@@ -7,7 +8,6 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import Loader from '@/components/Loader/Loader';
-import { signOut } from 'next-auth/react';
 
 export default function HeroSectionPage() {
     const { data: session, status } = useSession();
@@ -29,10 +29,10 @@ export default function HeroSectionPage() {
     });
 
     useEffect(() => {
-        if (typeof window !== 'undefined' && status === 'authenticated') {
+        if (status === 'authenticated') {
             if (session?.user?.role !== 'admin') {
                 toast.error("Vous n'êtes pas autorisé à accéder à cette page.");
-                signOut({ callbackUrl: '/unauthorized' });
+                router.push('/unauthorized');
             } else {
                 fetch('/api/menu-data?page=gestion-accueil', { credentials: 'include' })
                     .then((res) => {

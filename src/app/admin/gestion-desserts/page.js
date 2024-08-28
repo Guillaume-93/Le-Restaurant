@@ -1,3 +1,4 @@
+// app/admin/gestion-desserts/page.js
 "use client";
 
 import MenuSectionForm from '@/components/admin/MenuSectionForm';
@@ -7,7 +8,6 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import Loader from '@/components/Loader/Loader';
-import { signOut } from 'next-auth/react';
 
 const normalizeDessertsMenuItem = (item) => ({
     id: item.id || Date.now(),
@@ -24,10 +24,10 @@ export default function DessertsMenuPage() {
     const [menuData, setMenuData] = useState([]);
 
     useEffect(() => {
-        if (typeof window !== 'undefined' && status === 'authenticated') {
+        if (status === 'authenticated') {
             if (session?.user?.role !== 'admin') {
                 toast.error("Vous n'êtes pas autorisé à accéder à cette page.");
-                signOut({ callbackUrl: '/unauthorized' });
+                router.push('/unauthorized');
             } else {
                 fetch('/api/menu-data?page=gestion-desserts', { credentials: 'include' })
                     .then((res) => {

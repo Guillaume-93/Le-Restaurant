@@ -1,12 +1,8 @@
+// src/app/admin/page.js
 "use client";
 
 import AdminLayout from '@/components/admin/AdminLayout';
 import Link from 'next/link';
-import { useSession, signOut } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { toast } from 'react-toastify';
-import Loader from '@/components/Loader/Loader';
 
 const adminSections = [
     { title: 'Gestion de la page d\'accueil', href: '/admin/gestion-accueil', description: 'Modifiez le contenu de la page d\'accueil de votre site.' },
@@ -32,23 +28,6 @@ function AdminDashboard() {
 }
 
 export default function Admin() {
-    const { data: session, status } = useSession();
-    const router = useRouter();
-
-    useEffect(() => {
-        if (typeof window !== 'undefined' && status === 'authenticated') {
-            if (session?.user?.role !== 'admin') {
-                toast.error("Vous n'êtes pas autorisé à accéder à cette page.");
-                signOut({ callbackUrl: '/unauthorized' });
-            }
-        } else if (status === 'unauthenticated') {
-            router.push('/unauthorized');
-        }
-    }, [session, status, router]);
-
-    if (status === "loading") return <Loader />;
-    if (status === 'unauthenticated') return null;
-
     return (
         <AdminLayout>
             <div className="py-10">
