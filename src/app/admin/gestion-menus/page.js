@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import Loader from '@/components/Loader/Loader';
+import { signOut } from 'next-auth/react';
 
 const normalizeMenusPricesItem = (item) => ({
     name: item.name || '',
@@ -29,7 +30,7 @@ export default function MenusPricesPage() {
         if (status === 'authenticated') {
             if (session?.user?.role !== 'admin') {
                 toast.error("Vous n'êtes pas autorisé à accéder à cette page.");
-                router.push('/unauthorized');
+                signOut({ callbackUrl: '/unauthorized' });
             } else {
                 fetch('/api/menu-data?page=gestion-menus', { credentials: 'include' })
                     .then((res) => {
