@@ -1,4 +1,3 @@
-// app/admin/gestion-accueil/page.js
 "use client";
 
 import MenuSectionForm from '@/components/admin/MenuSectionForm';
@@ -30,10 +29,10 @@ export default function HeroSectionPage() {
     });
 
     useEffect(() => {
-        if (status === 'authenticated') {
+        if (typeof window !== 'undefined' && status === 'authenticated') {
             if (session?.user?.role !== 'admin') {
                 toast.error("Vous n'êtes pas autorisé à accéder à cette page.");
-                signOut({ callbackUrl: '/unauthorized' });  // Déconnexion forcée si l'utilisateur n'est plus admin
+                signOut({ callbackUrl: '/unauthorized' });
             } else {
                 fetch('/api/menu-data?page=gestion-accueil', { credentials: 'include' })
                     .then((res) => {

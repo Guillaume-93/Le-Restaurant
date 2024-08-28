@@ -1,4 +1,3 @@
-// src/app/admin/page.js
 "use client";
 
 import AdminLayout from '@/components/admin/AdminLayout';
@@ -37,10 +36,10 @@ export default function Admin() {
     const router = useRouter();
 
     useEffect(() => {
-        if (status === 'authenticated') {
+        if (typeof window !== 'undefined' && status === 'authenticated') {
             if (session?.user?.role !== 'admin') {
                 toast.error("Vous n'êtes pas autorisé à accéder à cette page.");
-                signOut({ callbackUrl: '/unauthorized' });  // Déconnexion forcée si l'utilisateur n'est plus admin
+                signOut({ callbackUrl: '/unauthorized' });
             }
         } else if (status === 'unauthenticated') {
             router.push('/unauthorized');

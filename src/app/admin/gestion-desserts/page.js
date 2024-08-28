@@ -1,4 +1,3 @@
-// app/admin/gestion-desserts/page.js
 "use client";
 
 import MenuSectionForm from '@/components/admin/MenuSectionForm';
@@ -25,7 +24,7 @@ export default function DessertsMenuPage() {
     const [menuData, setMenuData] = useState([]);
 
     useEffect(() => {
-        if (status === 'authenticated') {
+        if (typeof window !== 'undefined' && status === 'authenticated') {
             if (session?.user?.role !== 'admin') {
                 toast.error("Vous n'êtes pas autorisé à accéder à cette page.");
                 signOut({ callbackUrl: '/unauthorized' });
