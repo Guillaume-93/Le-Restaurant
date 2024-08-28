@@ -52,21 +52,41 @@ export default function MenuSectionForm({
     };
 
     const handleImageChange = async (file, index, sectionName, imageIndex = null) => {
+        let convertedFile = file;
+
+        // Conversion du format HEIC/HEIF en JPEG
+        if (file.type === 'image/heic' || file.type === 'image/heif') {
+            if (typeof window !== 'undefined') {
+                const heic2any = (await import("heic2any")).default;
+                try {
+                    const blob = await heic2any({
+                        blob: file,
+                        toType: "image/jpeg",
+                    });
+                    convertedFile = new File([blob], `${file.name.split('.')[0]}.jpg`, { type: "image/jpeg" });
+                } catch (error) {
+                    console.error('Erreur lors de la conversion HEIC/HEIF:', error);
+                    toast.error('Erreur lors de la conversion de l\'image. Veuillez réessayer.');
+                    return;
+                }
+            }
+        }
+
         const formData = new FormData();
-        formData.append('image', file);
+        formData.append('image', convertedFile);
         formData.append('section', sectionName);
         formData.append('index', imageIndex !== null ? imageIndex : index);
-    
+
         try {
             const uploadResponse = await fetch('/api/upload-image', {
                 method: 'POST',
                 body: formData,
             });
-    
+
             if (uploadResponse.ok) {
                 const data = await uploadResponse.json();
                 const imageUrlFromServer = data.imageUrl;
-    
+
                 setMenuData(prevData => {
                     if (sectionName === 'heroSection' && imageIndex !== null) {
                         const updatedImages = [...prevData.images];
@@ -78,7 +98,7 @@ export default function MenuSectionForm({
                         return updatedSection;
                     }
                 });
-    
+
                 toast.success('Image téléchargée avec succès.');
             } else {
                 toast.error('Échec du téléchargement de l\'image.');

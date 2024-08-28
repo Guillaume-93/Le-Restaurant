@@ -13,23 +13,43 @@ export default function ImageUpload({ sectionName, index, imageUrl, onImageChang
     const handleImageChange = async (e) => {
         const file = e.target.files[0];
         if (file) {
-            const validImageTypes = ['image/jpeg', 'image/png', 'image/webp'];
+            const validImageTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif'];
             if (!validImageTypes.includes(file.type)) {
-                toast.error('Seuls les fichiers PNG, JPG et WEBP sont acceptés.');
+                toast.error('Seuls les fichiers PNG, JPG, WEBP, HEIC et HEIF sont acceptés.');
                 return;
             }
-
+    
             if (file.size > 10 * 1024 * 1024) {
                 toast.error('La taille du fichier doit être inférieure à 10MB.');
                 return;
             }
-
-            const newImageUrl = URL.createObjectURL(file);
+    
+            let convertedFile = file;
+    
+            if (file.type === 'image/heic' || file.type === 'image/heif') {
+                if (typeof window !== 'undefined') {
+                    const heic2any = (await import("heic2any")).default;
+                    try {
+                        const blob = await heic2any({
+                            blob: file,
+                            toType: "image/jpeg",
+                        });
+                        convertedFile = new File([blob], `${file.name.split('.')[0]}.jpg`, { type: "image/jpeg" });
+                    } catch (error) {
+                        console.error('Erreur lors de la conversion HEIC/HEIF:', error);
+                        toast.error('Erreur lors de la conversion de l\'image. Veuillez réessayer.');
+                        return;
+                    }
+                }
+            }
+    
+            const newImageUrl = URL.createObjectURL(convertedFile);
             setTemporaryImage(newImageUrl);
-
-            await onImageChange(file, index, sectionName, imageIndex);
+    
+            await onImageChange(convertedFile, index, sectionName, imageIndex);
         }
     };
+    
 
     return (
         <div className="col-span-full">
