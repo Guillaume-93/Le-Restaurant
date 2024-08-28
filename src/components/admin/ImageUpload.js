@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
-import heic2any from "heic2any"; // Vous devez installer cette librairie: npm install heic2any
-
 export default function ImageUpload({ sectionName, index, imageUrl, onImageChange, imageIndex }) {
     const [temporaryImage, setTemporaryImage] = useState(imageUrl);
 
@@ -15,9 +13,9 @@ export default function ImageUpload({ sectionName, index, imageUrl, onImageChang
     const handleImageChange = async (e) => {
         const file = e.target.files[0];
         if (file) {
-            const validImageTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif'];
+            const validImageTypes = ['image/jpeg', 'image/png', 'image/webp'];
             if (!validImageTypes.includes(file.type)) {
-                toast.error('Seuls les fichiers PNG, JPG, WEBP, HEIC et HEIF sont acceptés.');
+                toast.error('Seuls les fichiers PNG, JPG et WEBP sont acceptés.');
                 return;
             }
 
@@ -26,27 +24,10 @@ export default function ImageUpload({ sectionName, index, imageUrl, onImageChang
                 return;
             }
 
-            let convertedFile = file;
-
-            // Conversion du format HEIC/HEIF en JPEG
-            if (file.type === 'image/heic' || file.type === 'image/heif') {
-                try {
-                    const blob = await heic2any({
-                        blob: file,
-                        toType: "image/jpeg",
-                    });
-                    convertedFile = new File([blob], `${file.name.split('.')[0]}.jpg`, { type: "image/jpeg" });
-                } catch (error) {
-                    console.error('Erreur lors de la conversion HEIC/HEIF:', error);
-                    toast.error('Erreur lors de la conversion de l\'image. Veuillez réessayer.');
-                    return;
-                }
-            }
-
-            const newImageUrl = URL.createObjectURL(convertedFile);
+            const newImageUrl = URL.createObjectURL(file);
             setTemporaryImage(newImageUrl);
 
-            await onImageChange(convertedFile, index, sectionName, imageIndex);
+            await onImageChange(file, index, sectionName, imageIndex);
         }
     };
 
