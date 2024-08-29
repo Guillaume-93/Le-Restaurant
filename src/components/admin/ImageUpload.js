@@ -53,19 +53,19 @@ export default function ImageUpload({ sectionName, index, imageUrl, onImageChang
 
     return (
         <div className="col-span-full">
-            <div className="mb-1 flex items-center mt-4">
-                <label htmlFor={`cover-photo-${imageIndex !== undefined ? imageIndex : index}`} className="block text-sm font-medium leading-6 text-gray-900">
-                    {sectionName === 'heroSection' ? `Image ${imageIndex + 1}` : 'Image'}
+            <div className={`mb-1 flex items-center mt-1`}>
+                <label htmlFor={`cover-photo-${imageIndex !== undefined ? imageIndex : index}`} className={`block text-sm font-medium leading-6 text-gray-900 ${sectionName === 'heroSection' ? 'hidden' : ''}`}>
+                    Image
                 </label>
             </div>
-            <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+            <div className={`flex justify-center rounded-lg border border-dashed border-gray-900/25 ${sectionName === 'heroSection' ? 'py-2' : 'px-6 py-10'}`}>
                 <div className="text-center">
                     <img
                         src={temporaryImage}
                         alt={`Current ${imageIndex !== undefined ? imageIndex + 1 : ''}`}
-                        className="mx-auto h-52 w-52 rounded-md object-cover shadow-default"
+                        className={`mx-auto  rounded-md object-cover shadow-default ${sectionName === 'heroSection' ? 'h-20 w-20' : 'h-52 w-52'}`}
                     />
-                    <div className="mt-4 flex flex-col sm:flex-row text-sm leading-6 text-gray-600">
+                    <div className="mt-4 flex flex-col text-sm leading-6 text-gray-600">
                         <label
                             htmlFor={`file-upload-${imageIndex !== undefined ? imageIndex : index}`}
                             className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"

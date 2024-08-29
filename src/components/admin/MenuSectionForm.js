@@ -13,6 +13,27 @@ const sectionTitles = {
     heroSection: "Accueil"
 };
 
+const normalizeItem = (sectionName) => {
+    const baseItem = {
+        id: Date.now(),
+        title: '',
+        description: '',
+        imageUrl: '',
+    };
+
+    switch (sectionName) {
+        case 'menusPrices':
+            return { ...baseItem, price: '', features: [] };
+        case 'menuCarte':
+        case 'dessertsMenu':
+            return { ...baseItem, price: '', category: { title: '' } };
+        case 'wineMenu':
+            return { ...baseItem, year: '', volume: '', price: '', category: { title: '' } };
+        default:
+            return baseItem;
+    }
+};
+
 export default function MenuSectionForm({
     sectionData = {},
     sectionName,
@@ -26,28 +47,158 @@ export default function MenuSectionForm({
         setFilesToUpload({});
     }, [sectionName]);
 
+    const sectionPageMap = {
+        menusPrices: "gestion-menus",
+        menuCarte: "gestion-plats",
+        dessertsMenu: "gestion-desserts",
+        wineMenu: "gestion-vins",
+        heroSection: "gestion-accueil"
+    };
+
+    const deleteItemFromDatabase = async (index) => {
+        const itemId = menuData[index].id; // Assurez-vous que chaque élément a un ID unique
+        try {
+            // Récupérer la page associée à la section en cours
+            const page = sectionPageMap[sectionName];
+            if (!page) {
+                throw new Error('Nom de section invalide.');
+            }
+
+            const url = `/api/menu-data/${itemId}?page=${page}`;
+            const res = await fetch(url, {
+                method: 'DELETE'
+            });
+
+            if (!res.ok) throw new Error('Échec de la suppression de l\'élément.');
+
+            // Mettre à jour l'état après la suppression
+            setMenuData(prevData => {
+                const updatedSection = [...prevData];
+                updatedSection.splice(index, 1);
+                return updatedSection;
+            });
+
+            toast.success('Élément supprimé avec succès !');
+        } catch (error) {
+            toast.error('Erreur lors de la suppression de l\'élément.');
+        }
+    };
+
+    const addItem = () => {
+        const newItem = normalizeItem(sectionName);
+        setMenuData([newItem, ...menuData]); // Insère le nouvel élément au début du tableau
+    };    
+
     const handleRemoveItem = (index) => {
         if (sectionName === 'heroSection') {
             toast.error(`${sectionName} n'est pas un tableau.`);
             return;
         }
-        setMenuData(prevData => {
-            const updatedSection = [...prevData];
-            updatedSection.splice(index, 1);
-            return updatedSection;
+
+        // Afficher un toast de confirmation
+        toast((t) => (
+            <div>
+                <p>Êtes-vous sûr de vouloir supprimer cet élément ?</p>
+                <div className="mt-2 flex justify-end gap-x-2">
+                    <button
+                        onClick={() => {
+                            deleteItemFromDatabase(index); // Appel à l'API pour supprimer l'élément
+                            toast.dismiss(t.id);
+                        }}
+                        className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded"
+                    >
+                        Confirmer
+                    </button>
+                    <button
+                        onClick={() => toast.dismiss(t.id)}
+                        className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded"
+                    >
+                        Annuler
+                    </button>
+                </div>
+            </div>
+        ), {
+            position: "top-center",
+            autoClose: false, // Ne pas fermer automatiquement
+            closeOnClick: false,
+            draggable: false,
         });
     };
 
     const handleInputChange = (e, field, index = null) => {
         const value = e.target.value;
+    
         setMenuData(prevData => {
-            if (sectionName === 'heroSection') {
-                return { ...prevData, [field]: value };
+            const updatedSection = [...menuData];
+    
+            if (index !== null) {
+                // Vérifier si le champ est imbriqué, comme category.title
+                if (field.includes('.')) {
+                    const fields = field.split('.');
+                    const parentField = fields[0];
+                    const childField = fields[1];
+    
+                    updatedSection[index] = {
+                        ...updatedSection[index],
+                        [parentField]: {
+                            ...updatedSection[index][parentField],
+                            [childField]: value
+                        }
+                    };
+                } else {
+                    updatedSection[index] = {
+                        ...updatedSection[index],
+                        [field]: value
+                    };
+                }
             } else {
-                const updatedSection = [...menuData];
-                updatedSection[index] = { ...updatedSection[index], [field]: value };
+                updatedSection[0] = {
+                    ...updatedSection[0],
+                    [field]: value
+                };
+            }
+    
+            return updatedSection;
+        });
+    };
+    
+
+    // Fonction pour ajouter une caractéristique
+    const onAddFeature = (sectionName, itemIndex) => {
+        setMenuData(prevData => {
+            const updatedSection = [...prevData];
+            const item = updatedSection[itemIndex];
+
+            if (!item.features) {
+                item.features = []; // Assurez-vous que la propriété features existe
+            }
+
+            // Ajoutez cette vérification pour empêcher d'ajouter une feature vide si la dernière est déjà vide
+            if (item.features[item.features.length - 1] === "") {
                 return updatedSection;
             }
+
+            item.features.push(""); // Ajouter une seule feature vide
+            return updatedSection;
+        });
+    };
+
+    // Fonction pour supprimer une caractéristique
+    const onRemoveFeature = (sectionName, itemIndex, featureIndex) => {
+        setMenuData(prevData => {
+            const updatedSection = [...prevData];
+            updatedSection[itemIndex].features.splice(featureIndex, 1); // Supprimer la feature
+            return updatedSection;
+        });
+    };
+
+    // Fonction pour modifier une caractéristique
+    const onChangeFeature = (e, sectionName, itemIndex, featureIndex) => {
+        const value = e.target.value;
+        setMenuData(prevData => {
+            const updatedSection = [...prevData];
+            updatedSection[itemIndex].features[featureIndex] = value; // Mettre à jour la valeur de la feature
+            return updatedSection;
         });
     };
 
@@ -131,8 +282,21 @@ export default function MenuSectionForm({
         <form onSubmit={handleSave} className="space-y-8 divide-y divide-gray-200">
             <div className="space-y-12">
                 <div className="flex flex-col sm:flex-none sm:block border-b border-gray-900/10 pb-12">
-                    <h2 className="text-xl font-semibold leading-7 text-gray-900">{sectionTitles[sectionName]}</h2>
-                    <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                    <div className="flex gap-x-2">
+                        <h2 className="text-xl font-semibold leading-7 text-gray-900">{sectionTitles[sectionName]}</h2>
+                        {['dessertsMenu', 'menuCarte', 'wineMenu'].includes(sectionName) && (
+                            <button
+                                onClick={addItem}
+                                type="button"
+                                className="text-indigo-600 hover:text-indigo-500"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+                            </button>
+                        )}
+                    </div>
+                    <div className={`mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 ${sectionName === 'heroSection' ? '' : ''}`}>
                         {sectionName === 'heroSection' ? (
                             <FormSection
                                 item={menuData}
@@ -152,26 +316,14 @@ export default function MenuSectionForm({
                                     onInputChange={handleInputChange}
                                     onRemoveItem={handleRemoveItem}
                                     onImageChange={handleImageChange}
+                                    onAddFeature={onAddFeature}
+                                    onRemoveFeature={onRemoveFeature}
+                                    onChangeFeature={onChangeFeature}
                                 />
                             ))
                         )}
                     </div>
                 </div>
-            </div>
-            <div className="mt-6 flex items-center justify-end gap-x-6">
-                <button
-                    type="button"
-                    onClick={() => window.location.reload()}
-                    className="text-sm font-semibold leading-6 text-gray-900"
-                >
-                    Annuler
-                </button>
-                <button
-                    type="submit"
-                    className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                    Sauvegarder
-                </button>
             </div>
         </form>
     );
