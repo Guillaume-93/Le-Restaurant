@@ -73,7 +73,7 @@ export default function ImageUpload({ sectionName, index, imageUrl, onImageChang
                             <span>Changer d&apos;image</span>
                             <input id={`file-upload-${imageIndex !== undefined ? imageIndex : index}`} name={`file-upload-${imageIndex !== undefined ? imageIndex : index}`} type="file" className="sr-only" onChange={handleImageChange} />
                         </label>
-                        <p className="pl-1">ou glisser déposer</p>
+                        {/* <p className="pl-1">ou glisser déposer</p> */}
                     </div>
                     <p className="text-xs leading-5 text-gray-600">PNG, JPG, WEBP jusqu&apos;à 10MB</p>
                 </div>

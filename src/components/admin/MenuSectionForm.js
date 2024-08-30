@@ -84,10 +84,55 @@ export default function MenuSectionForm({
         }
     };
 
-    const addItem = () => {
+    const addItem = async () => {
         const newItem = normalizeItem(sectionName);
-        setMenuData([newItem, ...menuData]); // Insère le nouvel élément au début du tableau
-    };    
+    
+        try {
+            // Récupérer la liste actuelle des éléments dans Firestore
+            const res = await fetch(`/api/menu-data?page=${sectionPageMap[sectionName]}`, {
+                method: 'GET',
+                credentials: 'include',
+            });
+    
+            if (!res.ok) {
+                throw new Error('Erreur lors de la récupération des données.');
+            }
+    
+            const existingData = await res.json();
+    
+            // Assurer que `existingData` est bien un tableau
+            const existingItems = Array.isArray(existingData) ? existingData : existingData[sectionPageMap[sectionName]] || [];
+    
+            // Vérifier que existingItems est un tableau
+            if (!Array.isArray(existingItems)) {
+                throw new Error('Les données existantes ne sont pas au format attendu.');
+            }
+    
+            // Ajouter le nouvel élément au tableau
+            const updatedItems = [newItem, ...existingItems];
+    
+            // Envoyer le tableau mis à jour directement à Firestore sans ajouter de clé supplémentaire
+            const saveRes = await fetch(`/api/menu-data?page=${sectionPageMap[sectionName]}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(updatedItems), // Envoyer le tableau directement sans encapsulation dans un objet
+            });
+    
+            if (saveRes.ok) {
+                setMenuData(updatedItems); // Mettre à jour l'état local avec les données mises à jour
+                toast.success('Élément ajouté avec succès !');
+            } else {
+                throw new Error('Échec de l\'ajout de l\'élément.');
+            }
+        } catch (error) {
+            console.error('Erreur lors de l\'ajout de l\'élément:', error);
+            toast.error('Erreur lors de l\'ajout de l\'élément.');
+        }
+    };
+    
 
     const handleRemoveItem = (index) => {
         if (sectionName === 'heroSection') {
@@ -127,17 +172,17 @@ export default function MenuSectionForm({
 
     const handleInputChange = (e, field, index = null) => {
         const value = e.target.value;
-    
+
         setMenuData(prevData => {
             const updatedSection = [...menuData];
-    
+
             if (index !== null) {
                 // Vérifier si le champ est imbriqué, comme category.title
                 if (field.includes('.')) {
                     const fields = field.split('.');
                     const parentField = fields[0];
                     const childField = fields[1];
-    
+
                     updatedSection[index] = {
                         ...updatedSection[index],
                         [parentField]: {
@@ -157,11 +202,11 @@ export default function MenuSectionForm({
                     [field]: value
                 };
             }
-    
+
             return updatedSection;
         });
     };
-    
+
 
     // Fonction pour ajouter une caractéristique
     const onAddFeature = (sectionName, itemIndex) => {
@@ -283,13 +328,14 @@ export default function MenuSectionForm({
             <div className="space-y-12">
                 <div className="flex flex-col sm:flex-none sm:block border-b border-gray-900/10 pb-12">
                     <div className="flex gap-x-2">
-                        <h2 className="text-xl font-semibold leading-7 text-gray-900">{sectionTitles[sectionName]}</h2>
                         {['dessertsMenu', 'menuCarte', 'wineMenu'].includes(sectionName) && (
+                            // <h2 className="text-xl font-semibold leading-7 text-gray-900">Ajouter {sectionTitles[sectionName]}</h2>
                             <button
                                 onClick={addItem}
                                 type="button"
-                                className="text-indigo-600 hover:text-indigo-500"
+                                className="bg-indigo-600 text-white rounded-md px-2 py-1 hover:bg-indigo-500 flex items-center gap-x-2 ml-2"
                             >
+                                Ajouter un {sectionTitles[sectionName]}
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                 </svg>

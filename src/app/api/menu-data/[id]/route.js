@@ -1,3 +1,4 @@
+// app/api/menu-data/[id]/route.js
 import { getToken } from 'next-auth/jwt';
 import { getFirestore } from 'firebase-admin/firestore';
 import { adminApp } from '../../../../../firebaseAdmin.js';
@@ -29,7 +30,7 @@ export async function DELETE(req) {
 
         const { pathname } = new URL(req.url);
         const itemId = Number(pathname.split('/').pop()); // Conversion de l'ID en nombre
-        console.log('itemId:', itemId);
+        // console.log('itemId:', itemId);
 
         const { searchParams } = new URL(req.url);
         const page = searchParams.get('page');
@@ -46,10 +47,10 @@ export async function DELETE(req) {
         }
 
         const data = docSnap.data();
-        console.log('data:', data);
+        // console.log('data:', data);
 
         const updatedSection = data[pageMap[page]].filter(item => item.id !== itemId);
-        console.log('updatedSection:', updatedSection);
+        // console.log('updatedSection:', updatedSection);
 
         if (updatedSection.length === data[pageMap[page]].length) {
             console.error("L'élément n'a pas été trouvé pour la suppression.");

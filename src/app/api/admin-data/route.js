@@ -8,15 +8,15 @@ const db = getFirestore(adminApp);
 
 export async function GET(req) {
     try {
-        console.log("[API /menu-data] GET request received.");
+        // console.log("[API /menu-data] GET request received.");
         const documentRef = db.collection("menuData").doc("menus");
         const docSnap = await documentRef.get();
 
         if (docSnap.exists()) {
-            console.log("[API /menu-data] Document found:", docSnap.data());
+            // console.log("[API /menu-data] Document found:", docSnap.data());
             return new Response(JSON.stringify(docSnap.data()), { status: 200 });
         } else {
-            console.log("[API /menu-data] Document not found.");
+            // console.log("[API /menu-data] Document not found.");
             return new Response(JSON.stringify({ message: "Document non trouvé" }), { status: 404 });
         }
     } catch (error) {

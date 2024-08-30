@@ -24,7 +24,7 @@ export const authOptions = {
                 try {
                     const userCredential = await signInWithCredential(auth, credential);
                     const firebaseUid = userCredential.user.uid;
-                    console.log("[authOptions] Firebase UID récupéré :", firebaseUid);
+                    // console.log("[authOptions] Firebase UID récupéré :", firebaseUid);
 
                     const userDocRef = doc(db, "users", firebaseUid);
                     const userDocSnap = await getDoc(userDocRef);
@@ -32,7 +32,7 @@ export const authOptions = {
                     if (userDocSnap.exists()) {
                         token.firebaseUid = firebaseUid;
                         token.role = userDocSnap.data().role || 'user';
-                        console.log("[authOptions] Rôle utilisateur assigné :", token.role);
+                        // console.log("[authOptions] Rôle utilisateur assigné :", token.role);
                     } else {
                         console.error("[authOptions] Document utilisateur non trouvé dans Firestore");
                         return false;
@@ -47,7 +47,7 @@ export const authOptions = {
         async session({ session, token }) {
             session.user.firebaseUid = token.firebaseUid;
             session.user.role = token.role;
-            console.log("[authOptions] Session utilisateur configurée :", session.user);
+            // console.log("[authOptions] Session utilisateur configurée :", session.user);
             return session;
         },
     },
@@ -59,12 +59,12 @@ export const authOptions = {
 };
 
 export const getAuthSession = async (context) => {
-    console.log("[getAuthSession] Récupération de la session utilisateur...");
+    // console.log("[getAuthSession] Récupération de la session utilisateur...");
     return await getServerSession(context, authOptions);
 };
 
 export const isAuthenticated = async (context) => {
     const session = await getAuthSession(context);
-    console.log("[isAuthenticated] Vérification de l'authentification. Rôle :", session?.user?.role);
+    // console.log("[isAuthenticated] Vérification de l'authentification. Rôle :", session?.user?.role);
     return session && session.user && session.user.role === 'admin';
 };

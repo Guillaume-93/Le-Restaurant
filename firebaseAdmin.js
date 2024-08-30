@@ -23,7 +23,7 @@ export const adminAuth = getAuth(adminApp);
 export const adminDb = getFirestore(adminApp);
 export const storage = getStorage(adminApp);
 
-console.log("[firebaseAdmin.js] Bucket de stockage configuré :", process.env.FIREBASE_STORAGE_BUCKET);
-console.log("[firebaseAdmin.js] Storage :", storage);
+// console.log("[firebaseAdmin.js] Bucket de stockage configuré :", process.env.FIREBASE_STORAGE_BUCKET);
+// console.log("[firebaseAdmin.js] Storage :", storage);
 
 export { adminApp };

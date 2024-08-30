@@ -27,6 +27,6 @@ const firebaseConfig = {
     measurementId: process.env.FIREBASE_MEASUREMENT_ID
 };
 
-console.log("Firebase Config in firebaseConfig.js:", firebaseConfig);
+// console.log("Firebase Config in firebaseConfig.js:", firebaseConfig);
 
 export default firebaseConfig;

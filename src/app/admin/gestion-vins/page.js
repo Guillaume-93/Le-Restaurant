@@ -73,9 +73,9 @@ export default function WineMenuPage() {
 
     return (
         <AdminLayout>
-            <header className="py-10">
+            {/* <header className="py-10">
                 <h1 className="text-3xl font-bold">Gestion des Vins</h1>
-            </header>
+            </header> */}
             <main>
                 <MenuSectionForm
                     sectionData={menuData}

@@ -71,9 +71,9 @@ export default function MenuCartePage() {
 
     return (
         <AdminLayout>
-            <header className="py-10">
+            {/* <header className="py-10">
                 <h1 className="text-3xl font-bold">Gestion des Plats</h1>
-            </header>
+            </header> */}
             <main>
                 <MenuSectionForm
                     sectionData={menuData}

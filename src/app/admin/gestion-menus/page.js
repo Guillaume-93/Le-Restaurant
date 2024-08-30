@@ -73,9 +73,9 @@ export default function MenusPricesPage() {
 
     return (
         <AdminLayout>
-            <header className="py-10">
+            {/* <header className="py-10">
                 <h1 className="text-3xl font-bold">Gestion des Menus et Prix</h1>
-            </header>
+            </header> */}
             <main>
                 <MenuSectionForm
                     sectionData={menuData}
