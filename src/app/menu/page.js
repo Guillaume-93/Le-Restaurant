@@ -118,13 +118,39 @@ export default function Menu() {
                                     <span className="text-4xl font-bold tracking-tight text-slate-900">{menu.price}</span>
                                 </p>
                                 <ul role="list" className="mt-8 space-y-3 text-sm leading-6 text-slate-600">
-                                    {menu.features && menu.features.map((feature) => (
-                                        <li key={feature} className="flex gap-x-3">
+                                    {menu.features && menu.features.map((feature, idx) => (
+                                        <li key={idx} className="flex gap-x-3">
                                             <CheckIcon aria-hidden="true" className="h-6 w-5 flex-none text-[#112E34]" />
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
+                                
+                                {/* Afficher les données de Plat du Jour */}
+                                {menu.platDuJour && (
+                                    <>
+                                        <p className="mt-4 text-sm font-bold leading-6 text-slate-900">Plat du jour:</p>
+                                        <p className="mt-1 text-sm leading-6 text-slate-600">{menu.platDuJour}</p>
+                                    </>
+                                )}
+                                {menu.poissonDuJour && (
+                                    <>
+                                        <p className="mt-4 text-sm font-bold leading-6 text-slate-900">Poisson du jour:</p>
+                                        <p className="mt-1 text-sm leading-6 text-slate-600">{menu.poissonDuJour}</p>
+                                    </>
+                                )}
+                                {menu.accompagnements && (
+                                    <>
+                                        <p className="mt-4 text-sm font-bold leading-6 text-slate-900">Accompagnements:</p>
+                                        <p className="mt-1 text-sm leading-6 text-slate-600">{menu.accompagnements}</p>
+                                    </>
+                                )}
+                                {menu.desserts && (
+                                    <>
+                                        <p className="mt-4 text-sm font-bold leading-6 text-slate-900">Desserts:</p>
+                                        <p className="mt-1 text-sm leading-6 text-slate-600">{menu.desserts}</p>
+                                    </>
+                                )}
                             </div>
                             <Link
                                 href={menu.href}

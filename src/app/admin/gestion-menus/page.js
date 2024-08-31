@@ -19,6 +19,10 @@ const normalizeMenusPricesItem = (item) => ({
     description: item.description || '',
     features: Array.isArray(item.features) ? item.features : [],
     mostPopular: item.mostPopular || false,
+    platDuJour: item.platDuJour || '',
+    poissonDuJour: item.poissonDuJour || '',
+    accompagnements: item.accompagnements || '',
+    desserts: item.desserts || '',
 });
 
 export default function MenusPricesPage() {

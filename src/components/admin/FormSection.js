@@ -48,7 +48,7 @@ export default function FormSection({
                             id={`subtitle-${index}`}
                             value={item.subtitle}
                             onChange={(e) => onInputChange(e, 'subtitle')}
-                            rows={4} 
+                            rows={4}
                             className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                         {/* <div className="mb-1 flex items-center mt-4 gap-x-2">
                             <label htmlFor={`buttonText1-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Texte du Bouton 1</label>
@@ -193,6 +193,66 @@ export default function FormSection({
                                 onChange={(e) => onInputChange(e, 'price', index)}
                                 className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
+                        </>
+                    )}
+                                        {item.infos && (
+                        <>
+                            {'platDuJour' in item && (
+                                <>
+                                    <div className="mb-1 flex items-center mt-4 gap-x-2">
+                                        <label htmlFor={`platDuJour-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Plat du Jour</label>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        id={`platDuJour-${index}`}
+                                        value={item.platDuJour}
+                                        onChange={(e) => onInputChange(e, 'platDuJour', index)}
+                                        className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    />
+                                </>
+                            )}
+                            {'poissonDuJour' in item && (
+                                <>
+                                    <div className="mb-1 flex items-center mt-4 gap-x-2">
+                                        <label htmlFor={`poissonDuJour-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Poisson du Jour</label>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        id={`poissonDuJour-${index}`}
+                                        value={item.poissonDuJour}
+                                        onChange={(e) => onInputChange(e, 'poissonDuJour', index)}
+                                        className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    />
+                                </>
+                            )}
+                            {'accompagnements' in item && (
+                                <>
+                                    <div className="mb-1 flex items-center mt-4 gap-x-2">
+                                        <label htmlFor={`accompagnements-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Accompagnements</label>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        id={`accompagnements-${index}`}
+                                        value={item.accompagnements}
+                                        onChange={(e) => onInputChange(e, 'accompagnements', index)}
+                                        className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    />
+                                </>
+                            )}
+                            {'desserts' in item && (
+                                <>
+                                    <div className="mb-1 flex items-center mt-4 gap-x-2">
+                                        <label htmlFor={`desserts-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Desserts</label>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        id={`desserts-${index}`}
+                                        value={item.desserts}
+                                        onChange={(e) => onInputChange(e, 'desserts', index)}
+                                        className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    />
+                                </>
+                            )}
                         </>
                     )}
                     {sectionName === 'menusPrices' && (

@@ -2,41 +2,51 @@
 
 import { CheckIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import Loader from '@/components/Loader/Loader.js';
+import { useState, useEffect } from 'react';
+import Loader from '@/components/Loader/LoaderFull.js';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
 }
 
-export default function MenuPrices() {
-    const [menuData, setMenuData] = useState(null);
+export default function MenuPrices() { // Renommé pour être spécifique
     const [loading, setLoading] = useState(true);
+    const [menuData, setMenuData] = useState(null);
     const [error, setError] = useState(null);
 
+    const fetchMenuData = async (page) => {
+        try {
+            const response = await fetch(`/api/menu-data?page=${page}`, {
+                method: 'GET',
+            });
+            if (!response.ok) {
+                throw new Error(`Failed to fetch menu data for ${page}: ${response.statusText}`);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error(`Error loading ${page} data:`, error);
+            setError(`Failed to load ${page} data.`);
+            return null;
+        }
+    };
+
     useEffect(() => {
-        async function fetchMenuPrices() {
-            try {
-                const response = await fetch('/api/menu-data?page=gestion-menus', {
-                    method: 'GET',
-                    credentials: 'include'
+        const loadData = async () => {
+            const menusPricesData = await fetchMenuData('gestion-menus');
+
+            if (menusPricesData) {
+                setMenuData({
+                    menusPrices: menusPricesData,
                 });
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch menu prices data');
-                }
-
-                const data = await response.json();
-                setMenuData(data);
                 setLoading(false);
-            } catch (error) {
-                console.error('Error loading menu prices data:', error);
-                setError('Error loading menu prices data.');
+            } else {
+                setError('Failed to load menu prices data.');
                 setLoading(false);
             }
-        }
+        };
 
-        fetchMenuPrices();
+        loadData();
     }, []);
 
     if (loading) {
@@ -47,12 +57,13 @@ export default function MenuPrices() {
         return <div>{error}</div>;
     }
 
-    if (!menuData || !Array.isArray(menuData)) {
-        return <div>Error loading menu data.</div>;
+    if (!menuData) {
+        return <div>No menu data available</div>;
     }
 
     return (
-        <div className="py-24 sm:py-32 mt-32">
+        <div className="py-24 sm:py-32">
+            {/* Menus Prices */}
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-4xl text-center">
                     <h2 className="text-base font-semibold leading-7 text-[#112E34]">Nos Menus</h2>
@@ -64,13 +75,13 @@ export default function MenuPrices() {
                     Que vous soyez de passage pour un déjeuner rapide ou pour une soirée gourmande, nous avons un menu qui répondra à vos attentes.
                 </p>
                 <div className="isolate mx-auto mt-16 grid max-w-md grid-cols-1 gap-y-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                    {menuData.map((menu, menuIdx) => (
+                    {menuData.menusPrices && menuData.menusPrices.map((menu, menuIdx) => (
                         <div
                             key={menu.id}
                             className={classNames(
                                 menu.mostPopular ? 'lg:z-10 lg:rounded-b-none' : 'lg:mt-20',
                                 menuIdx === 0 ? 'lg:rounded-r-none' : '',
-                                menuIdx === menuData.length - 1 ? 'lg:rounded-l-none' : '',
+                                menuIdx === menuData.menusPrices.length - 1 ? 'lg:rounded-l-none' : '',
                                 'flex flex-col justify-between rounded-3xl bg-white p-8 ring-1 ring-slate-200 xl:p-10',
                             )}
                         >
@@ -101,13 +112,39 @@ export default function MenuPrices() {
                                     <span className="text-4xl font-bold tracking-tight text-slate-900">{menu.price}</span>
                                 </p>
                                 <ul role="list" className="mt-8 space-y-3 text-sm leading-6 text-slate-600">
-                                    {menu.features && menu.features.map((feature) => (
-                                        <li key={feature} className="flex gap-x-3">
+                                    {menu.features && menu.features.map((feature, idx) => (
+                                        <li key={idx} className="flex gap-x-3">
                                             <CheckIcon aria-hidden="true" className="h-6 w-5 flex-none text-[#112E34]" />
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
+                                
+                                {/* Afficher les données de Plat du Jour */}
+                                {menu.platDuJour && (
+                                    <>
+                                        <p className="mt-4 text-sm font-bold leading-6 text-slate-900">Plat du jour:</p>
+                                        <p className="mt-1 text-sm leading-6 text-slate-600">{menu.platDuJour}</p>
+                                    </>
+                                )}
+                                {menu.poissonDuJour && (
+                                    <>
+                                        <p className="mt-4 text-sm font-bold leading-6 text-slate-900">Poisson du jour:</p>
+                                        <p className="mt-1 text-sm leading-6 text-slate-600">{menu.poissonDuJour}</p>
+                                    </>
+                                )}
+                                {menu.accompagnements && (
+                                    <>
+                                        <p className="mt-4 text-sm font-bold leading-6 text-slate-900">Accompagnements:</p>
+                                        <p className="mt-1 text-sm leading-6 text-slate-600">{menu.accompagnements}</p>
+                                    </>
+                                )}
+                                {menu.desserts && (
+                                    <>
+                                        <p className="mt-4 text-sm font-bold leading-6 text-slate-900">Desserts:</p>
+                                        <p className="mt-1 text-sm leading-6 text-slate-600">{menu.desserts}</p>
+                                    </>
+                                )}
                             </div>
                             <Link
                                 href={menu.href}

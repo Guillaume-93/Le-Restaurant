@@ -26,7 +26,16 @@ export async function GET(req) {
         const docSnap = await documentRef.get();
 
         if (docSnap.exists) {
-            const data = docSnap.data()[pageMap[page]] || {};
+            const data = docSnap.data()[pageMap[page]] || [];
+            // Si la page est gestion-menus, ajouter les champs spécifiques
+            if (page === 'gestion-menus') {
+                data.forEach(menu => {
+                    menu.platDuJour = menu.platDuJour || '';
+                    menu.poissonDuJour = menu.poissonDuJour || '';
+                    menu.accompagnements = menu.accompagnements || '';
+                    menu.desserts = menu.desserts || '';
+                });
+            }
             return new Response(JSON.stringify(data), { status: 200 });
         } else {
             return new Response(JSON.stringify({ message: `Document not found for page: ${page}` }), { status: 404 });
@@ -45,7 +54,6 @@ export async function POST(req) {
     }
 
     try {
-        // Vérifier le rôle de l'utilisateur dans Firestore
         const userDocRef = db.collection('users').doc(token.firebaseUid);
         const userDocSnap = await userDocRef.get();
 
@@ -60,11 +68,21 @@ export async function POST(req) {
             return new Response(JSON.stringify({ message: "Paramètre de page invalide ou manquant" }), { status: 400 });
         }
 
-        const documentRef = db.collection('menuData').doc('menus');
         const updatedData = await req.json();
 
+        // Validation et formatage des données pour gestion-menus
+        if (page === 'gestion-menus') {
+            updatedData.forEach(menu => {
+                menu.platDuJour = menu.platDuJour || '';
+                menu.poissonDuJour = menu.poissonDuJour || '';
+                menu.accompagnements = menu.accompagnements || '';
+                menu.desserts = menu.desserts || '';
+            });
+        }
+
+        const documentRef = db.collection('menuData').doc('menus');
         await documentRef.set(
-            { [pageMap[page]]: updatedData }, 
+            { [pageMap[page]]: updatedData },
             { merge: true }
         );
 
