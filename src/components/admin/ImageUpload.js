@@ -1,13 +1,19 @@
+// src/components/admin/ImageUpload.js
 "use client";
 
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import Loader from '@/components/Loader/Loader';
 
 export default function ImageUpload({ sectionName, index, imageUrl, onImageChange, imageIndex }) {
     const [temporaryImage, setTemporaryImage] = useState(imageUrl);
+    const [loading, setLoading] = useState(true); // Ajouter un état pour le chargement
 
     useEffect(() => {
-        setTemporaryImage(imageUrl);
+        if (imageUrl) {
+            setTemporaryImage(imageUrl);
+            setLoading(false); // Arrêter le chargement une fois que l'image est définie
+        }
     }, [imageUrl]);
 
     const handleImageChange = async (e) => {
@@ -18,14 +24,16 @@ export default function ImageUpload({ sectionName, index, imageUrl, onImageChang
                 toast.error('Seuls les fichiers PNG, JPG, WEBP, HEIC et HEIF sont acceptés.');
                 return;
             }
-    
+
             if (file.size > 10 * 1024 * 1024) {
                 toast.error('La taille du fichier doit être inférieure à 10MB.');
                 return;
             }
-    
+
+            setLoading(true); // Démarrer le chargement pendant le téléchargement de l'image
+
             let convertedFile = file;
-    
+
             if (file.type === 'image/heic' || file.type === 'image/heif') {
                 if (typeof window !== 'undefined') {
                     const heic2any = (await import("heic2any")).default;
@@ -38,33 +46,39 @@ export default function ImageUpload({ sectionName, index, imageUrl, onImageChang
                     } catch (error) {
                         console.error('Erreur lors de la conversion HEIC/HEIF:', error);
                         toast.error('Erreur lors de la conversion de l\'image. Veuillez réessayer.');
+                        setLoading(false);
                         return;
                     }
                 }
             }
-    
+
             const newImageUrl = URL.createObjectURL(convertedFile);
             setTemporaryImage(newImageUrl);
-    
             await onImageChange(convertedFile, index, sectionName, imageIndex);
+            setLoading(false); // Arrêter le chargement une fois que l'image est téléchargée
         }
     };
-    
 
     return (
         <div className="col-span-full">
             <div className={`mb-1 flex items-center mt-1`}>
-                <label htmlFor={`cover-photo-${imageIndex !== undefined ? imageIndex : index}`} className={`block text-sm font-medium leading-6 text-gray-900 ${sectionName === 'heroSection' ? 'hidden' : ''}`}>
+                <label htmlFor={`cover-photo-${imageIndex !== undefined ? imageIndex : index}`} className={`block text-sm font-medium leading-6 text-gray-900 ${sectionName === 'heroSection', 'carousel' ? 'hidden' : ''}`}>
                     Image
                 </label>
             </div>
             <div className={`flex justify-center rounded-lg border border-dashed border-gray-900/25 ${sectionName === 'heroSection' ? 'py-2' : 'px-6 py-10'}`}>
                 <div className="text-center">
-                    <img
-                        src={temporaryImage}
-                        alt={`Current ${imageIndex !== undefined ? imageIndex + 1 : ''}`}
-                        className={`mx-auto  rounded-md object-cover shadow-default ${sectionName === 'heroSection' ? 'h-20 w-20' : 'h-52 w-52'}`}
-                    />
+                    {loading ? (
+                        <div className={`mx-auto  rounded-md object-cover shadow-default ${sectionName === 'heroSection' ? 'h-20 w-20' : 'h-52 w-52'}`}>
+                            <Loader />
+                        </div>
+                    ) : (
+                        <img
+                            src={temporaryImage}
+                            alt={`Current ${imageIndex !== undefined ? imageIndex + 1 : ''}`}
+                            className={`mx-auto  rounded-md object-cover shadow-default ${sectionName === 'heroSection' ? 'h-20 w-20' : 'h-52 w-52'}`}
+                        />
+                    )}
                     <div className="mt-4 flex flex-col text-sm leading-6 text-gray-600">
                         <label
                             htmlFor={`file-upload-${imageIndex !== undefined ? imageIndex : index}`}
@@ -73,7 +87,6 @@ export default function ImageUpload({ sectionName, index, imageUrl, onImageChang
                             <span>Changer d&apos;image</span>
                             <input id={`file-upload-${imageIndex !== undefined ? imageIndex : index}`} name={`file-upload-${imageIndex !== undefined ? imageIndex : index}`} type="file" className="sr-only" onChange={handleImageChange} />
                         </label>
-                        {/* <p className="pl-1">ou glisser déposer</p> */}
                     </div>
                     <p className="text-xs leading-5 text-gray-600">PNG, JPG, WEBP jusqu&apos;à 10MB</p>
                 </div>

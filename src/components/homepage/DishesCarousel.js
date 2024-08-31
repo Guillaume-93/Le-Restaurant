@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "../ui/card.jsx";
 import {
     Carousel,
@@ -9,77 +9,58 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "../ui/carousel.jsx";
-
-const dishes = [
-    {
-        name: "illustration plât",
-        imageUrl: "/images/dalle-1.webp",
-    },
-    {
-        name: "illustration repas autour d'une table",
-        imageUrl: "/images/dalle-2.webp",
-    },
-    {
-        name: "illustration table de restaurant décorée",
-        imageUrl: "/images/dalle-3.webp",
-    },
-    {
-        name: "illustration d'amuses bouches",
-        imageUrl: "/images/dalle-4.webp",
-    },
-    {
-        name: "illustration d'une ambiance tamisée",
-        imageUrl: "/images/dalle-5.webp",
-    },
-    {
-        name: "illustration d'une table décorée pour une occasion spéciale",
-        imageUrl: "/images/dalle-6.webp",
-    },
-    {
-        name: "illustration d'une Quiche Lorraine",
-        imageUrl: "/images/menus/plats/quiche-lorraine.webp",
-    },
-    {
-        name: "illustration d'une Sole Meunière",
-        imageUrl: "/images/menus/plats/sole-meuniere.webp",
-    },
-    {
-        name: "illustration d'une Tarte Tatin",
-        imageUrl: "/images/menus/desserts/tarte-tatin.webp",
-    }
-];
+import { NavArrowLeft, NavArrowRight } from 'iconoir-react';
 
 const DishesCarousel = () => {
+    const [dishes, setDishes] = useState([]);
+
+    useEffect(() => {
+        const fetchDishes = async () => {
+            try {
+                const res = await fetch('/api/carousel-data');
+                const data = await res.json();
+                setDishes(data);
+            } catch (error) {
+                console.error("Error loading carousel data:", error);
+            }
+        };
+
+        fetchDishes();
+    }, []);
+
     return (
-        <Carousel
-            className="mt-20"
-            opts={{
-                align: "start",
-                loop: true,
-            }}
-        >
-            <CarouselContent>
-                {dishes.map((dish, index) => (
-                    <CarouselItem key={index} className="sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
-                        <div className="">
-                            <Card className="w-full h-full relative rounded-full">
-                                <CardContent className="flex items-center justify-center p-0">
-                                    <img
-                                        className="object-cover w-full h-full rounded-full shadow-default"
-                                        src={dish.imageUrl}
-                                        alt={dish.name}
-                                    />
-                                </CardContent>
-                            </Card>
-                        </div>
-                    </CarouselItem>
-                ))}
-            </CarouselContent>
-            <div className="flex justify-center mt-4">
-                <CarouselPrevious />
-                <CarouselNext />
-            </div>
-        </Carousel>
+        <div className="relative mt-20">
+            <Carousel
+                className="relative"
+                opts={{
+                    align: "start",
+                    loop: true,
+                }}
+            >
+                <CarouselContent>
+                    {dishes.map((dish) => (
+                        <CarouselItem key={dish.id} className="sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+                            <div className="relative">
+                                <Card className="w-full h-full relative rounded-full">
+                                    <CardContent className="flex items-center justify-center p-0">
+                                        <img
+                                            className="object-cover w-full h-full rounded-full shadow-default"
+                                            src={dish.imageUrl1}
+                                            alt={dish.name}
+                                        />
+                                    </CardContent>
+                                </Card>
+                            </div>
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+                {/* Les icônes de navigation positionnées au-dessus du conteneur du carousel */}
+                <div className="absolute inset-0 flex items-center justify-between px-2">
+                    <CarouselPrevious className="bg-black bg-opacity-50 text-white p-2 rounded-full opacity-75 hover:opacity-100" />
+                    <CarouselNext className="bg-black bg-opacity-50 text-white p-2 rounded-full opacity-75 hover:opacity-100" />
+                </div>
+            </Carousel>
+        </div>
     );
 };
 

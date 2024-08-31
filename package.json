@@ -24,6 +24,7 @@
     "formidable": "^3.5.1",
     "framer-motion": "^11.3.24",
     "heic2any": "^0.0.4",
+    "iconoir-react": "^7.8.0",
     "lucide-react": "^0.424.0",
     "next-auth": "^4.24.7",
     "react": "^18",

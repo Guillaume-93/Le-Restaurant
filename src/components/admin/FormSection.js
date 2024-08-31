@@ -15,7 +15,7 @@ export default function FormSection({
     onChangeFeature
 }) {
     return (
-        <div key={item.id || index} className={`relative  ring-1 ring-slate-300 p-4 rounded-lg shadow-default ${sectionName === 'heroSection' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 col-span-full gap-x-4' : 'sm:col-span-3 md:col-span-3 lg:col-span-2 flex flex-col sm:flex-none sm:block'}`}>
+        <div key={item.id || index} className={`relative  ring-1 ring-slate-300 p-4 rounded-lg shadow-default ${sectionName === 'heroSection' ? 'grid grid-cols-1  lg:grid-cols-3 col-span-full gap-x-4' : 'sm:col-span-3 md:col-span-3 lg:col-span-2 flex flex-col sm:flex-none sm:block'}`}>
             {(sectionName !== 'menusPrices' && sectionName !== 'heroSection') && (
                 <button
                     type="button"
@@ -34,39 +34,50 @@ export default function FormSection({
                     <div className='col-span-1'>
                         <div className="mb-1 flex items-center gap-x-2">
                             <label htmlFor={`title-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Titre</label>
-                        </div><input
+                        </div>
+                        <input
                             type="text"
                             id={`title-${index}`}
                             value={item.title}
                             onChange={(e) => onInputChange(e, 'title')}
-                            className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" /><div className="mb-1 flex items-center mt-4 gap-x-2">
+                            className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                        <div className="mb-1 flex items-center mt-4 gap-x-2">
                             <label htmlFor={`subtitle-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Sous-titre</label>
-                        </div><textarea
+                        </div>
+                        <textarea
                             id={`subtitle-${index}`}
                             value={item.subtitle}
                             onChange={(e) => onInputChange(e, 'subtitle')}
-                            className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" /><div className="mb-1 flex items-center mt-4 gap-x-2">
+                            rows={4} 
+                            className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                        {/* <div className="mb-1 flex items-center mt-4 gap-x-2">
                             <label htmlFor={`buttonText1-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Texte du Bouton 1</label>
-                        </div><input
+                        </div>
+                        <input
                             type="text"
                             id={`buttonText1-${index}`}
                             value={item.buttonText1}
                             onChange={(e) => onInputChange(e, 'buttonText1')}
-                            className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" /><div className="mb-1 flex items-center mt-4 gap-x-2">
+                            className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                        <div className="mb-1 flex items-center mt-4 gap-x-2">
                             <label htmlFor={`buttonLink1-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Lien du Bouton 1</label>
-                        </div><input
+                        </div>
+                        <input
                             type="text"
                             id={`buttonLink1-${index}`}
                             value={item.buttonLink1}
                             onChange={(e) => onInputChange(e, 'buttonLink1')}
-                            className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" /><div className="mb-1 flex items-center mt-4 gap-x-2">
+                            className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                        <div className="mb-1 flex items-center mt-4 gap-x-2">
                             <label htmlFor={`buttonText2-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Texte du Bouton 2</label>
-                        </div><input
+                        </div>
+                        <input
                             type="text"
                             id={`buttonText2-${index}`}
                             value={item.buttonText2}
                             onChange={(e) => onInputChange(e, 'buttonText2')}
-                            className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" /><div className="mb-1 flex items-center mt-4 gap-x-2">
+                            className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                        <div className="mb-1 flex items-center mt-4 gap-x-2">
                             <label htmlFor={`buttonLink2-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Lien du Bouton 2</label>
                         </div>
                         <input
@@ -74,7 +85,7 @@ export default function FormSection({
                             id={`buttonLink2-${index}`}
                             value={item.buttonLink2}
                             onChange={(e) => onInputChange(e, 'buttonLink2')}
-                            className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                            className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" /> */}
                     </div>
                     <div className="mt-6 sm:mt-0 col-span-1 lg:col-span-2">
                         <label className="block text-sm font-medium text-gray-700">Images</label>
@@ -136,7 +147,7 @@ export default function FormSection({
                             />
                         </>
                     )}
-                                        {sectionName === 'wineMenu' && (
+                    {sectionName === 'wineMenu' && (
                         <>
                             <div className="mb-1 flex items-center mt-4 gap-x-2">
                                 <label htmlFor={`year-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Année</label>

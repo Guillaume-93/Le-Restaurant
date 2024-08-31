@@ -1,6 +1,7 @@
 "use client";
 
-import { BoltIcon, CalendarDaysIcon, UsersIcon } from "@heroicons/react/24/outline";
+import { Bbq } from 'iconoir-react';
+import { CalendarDaysIcon, UsersIcon } from "@heroicons/react/24/outline";
 
 const primaryFeatures = [
   {
@@ -8,7 +9,7 @@ const primaryFeatures = [
     description:
       "Découvrez une cuisine française authentique avec une touche moderne, préparée avec des ingrédients frais et de qualité.",
     href: "#",
-    icon: BoltIcon,
+    icon: Bbq,
   },
   {
     name: "Ambiance conviviale",

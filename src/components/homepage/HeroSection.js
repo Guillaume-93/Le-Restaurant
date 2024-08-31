@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import Loader from '../Loader/Loader.js';
+import Loader from '@/components/Loader/LoaderFull.js';
 
 export default function HeroSection() {
     const [heroData, setHeroData] = useState(null);

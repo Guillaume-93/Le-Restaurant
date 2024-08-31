@@ -7,10 +7,10 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import Loader from '@/components/Loader/Loader';
+import Loader from '@/components/Loader/LoaderFull.js';
 import { signOut } from 'next-auth/react';
 
-export default function HeroSectionPage() {
+export default function HomePage() {
     const { data: session, status } = useSession();
     const router = useRouter();
     const [menuData, setMenuData] = useState({
@@ -27,6 +27,11 @@ export default function HeroSectionPage() {
             { src: "", alt: "" },
             { src: "", alt: "" }
         ],
+        features: [ // Les fonctionnalités existantes
+            { id: 1, name: "Cuisine raffinée", description: "Découvrez une cuisine française authentique...", href: "#", icon: "BoltIcon" },
+            { id: 2, name: "Ambiance conviviale", description: "Un cadre chaleureux et élégant...", href: "#", icon: "UsersIcon" },
+            { id: 3, name: "Événements spéciaux", description: "Organisez vos événements spéciaux...", href: "#", icon: "CalendarDaysIcon" }
+        ]
     });
 
     useEffect(() => {

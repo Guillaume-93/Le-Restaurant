@@ -1,10 +1,10 @@
 import './Loader.css';
 
-export default function Loader() {
+export default function Loader({ inline }) {
     return (
-        <button className="loader__btn">
-            <div className="loader"></div>
-            Loading ...
-        </button>
+        <div className={`loader__container ${inline ? 'loader__inline' : ''}`}>
+            <div className="loader className={`mx-auto  rounded-md object-cover shadow-default ${sectionName === 'heroSection' ? 'h-20 w-20' : 'h-52 w-52'}`}"></div>
+            {!inline && "Loading..."}
+        </div>
     );
 }

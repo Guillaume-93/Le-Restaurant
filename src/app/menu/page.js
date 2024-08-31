@@ -3,7 +3,7 @@
 import { CheckIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import Loader from '@/components/Loader/Loader.js';
+import Loader from '@/components/Loader/LoaderFull.js';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');

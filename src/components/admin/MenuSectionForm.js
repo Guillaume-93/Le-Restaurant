@@ -86,31 +86,31 @@ export default function MenuSectionForm({
 
     const addItem = async () => {
         const newItem = normalizeItem(sectionName);
-    
+
         try {
             // Récupérer la liste actuelle des éléments dans Firestore
             const res = await fetch(`/api/menu-data?page=${sectionPageMap[sectionName]}`, {
                 method: 'GET',
                 credentials: 'include',
             });
-    
+
             if (!res.ok) {
                 throw new Error('Erreur lors de la récupération des données.');
             }
-    
+
             const existingData = await res.json();
-    
+
             // Assurer que `existingData` est bien un tableau
             const existingItems = Array.isArray(existingData) ? existingData : existingData[sectionPageMap[sectionName]] || [];
-    
+
             // Vérifier que existingItems est un tableau
             if (!Array.isArray(existingItems)) {
                 throw new Error('Les données existantes ne sont pas au format attendu.');
             }
-    
+
             // Ajouter le nouvel élément au tableau
             const updatedItems = [newItem, ...existingItems];
-    
+
             // Envoyer le tableau mis à jour directement à Firestore sans ajouter de clé supplémentaire
             const saveRes = await fetch(`/api/menu-data?page=${sectionPageMap[sectionName]}`, {
                 method: 'POST',
@@ -120,7 +120,7 @@ export default function MenuSectionForm({
                 credentials: 'include',
                 body: JSON.stringify(updatedItems), // Envoyer le tableau directement sans encapsulation dans un objet
             });
-    
+
             if (saveRes.ok) {
                 setMenuData(updatedItems); // Mettre à jour l'état local avec les données mises à jour
                 toast.success('Élément ajouté avec succès !');
@@ -132,7 +132,7 @@ export default function MenuSectionForm({
             toast.error('Erreur lors de l\'ajout de l\'élément.');
         }
     };
-    
+
 
     const handleRemoveItem = (index) => {
         if (sectionName === 'heroSection') {
@@ -246,7 +246,7 @@ export default function MenuSectionForm({
             return updatedSection;
         });
     };
-
+    // fonction pour gérer le changement d'image
     const handleImageChange = async (file, index, sectionName, imageIndex = null) => {
         let convertedFile = file;
 

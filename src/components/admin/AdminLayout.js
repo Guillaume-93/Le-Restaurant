@@ -1,9 +1,8 @@
 // src/components/admin/AdminLayout.js
 "use client";
 
-import AdminHeader from './AdminHeader';
 import { useSession, signOut } from 'next-auth/react';
-import Loader from '@/components/Loader/Loader';
+import Loader from '@/components/Loader/LoaderFull.js';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
@@ -13,17 +12,16 @@ import {
     Bars3Icon, 
     XMarkIcon, 
     HomeIcon,
-    DocumentDuplicateIcon,
-    CakeIcon,
     BeakerIcon,
-    BookOpenIcon,
     IdentificationIcon,
 } from '@heroicons/react/24/outline';
+import { MediaImageList, MultiplePages, HalfCookie, Cutlery } from 'iconoir-react';
 import { usePathname } from 'next/navigation';
 
 const navigation = [
     { name: 'Tableau de bord', href: '/admin' },
     { name: 'Accueil', href: '/admin/gestion-accueil' },
+    { name: 'Carrousel', href: '/admin/gestion-carousel' },
     { name: 'Menus', href: '/admin/gestion-menus' },
     { name: 'Plats', href: '/admin/gestion-plats' },
     { name: 'Desserts', href: '/admin/gestion-desserts' },
@@ -40,9 +38,10 @@ const userNavigation = [
 const sectionNames = {
     '/admin': { title: 'Tableau de bord Administrateur', icon: IdentificationIcon },
     '/admin/gestion-accueil': { title: 'Gestion de la page d\'accueil', icon: HomeIcon },
-    '/admin/gestion-menus': { title: 'Gestion des Menus et Prix', icon: DocumentDuplicateIcon },
-    '/admin/gestion-plats': { title: 'Gestion des Plats', icon: BookOpenIcon },
-    '/admin/gestion-desserts': { title: 'Gestion des Desserts', icon: CakeIcon },
+    '/admin/gestion-carousel': { title: 'Gestion du Carrousel', icon: MediaImageList },
+    '/admin/gestion-menus': { title: 'Gestion des Menus et Prix', icon: MultiplePages },
+    '/admin/gestion-plats': { title: 'Gestion des Plats', icon: Cutlery },
+    '/admin/gestion-desserts': { title: 'Gestion des Desserts', icon: HalfCookie },
     '/admin/gestion-vins': { title: 'Gestion des Vins', icon: BeakerIcon },
     // '/admin/gestion-a-propos': { title: 'Gestion de la page À propos', icon: InformationCircleIcon },
     // '/admin/gestion-contact': { title: 'Gestion de la page Contact', icon: PhoneIcon },
@@ -212,17 +211,17 @@ export default function AdminLayout({ children }) {
                     </DisclosurePanel>
                 </Disclosure>
                 <header className="py-10">
-                    <div className="text-white mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center space-x-3">
-                        <Icon className="h-8 w-8 text-white" />
-                        <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
+                    <div className="text-white mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center space-x-3">
+                        <Icon className="h-14 w-auto text-white" />
+                        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-center mt-2 sm:mt-0">{title}</h1>
                     </div>
                 </header>
             </div>
 
             <main className="-mt-32">
-                <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
-                    <div className="rounded-lg bg-white px-5 py-6 shadow sm:px-6">
-                        {children}
+                <div className="mx-auto max-w-7xl pb-12 sm:px-6 lg:px-8">
+                    <div className="sm:rounded-lg bg-white px-1 py-6 shadow sm:px-6">
+                    {status === 'loading' ? <Loader /> : children}
                     </div>
                 </div>
             </main>
