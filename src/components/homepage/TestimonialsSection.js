@@ -1,4 +1,5 @@
 "use client"
+import Image from "next/image.js";
 
 const testimonials = [
     [
@@ -8,7 +9,7 @@ const testimonials = [
                 author: {
                     name: "Raphaël Jimenez",
                     handle: "raphaeljimenez",
-                    imageUrl: "images/avatars/uifaces-popular-image-(1).jpg",
+                    imageUrl: "/images/avatars/uifaces-popular-image-_1_.webp",
                 },
             },
             {
@@ -16,7 +17,7 @@ const testimonials = [
                 author: {
                     name: "Mini Golf",
                     handle: "minigolf",
-                    imageUrl: "images/avatars/uifaces-popular-image-(5).jpg",
+                    imageUrl: "/images/avatars/uifaces-popular-image-_5_.webp",
                 },
             },
             {
@@ -24,7 +25,7 @@ const testimonials = [
                 author: {
                     name: "Esper Saloume",
                     handle: "espersaloume",
-                    imageUrl: "images/avatars/uifaces-popular-image-(10).jpg",
+                    imageUrl: "/images/avatars/uifaces-popular-image-_10_.webp",
                 },
             },
         ],
@@ -34,7 +35,7 @@ const testimonials = [
                 author: {
                     name: "Élise Potier",
                     handle: "elisepotier",
-                    imageUrl: "images/avatars/uifaces-popular-image-(6).jpg",
+                    imageUrl: "/images/avatars/uifaces-popular-image-_6_.webp",
                 },
             },
             {
@@ -42,7 +43,7 @@ const testimonials = [
                 author: {
                     name: "Stéphanie Comedon",
                     handle: "stephaniecomedon",
-                    imageUrl: "images/avatars/uifaces-popular-image-(8).jpg",
+                    imageUrl: "/images/avatars/uifaces-popular-image-_8_.webp",
                 },
             },
         ],
@@ -54,7 +55,7 @@ const testimonials = [
                 author: {
                     name: "Andre",
                     handle: "andrer",
-                    imageUrl: "images/avatars/uifaces-popular-image-(4).jpg",
+                    imageUrl: "/images/avatars/uifaces-popular-image-_4_.webp",
                 },
             },
             {
@@ -62,7 +63,7 @@ const testimonials = [
                 author: {
                     name: "Gérard Papet",
                     handle: "gerardpapet",
-                    imageUrl: "images/avatars/uifaces-popular-image-(7).jpg",
+                    imageUrl: "/images/avatars/uifaces-popular-image-_7_.webp",
                 },
             },
         ],
@@ -72,7 +73,7 @@ const testimonials = [
                 author: {
                     name: "Alain Roset",
                     handle: "alainroset",
-                    imageUrl: "images/avatars/uifaces-popular-image-(9).jpg",
+                    imageUrl: "/images/avatars/uifaces-popular-image-_9_.webp",
                 },
             },
             {
@@ -80,7 +81,7 @@ const testimonials = [
                 author: {
                     name: "Gabriel Drouet",
                     handle: "gabrieldrouet",
-                    imageUrl: "images/avatars/uifaces-popular-image-(2).jpg",
+                    imageUrl: "/images/avatars/uifaces-popular-image-_2_.webp",
                 },
             },
             {
@@ -88,7 +89,7 @@ const testimonials = [
                 author: {
                     name: "Said Bouarich",
                     handle: "saidbouarich",
-                    imageUrl: "images/avatars/uifaces-popular-image-(3).jpg",
+                    imageUrl: "/images/avatars/uifaces-popular-image-_3_.webp",
                 },
             },
         ],
@@ -100,8 +101,7 @@ const featuredTestimonial = {
     author: {
         name: "Brenna Goyette",
         handle: "brennagoyette",
-        imageUrl: "images/avatars/uifaces-popular-image.jpg",
-        logoUrl: "https://tailwindui.com/img/logos/savvycal-logo-slate-900.svg",
+        imageUrl: "/images/avatars/uifaces-popular-image.webp",
     },
 };
 
@@ -113,10 +113,13 @@ const TestimonialsSection = () => {
     return (
         <div className="relative isolate mt-32 sm:pt-32">
             <div className="relative py-20">
-                <img
+                <Image
                 className="absolute inset-0 -z-10 h-full w-full object-cover" 
-                src="images/le-neuilly-pattern-3.png" 
-                alt="" />
+                src="/images/backgrounds/le-neuilly-pattern-3.webp" 
+                alt="" 
+                width={1440}
+                height={400}
+                />
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="mx-auto max-w-xl sm:text-center">
                         <h2 className="text-lg font-semibold leading-8 tracking-tight text-[#112E34]">
@@ -132,10 +135,12 @@ const TestimonialsSection = () => {
                                 <p>{`“${featuredTestimonial.body}”`}</p>
                             </blockquote>
                             <figcaption className="flex items-center gap-x-4 border-t border-slate-900/10 px-6 py-4">
-                                <img
+                                <Image
                                     alt=""
                                     src={featuredTestimonial.author.imageUrl}
                                     className="h-10 w-10 flex-none rounded-full bg-slate-50"
+                                    width={40}
+                                    height={40}
                                 />
                                 <div className="flex-auto">
                                     <div className="font-semibold">{featuredTestimonial.author.name}</div>
@@ -169,10 +174,12 @@ const TestimonialsSection = () => {
                                                     <p>{`“${testimonial.body}”`}</p>
                                                 </blockquote>
                                                 <figcaption className="mt-6 flex items-center gap-x-4">
-                                                    <img
+                                                    <Image
                                                         alt=""
                                                         src={testimonial.author.imageUrl}
                                                         className="h-10 w-10 rounded-full bg-slate-50"
+                                                        width={40}
+                                                        height={40}
                                                     />
                                                     <div>
                                                         <div className="font-semibold">

@@ -6,6 +6,7 @@ import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 const navigation = [
     { name: "Accueil", href: "/" },
@@ -38,10 +39,13 @@ export default function Header() {
                 <div className="flex lg:flex-1">
                     <Link href="/" onClick={() => handleNavigationChange('/')}>
                         <span className="sr-only">Le Neuilly</span>
-                        <img
+                        <Image
                             alt="Image représentant le logo du restaurant Le Neuilly"
-                            src="/images/logos/le-neuilly-canva.png"
+                            src="/images/logos/le-neuilly-canva.webp"
                             className="h-12 w-auto rounded-lg"
+                            width={100}
+                            height={100}
+                            priority
                         />
                     </Link>
                 </div>
@@ -109,10 +113,12 @@ export default function Header() {
                     <div className="flex items-center justify-between">
                         <Link href="/" className='sm:hidden' onClick={() => handleNavigationChange('/')}>
                             <span className="sr-only">Le Neuilly</span>
-                            <img
+                            <Image
                                 alt="Le Neuilly"
-                                src="/images/logos/le-neuilly-canva.png"
+                                src="/images/logos/le-neuilly-canva.webp"
                                 className="h-12 w-auto rounded-lg"
+                                width={100}
+                                height={100}
                             />
                         </Link>
                         <button

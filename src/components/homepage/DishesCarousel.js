@@ -9,7 +9,7 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "../ui/carousel.jsx";
-import { NavArrowLeft, NavArrowRight } from 'iconoir-react';
+import Image from "next/image.js";
 
 const DishesCarousel = () => {
     const [dishes, setDishes] = useState([]);
@@ -43,10 +43,12 @@ const DishesCarousel = () => {
                             <div className="relative">
                                 <Card className="w-full h-full relative rounded-full">
                                     <CardContent className="flex items-center justify-center p-0">
-                                        <img
+                                        <Image
                                             className="object-cover w-full h-full rounded-full shadow-default"
                                             src={dish.imageUrl1}
                                             alt={dish.name}
+                                            width={400}
+                                            height={400}
                                         />
                                     </CardContent>
                                 </Card>

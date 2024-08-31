@@ -3,6 +3,10 @@
     {
       "name": "Menu Déjeuner",
       "infos": true,
+      "platDuJour": "Emincé de boeuf à la thaïlandaise",
+      "poissonDuJour": "Filet de bar au beurre safrané",
+      "accompagnements": "Frites maison, Riz Thaï",
+      "desserts": "Crème brûlée, Salade de fruits frais",
       "id": "menu-dejeuner",
       "href": "/contact",
       "price": "20€",
@@ -300,5 +304,61 @@
         "alt": "Image 5"
       }
     ]
-  }
+  },
+  "carousel": [
+    {
+      "id": 1,
+      "imageUrl": "/images/dalle-1.webp",
+      "imageUrl1": "https://storage.googleapis.com/le-neuilly-20b09.appspot.com/carousel/carousel-image-0-1725107743412.webp",
+      "name": "illustration plat"
+    },
+    {
+      "id": 2,
+      "imageUrl": "/images/dalle-2.webp",
+      "imageUrl1": "https://storage.googleapis.com/le-neuilly-20b09.appspot.com/carousel/carousel-image-1-1725100246859.webp",
+      "name": "illustration plat"
+    },
+    {
+      "id": 3,
+      "imageUrl": "/images/dalle-3.webp",
+      "imageUrl1": "https://storage.googleapis.com/le-neuilly-20b09.appspot.com/carousel/carousel-image-2-1725099800511.webp",
+      "name": "illustration plat"
+    },
+    {
+      "id": 4,
+      "imageUrl": "/images/dalle-4.webp",
+      "imageUrl1": "https://storage.googleapis.com/le-neuilly-20b09.appspot.com/carousel/carousel-image-3-1725100147504.webp",
+      "name": "illustration plat"
+    },
+    {
+      "id": 5,
+      "imageUrl": "/images/dalle-5.webp",
+      "imageUrl1": "https://storage.googleapis.com/le-neuilly-20b09.appspot.com/carousel/carousel-image-4-1725100161544.webp",
+      "name": "illustration plat"
+    },
+    {
+      "id": 6,
+      "imageUrl": "/images/dalle-6.webp",
+      "imageUrl1": "https://storage.googleapis.com/le-neuilly-20b09.appspot.com/carousel/carousel-image-5-1725100271510.webp",
+      "name": "illustration plat"
+    },
+    {
+      "id": 7,
+      "imageUrl": "/images/menus/plats/quiche-lorraine.webp",
+      "imageUrl1": "https://storage.googleapis.com/le-neuilly-20b09.appspot.com/carousel/carousel-image-6-1725100174026.webp",
+      "name": "illustration plat"
+    },
+    {
+      "id": 8,
+      "imageUrl": "/images/menus/plats/sole-meuniere.webp",
+      "imageUrl1": "https://storage.googleapis.com/le-neuilly-20b09.appspot.com/carousel/carousel-image-7-1725100188295.webp",
+      "name": "illustration plat"
+    },
+    {
+      "id": 9,
+      "imageUrl": "/images/menus/desserts/tarte-tatin.webp",
+      "imageUrl1": "https://storage.googleapis.com/le-neuilly-20b09.appspot.com/carousel/carousel-image-8-1725100197697.webp",
+      "name": "illustration plat"
+    }
+  ]
 }

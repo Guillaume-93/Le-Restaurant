@@ -103,7 +103,7 @@ export default function AdminLayout({ children }) {
                                     <div className="flex-shrink-0">
                                         <img
                                             alt="Le Neuilly Logo"
-                                            src="/images/logos/le-neuilly-white.png"
+                                            src="/images/logos/le-neuilly-white.webp"
                                             className="h-8 cursor-pointer"
                                             onClick={() => window.location.href = '/'}
                                         />

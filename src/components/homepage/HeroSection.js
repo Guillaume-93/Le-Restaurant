@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Loader from '@/components/Loader/LoaderFull.js';
+import Image from 'next/image.js';
 
 export default function HeroSection() {
     const [heroData, setHeroData] = useState(null);
@@ -51,13 +52,13 @@ export default function HeroSection() {
         <div className="bg-white">
             <main>
                 <div className="relative isolate">
-                    <motion.img
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 1 }}
-                        alt={heroData.images[0]?.alt || 'Hero image'}
-                        src={heroData.images[0]?.src}
+                    <Image
+                        alt={'Hero image'}
+                        src="/images/backgrounds/le-neuilly-pattern-3.webp"
                         className="absolute inset-0 -z-10 h-full w-full object-cover"
+                        width={1920}
+                        height={1080}
+                        priority
                     />
                     <div className="overflow-hidden">
                         <div className="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
@@ -107,10 +108,12 @@ export default function HeroSection() {
                                             transition={{ duration: 0.8, delay: 0.6 }}
                                             className="relative"
                                         >
-                                            <img
-                                                alt={heroData.images[1]?.alt || 'Hero image'}
-                                                src={heroData.images[1]?.src}
+                                            <Image
+                                                alt={heroData.images[0]?.alt || 'Hero image'}
+                                                src={heroData.images[0]?.src}
                                                 className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
+                                                width={300}
+                                                height={450}
                                             />
                                             <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-slate-900/10" />
                                         </motion.div>
@@ -122,10 +125,12 @@ export default function HeroSection() {
                                             transition={{ duration: 0.8, delay: 0.8 }}
                                             className="relative"
                                         >
-                                            <img
-                                                alt={heroData.images[2]?.alt || 'Hero image'}
-                                                src={heroData.images[2]?.src}
+                                            <Image
+                                                alt={heroData.images[1]?.alt || 'Hero image'}
+                                                src={heroData.images[1]?.src}
                                                 className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
+                                                width={300}
+                                                height={450}
                                             />
                                             <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-slate-900/10" />
                                         </motion.div>
@@ -135,10 +140,12 @@ export default function HeroSection() {
                                             transition={{ duration: 0.8, delay: 1 }}
                                             className="relative"
                                         >
-                                            <img
-                                                alt={heroData.images[3]?.alt || 'Hero image'}
-                                                src={heroData.images[3]?.src}
+                                            <Image
+                                                alt={heroData.images[2]?.alt || 'Hero image'}
+                                                src={heroData.images[2]?.src}
                                                 className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
+                                                width={300}
+                                                height={450}
                                             />
                                             <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-slate-900/10" />
                                         </motion.div>
@@ -150,10 +157,12 @@ export default function HeroSection() {
                                             transition={{ duration: 0.8, delay: 1.2 }}
                                             className="relative"
                                         >
-                                            <img
-                                                alt={heroData.images[4]?.alt || 'Hero image'}
-                                                src={heroData.images[4]?.src}
+                                            <Image
+                                                alt={heroData.images[3]?.alt || 'Hero image'}
+                                                src={heroData.images[3]?.src}
                                                 className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
+                                                width={300}
+                                                height={450}
                                             />
                                             <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-slate-900/10" />
                                         </motion.div>
@@ -163,10 +172,12 @@ export default function HeroSection() {
                                             transition={{ duration: 0.8, delay: 1.4 }}
                                             className="relative"
                                         >
-                                            <img
-                                                alt={heroData.images[5]?.alt || 'Hero image'}
-                                                src={heroData.images[5]?.src}
+                                            <Image
+                                                alt={heroData.images[4]?.alt || 'Hero image'}
+                                                src={heroData.images[4]?.src}
                                                 className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
+                                                width={300}
+                                                height={450}
                                             />
                                             <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-slate-900/10" />
                                         </motion.div>
