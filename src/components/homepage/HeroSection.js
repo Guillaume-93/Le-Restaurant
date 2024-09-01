@@ -87,16 +87,16 @@ export default function HeroSection() {
                                         className="mt-10 flex items-center gap-x-6"
                                     >
                                         <Link
-                                            href={heroData.buttonLink1}
+                                            href="/contact"
                                             className="rounded-md bg-[--link-color-background] px-4 py-3 text-center text-sm font-semibold text-[--link-color-text] shadow-default transition-all duration-200 hover:bg-[--link-color-hover] active:scale-95 active:shadow-inner"
                                         >
-                                            {heroData.buttonText1}
+                                            Réserver une table
                                         </Link>
                                         <Link
-                                            href={heroData.buttonLink2}
+                                            href="/contact"
                                             className="after:transition-width relative text-sm font-semibold leading-6 text-slate-900 after:block after:h-0.5 after:w-0 after:bg-slate-900 after:duration-300 hover:after:w-full"
                                         >
-                                            {heroData.buttonText2} <span aria-hidden="true">→</span>
+                                            Voir le menu <span aria-hidden="true">→</span>
                                         </Link>
                                     </motion.div>
                                 </div>

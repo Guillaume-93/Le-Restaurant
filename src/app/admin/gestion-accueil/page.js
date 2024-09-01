@@ -16,10 +16,6 @@ export default function HomePage() {
     const [menuData, setMenuData] = useState({
         title: "",
         subtitle: "",
-        buttonText1: "",
-        buttonLink1: "",
-        buttonText2: "",
-        buttonLink2: "",
         images: [
             { src: "", alt: "" },
             { src: "", alt: "" },
@@ -27,11 +23,11 @@ export default function HomePage() {
             { src: "", alt: "" },
             { src: "", alt: "" }
         ],
-        features: [ // Les fonctionnalités existantes
-            { id: 1, name: "Cuisine raffinée", description: "Découvrez une cuisine française authentique...", href: "#", icon: "BoltIcon" },
-            { id: 2, name: "Ambiance conviviale", description: "Un cadre chaleureux et élégant...", href: "#", icon: "UsersIcon" },
-            { id: 3, name: "Événements spéciaux", description: "Organisez vos événements spéciaux...", href: "#", icon: "CalendarDaysIcon" }
-        ]
+        // features: [ // Les fonctionnalités existantes
+        //     { id: 1, name: "Cuisine raffinée", description: "Découvrez une cuisine française authentique...", href: "#", icon: "BoltIcon" },
+        //     { id: 2, name: "Ambiance conviviale", description: "Un cadre chaleureux et élégant...", href: "#", icon: "UsersIcon" },
+        //     { id: 3, name: "Événements spéciaux", description: "Organisez vos événements spéciaux...", href: "#", icon: "CalendarDaysIcon" }
+        // ]
     });
 
     useEffect(() => {

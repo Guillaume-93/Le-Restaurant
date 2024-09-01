@@ -305,7 +305,7 @@
       }
     ]
   },
-  "specialMenu": {
+  "specialMenu": [
     "description": "",
     "dessert": "",
     "price": "",
@@ -321,7 +321,7 @@
     "footerText": "",
     "show": true
   }
-}
+]
 
 
 {

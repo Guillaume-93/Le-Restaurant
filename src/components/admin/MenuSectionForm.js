@@ -186,36 +186,30 @@ export default function MenuSectionForm({
         const value = e.target.value;
 
         setMenuData(prevData => {
-            const updatedSection = [...menuData];
+            if (sectionName === 'heroSection') {
+                // Traiter heroSection comme un objet
+                return {
+                    ...prevData,
+                    [field]: value
+                };
+            } else {
+                // Traiter les autres sections comme des tableaux
+                const updatedSection = Array.isArray(menuData) ? [...menuData] : [];
 
-            if (index !== null) {
-                // Vérifier si le champ est imbriqué, comme category.title
-                if (field.includes('.')) {
-                    const fields = field.split('.');
-                    const parentField = fields[0];
-                    const childField = fields[1];
-
-                    updatedSection[index] = {
-                        ...updatedSection[index],
-                        [parentField]: {
-                            ...updatedSection[index][parentField],
-                            [childField]: value
-                        }
-                    };
-                } else {
+                if (index !== null) {
                     updatedSection[index] = {
                         ...updatedSection[index],
                         [field]: value
                     };
+                } else {
+                    updatedSection[0] = {
+                        ...updatedSection[0],
+                        [field]: value
+                    };
                 }
-            } else {
-                updatedSection[0] = {
-                    ...updatedSection[0],
-                    [field]: value
-                };
-            }
 
-            return updatedSection;
+                return updatedSection;
+            }
         });
     };
 
