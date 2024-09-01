@@ -64,7 +64,7 @@ export default function MenuPrices() { // Renommé pour être spécifique
     return (
         <div className="py-24 sm:py-32">
             {/* Menus Prices */}
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl lg:px-8">
                 <div className="mx-auto max-w-4xl text-center">
                     <h2 className="text-base font-semibold leading-7 text-[#112E34]">Nos Menus</h2>
                     <p className="mt-2 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
@@ -123,25 +123,25 @@ export default function MenuPrices() { // Renommé pour être spécifique
                                 {/* Afficher les données de Plat du Jour */}
                                 {menu.platDuJour && (
                                     <>
-                                        <p className="mt-4 text-sm font-bold leading-6 text-slate-900">Plat du jour:</p>
+                                        <p className="mt-4 text-sm font-semibold leading-6 text-[#112E34]">Plat du jour:</p>
                                         <p className="mt-1 text-sm leading-6 text-slate-600">{menu.platDuJour}</p>
                                     </>
                                 )}
                                 {menu.poissonDuJour && (
                                     <>
-                                        <p className="mt-4 text-sm font-bold leading-6 text-slate-900">Poisson du jour:</p>
+                                        <p className="mt-4 text-sm font-semibold leading-6 text-[#112E34]">Poisson du jour:</p>
                                         <p className="mt-1 text-sm leading-6 text-slate-600">{menu.poissonDuJour}</p>
                                     </>
                                 )}
                                 {menu.accompagnements && (
                                     <>
-                                        <p className="mt-4 text-sm font-bold leading-6 text-slate-900">Accompagnements:</p>
+                                        <p className="mt-4 text-sm font-semibold leading-6 text-[#112E34]">Accompagnements:</p>
                                         <p className="mt-1 text-sm leading-6 text-slate-600">{menu.accompagnements}</p>
                                     </>
                                 )}
                                 {menu.desserts && (
                                     <>
-                                        <p className="mt-4 text-sm font-bold leading-6 text-slate-900">Desserts:</p>
+                                        <p className="mt-4 text-sm font-semibold leading-6 text-[#112E34]">Desserts:</p>
                                         <p className="mt-1 text-sm leading-6 text-slate-600">{menu.desserts}</p>
                                     </>
                                 )}

@@ -4,13 +4,15 @@ import { useState, useEffect } from 'react';
 import { getSession, signIn } from 'next-auth/react';
 import { toast } from 'react-toastify';
 import FormSection from './FormSection';
+import { Field, Label, Switch } from '@headlessui/react'
 
 const sectionTitles = {
     menusPrices: "Menus",
     menuCarte: "Plats",
     dessertsMenu: "Desserts",
     wineMenu: "Vins",
-    heroSection: "Accueil"
+    heroSection: "Accueil",
+    specialMenu: "Menu Spécial",
 };
 
 const normalizeItem = (sectionName) => {
@@ -29,6 +31,16 @@ const normalizeItem = (sectionName) => {
             return { ...baseItem, price: '', category: { title: '' } };
         case 'wineMenu':
             return { ...baseItem, year: '', volume: '', price: '', category: { title: '' } };
+        case 'specialMenu':
+            return {
+                ...baseItem,
+                plat: '',
+                dessert: '',
+                includedFeatures: [],
+                note: '',
+                price: '',
+                footerText: '',
+            };
         default:
             return baseItem;
     }
@@ -52,7 +64,8 @@ export default function MenuSectionForm({
         menuCarte: "gestion-plats",
         dessertsMenu: "gestion-desserts",
         wineMenu: "gestion-vins",
-        heroSection: "gestion-accueil"
+        heroSection: "gestion-accueil",
+        specialMenu: "gestion-menu-special",
     };
 
     const deleteItemFromDatabase = async (index) => {
@@ -133,7 +146,6 @@ export default function MenuSectionForm({
         }
     };
 
-
     const handleRemoveItem = (index) => {
         if (sectionName === 'heroSection') {
             toast.error(`${sectionName} n'est pas un tableau.`);
@@ -207,6 +219,18 @@ export default function MenuSectionForm({
         });
     };
 
+    const handleShowChange = (value) => {
+        setMenuData(prevData => {
+            const updatedSection = [...menuData];
+            if (sectionName === 'specialMenu') {
+                updatedSection[0] = {
+                    ...updatedSection[0],
+                    show: value, // Mettre à jour la clé 'show'
+                };
+            }
+            return updatedSection;
+        });
+    };
 
     // Fonction pour ajouter une caractéristique
     const onAddFeature = (sectionName, itemIndex) => {
@@ -228,11 +252,40 @@ export default function MenuSectionForm({
         });
     };
 
+    // Fonction pour ajouter une caractéristique dans includedFeatures
+    const onAddIncludedFeature = (sectionName, itemIndex) => {
+        setMenuData(prevData => {
+            const updatedSection = [...prevData];
+            const item = updatedSection[itemIndex];
+
+            if (!item.includedFeatures) {
+                item.includedFeatures = []; // Assurez-vous que la propriété includedFeatures existe
+            }
+
+            // Ajoutez cette vérification pour empêcher d'ajouter une includedFeature vide si la dernière est déjà vide
+            if (item.includedFeatures[item.includedFeatures.length - 1] === "") {
+                return updatedSection;
+            }
+
+            item.includedFeatures.push(""); // Ajouter une seule includedFeature vide
+            return updatedSection;
+        });
+    };
+
     // Fonction pour supprimer une caractéristique
     const onRemoveFeature = (sectionName, itemIndex, featureIndex) => {
         setMenuData(prevData => {
             const updatedSection = [...prevData];
             updatedSection[itemIndex].features.splice(featureIndex, 1); // Supprimer la feature
+            return updatedSection;
+        });
+    };
+
+    // Fonction pour supprimer une caractéristique dans includedFeatures
+    const onRemoveIncludedFeature = (sectionName, itemIndex, featureIndex) => {
+        setMenuData(prevData => {
+            const updatedSection = [...prevData];
+            updatedSection[itemIndex].includedFeatures.splice(featureIndex, 1); // Supprimer la includedFeature
             return updatedSection;
         });
     };
@@ -246,6 +299,17 @@ export default function MenuSectionForm({
             return updatedSection;
         });
     };
+
+    // Fonction pour modifier une caractéristique dans includedFeatures
+    const onChangeIncludedFeature = (e, sectionName, itemIndex, featureIndex) => {
+        const value = e.target.value;
+        setMenuData(prevData => {
+            const updatedSection = [...prevData];
+            updatedSection[itemIndex].includedFeatures[featureIndex] = value; // Mettre à jour la valeur de la includedFeature
+            return updatedSection;
+        });
+    };
+
     // fonction pour gérer le changement d'image
     const handleImageChange = async (file, index, sectionName, imageIndex = null) => {
         let convertedFile = file;
@@ -329,7 +393,6 @@ export default function MenuSectionForm({
                 <div className="flex flex-col sm:flex-none sm:block border-b border-gray-900/10 pb-12">
                     <div className="flex gap-x-2">
                         {['dessertsMenu', 'menuCarte', 'wineMenu'].includes(sectionName) && (
-                            // <h2 className="text-xl font-semibold leading-7 text-gray-900">Ajouter {sectionTitles[sectionName]}</h2>
                             <button
                                 onClick={addItem}
                                 type="button"
@@ -340,6 +403,25 @@ export default function MenuSectionForm({
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                 </svg>
                             </button>
+                        )}
+                        {sectionName === 'specialMenu' && (
+                            <div className="flex gap-x-4 px-2 items-center">
+                                <Field className="flex items-center">
+                                    <Switch
+                                        checked={menuData[0]?.show || false}
+                                        onChange={(value) => handleShowChange(value)}
+                                        className={`group relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 ${menuData[0]?.show ? 'bg-indigo-600' : 'bg-gray-200'}`}
+                                    >
+                                        <span
+                                            aria-hidden="true"
+                                            className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${menuData[0]?.show ? 'translate-x-5' : 'translate-x-0'}`}
+                                        />
+                                    </Switch>
+                                    <Label as="span" className="ml-3 text-sm">
+                                        <span className="font-medium text-gray-900">Afficher le menu spécial</span>
+                                    </Label>
+                                </Field>
+                            </div>
                         )}
                     </div>
                     <div className={`mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 ${sectionName === 'heroSection' ? '' : ''}`}>
@@ -365,6 +447,9 @@ export default function MenuSectionForm({
                                     onAddFeature={onAddFeature}
                                     onRemoveFeature={onRemoveFeature}
                                     onChangeFeature={onChangeFeature}
+                                    onAddIncludedFeature={onAddIncludedFeature}
+                                    onRemoveIncludedFeature={onRemoveIncludedFeature}
+                                    onChangeIncludedFeature={onChangeIncludedFeature}
                                 />
                             ))
                         )}

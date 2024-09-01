@@ -2,6 +2,7 @@
 
 import FeatureInput from './FeatureInput';
 import ImageUpload from './ImageUpload';
+import IncludedFeatureInput from './IncludedFeatureInput';
 
 export default function FormSection({
     item,
@@ -12,11 +13,14 @@ export default function FormSection({
     onImageChange,
     onAddFeature,
     onRemoveFeature,
-    onChangeFeature
+    onChangeFeature,
+    onAddIncludedFeature,
+    onRemoveIncludedFeature,
+    onChangeIncludedFeature
 }) {
     return (
-        <div key={item.id || index} className={`relative  ring-1 ring-slate-300 p-4 rounded-lg shadow-default ${sectionName === 'heroSection' ? 'grid grid-cols-1  lg:grid-cols-3 col-span-full gap-x-4' : 'sm:col-span-3 md:col-span-3 lg:col-span-2 flex flex-col sm:flex-none sm:block'}`}>
-            {(sectionName !== 'menusPrices' && sectionName !== 'heroSection') && (
+        <div key={item.id || index} className={`relative ring-1 ring-slate-300 p-4 rounded-lg shadow-default ${sectionName === 'heroSection' || sectionName === 'specialMenu' ? 'grid grid-cols-1 lg:grid-cols-3 col-span-full gap-x-4' : 'sm:col-span-3 md:col-span-3 lg:col-span-2 flex flex-col sm:flex-none sm:block'}`}>
+            {(sectionName !== 'menusPrices' && sectionName !== 'heroSection' && sectionName !== 'specialMenu') && (
                 <button
                     type="button"
                     onClick={() => onRemoveItem(index)}
@@ -50,42 +54,6 @@ export default function FormSection({
                             onChange={(e) => onInputChange(e, 'subtitle')}
                             rows={4}
                             className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-                        {/* <div className="mb-1 flex items-center mt-4 gap-x-2">
-                            <label htmlFor={`buttonText1-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Texte du Bouton 1</label>
-                        </div>
-                        <input
-                            type="text"
-                            id={`buttonText1-${index}`}
-                            value={item.buttonText1}
-                            onChange={(e) => onInputChange(e, 'buttonText1')}
-                            className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-                        <div className="mb-1 flex items-center mt-4 gap-x-2">
-                            <label htmlFor={`buttonLink1-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Lien du Bouton 1</label>
-                        </div>
-                        <input
-                            type="text"
-                            id={`buttonLink1-${index}`}
-                            value={item.buttonLink1}
-                            onChange={(e) => onInputChange(e, 'buttonLink1')}
-                            className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-                        <div className="mb-1 flex items-center mt-4 gap-x-2">
-                            <label htmlFor={`buttonText2-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Texte du Bouton 2</label>
-                        </div>
-                        <input
-                            type="text"
-                            id={`buttonText2-${index}`}
-                            value={item.buttonText2}
-                            onChange={(e) => onInputChange(e, 'buttonText2')}
-                            className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-                        <div className="mb-1 flex items-center mt-4 gap-x-2">
-                            <label htmlFor={`buttonLink2-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Lien du Bouton 2</label>
-                        </div>
-                        <input
-                            type="text"
-                            id={`buttonLink2-${index}`}
-                            value={item.buttonLink2}
-                            onChange={(e) => onInputChange(e, 'buttonLink2')}
-                            className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" /> */}
                     </div>
                     <div className="mt-6 sm:mt-0 col-span-1 lg:col-span-2">
                         <label className="block text-sm font-medium text-gray-700">Images</label>
@@ -102,6 +70,120 @@ export default function FormSection({
                             ))}
                         </div>
                     </div>
+                </>
+
+            ) : sectionName === 'specialMenu' ? (
+                <>
+
+                    <div className='col-span-2'>
+                        <div className="mb-1 flex items-center gap-x-2">
+                            <label htmlFor={`title-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Titre</label>
+                        </div>
+                        <input
+                            type="text"
+                            id={`title-${index}`}
+                            value={item.title}
+                            onChange={(e) => onInputChange(e, 'title')}
+                            className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                        <div className="mb-1 flex items-center mt-4 gap-x-2">
+                            <label htmlFor={`description-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Description</label>
+                        </div>
+                        <textarea
+                            id={`description-${index}`}
+                            value={item.description}
+                            onChange={(e) => onInputChange(e, 'description')}
+                            rows={4}
+                            className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                        <div className="col-span-2">
+                            <div className="mb-1 flex items-center mt-4 gap-x-2">
+                                <label htmlFor={`entree-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Entrée</label>
+                            </div>
+                            <textarea
+                                id={`entree-${index}`}
+                                value={item.entree}
+                                onChange={(e) => onInputChange(e, 'entree')}
+                                rows={2}
+                                className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                        </div>
+                        <div className="col-span-2">
+                            <div className="mb-1 flex items-center mt-4 gap-x-2">
+                                <label htmlFor={`plat-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Plat</label>
+                            </div>
+                            <textarea
+                                id={`plat-${index}`}
+                                value={item.plat}
+                                onChange={(e) => onInputChange(e, 'plat')}
+                                rows={2}
+                                className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                        </div>
+                        <div className="col-span-2">
+                            <div className="mb-1 flex items-center mt-4 gap-x-2">
+                                <label htmlFor={`dessert-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Dessert</label>
+                            </div>
+                            <textarea
+                                id={`dessert-${index}`}
+                                value={item.dessert}
+                                onChange={(e) => onInputChange(e, 'dessert')}
+                                rows={2}
+                                className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                        </div>
+
+                    </div>
+                    <div className="mt-6 sm:mt-0 col-span-1 lg:col-span-1">
+                        <label className="block text-sm font-medium text-gray-700">Image de fond</label>
+                        <div className="relative">
+                            <ImageUpload
+                                sectionName={sectionName}
+                                index={index}
+                                imageUrl={item.imageUrl}
+                                onImageChange={onImageChange} />
+                        </div>
+                    </div>
+                    <IncludedFeatureInput
+                        includedFeatures={item.includedFeatures || []}
+                        sectionName={sectionName}
+                        itemIndex={index}
+                        onAddIncludedFeature={onAddIncludedFeature}
+                        onRemoveIncludedFeature={onRemoveIncludedFeature}
+                        onChangeIncludedFeature={onChangeIncludedFeature}
+                    />
+                    <div className='pb-16'>
+                        <div className="col-span-1">
+                            <div className="mb-1 flex items-center mt-4 gap-x-2">
+                                <label htmlFor={`note-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Note</label>
+                            </div>
+                            <input
+                                type="text"
+                                id={`note-${index}`}
+                                value={item.note}
+                                onChange={(e) => onInputChange(e, 'note', index)}
+                                className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                        </div>
+                        <div className="col-span-1">
+                            <div className="mb-1 flex items-center mt-4 gap-x-2">
+                                <label htmlFor={`price-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Prix</label>
+                            </div>
+                            <input
+                                type="text"
+                                id={`price-${index}`}
+                                value={item.price}
+                                onChange={(e) => onInputChange(e, 'price', index)}
+                                className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                        </div>
+                        <div className="col-span-1">
+                            <div className="mb-1 flex items-center mt-4 gap-x-2">
+                                <label htmlFor={`footerText-${index}`} className="block text-sm font-medium leading-6 text-gray-900">Texte de pied de page</label>
+                            </div>
+                            <input
+                                type="text"
+                                id={`footerText-${index}`}
+                                value={item.footerText}
+                                onChange={(e) => onInputChange(e, 'footerText', index)}
+                                className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                        </div>
+                    </div>
+
+
                 </>
 
             ) : (
@@ -195,7 +277,7 @@ export default function FormSection({
                             />
                         </>
                     )}
-                                        {item.infos && (
+                    {item.infos && (
                         <>
                             {'platDuJour' in item && (
                                 <>
@@ -292,7 +374,6 @@ export default function FormSection({
                     </button>
                 </div>
             </div>
-
         </div>
     );
 }

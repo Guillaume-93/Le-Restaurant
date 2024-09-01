@@ -11,6 +11,7 @@ const pageMap = {
     'gestion-menus': 'menusPrices',
     'gestion-plats': 'menuCarte',
     'gestion-vins': 'wineMenu',
+    'gestion-menu-special': 'specialMenu',
 };
 
 export async function GET(req) {

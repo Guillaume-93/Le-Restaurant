@@ -6,6 +6,7 @@ import FeaturesSection from "@/components/homepage/FeaturesSection";
 import HeroSection from "@/components/homepage/HeroSection";
 import MenusPrices from "@/components/homepage/MenusPrices";
 import SecondaryFeaturesSection from "@/components/homepage/SecondaryFeaturesSection";
+import SpecialMenu from "@/components/homepage/SpecialMenu.js";
 import TestimonialsSection from "@/components/homepage/TestimonialsSection";
 
 export default function Example() {
@@ -16,6 +17,7 @@ export default function Example() {
                 <FeaturesSection />
                 <DishesCarousel />
                 <MenusPrices />
+                <SpecialMenu />
                 <SecondaryFeaturesSection />
                 <TestimonialsSection />
                 <Faq />

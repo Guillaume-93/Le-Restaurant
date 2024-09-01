@@ -1,19 +1,18 @@
-// src/components/admin/FeatureInput.js
 "use client";
 
-export default function FeatureInput({ features, sectionName, itemIndex, onAddFeature, onRemoveFeature, onChangeFeature }) {
+export default function IncludedFeatureInput({ includedFeatures, sectionName, itemIndex, onAddIncludedFeature, onRemoveIncludedFeature, onChangeIncludedFeature }) {
 
     return (
-        <>
+        <div className="col-span-2">
             <div className='mt-8'>
                 <div className='flex items-start gap-x-2'>
                     <label className="mb-2 sm:mb-0 text-sm font-medium leading-6 text-gray-900">
-                        Caractéristiques
+                        Caractéristiques Incluses
                     </label>
                     <div className='flex gap-x-2 mb-2'>
                         <button
                             type="button"
-                            onClick={() => onAddFeature(sectionName, itemIndex)}
+                            onClick={() => onAddIncludedFeature(sectionName, itemIndex)}
                             className="text-indigo-600 hover:text-indigo-700"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -23,18 +22,18 @@ export default function FeatureInput({ features, sectionName, itemIndex, onAddFe
                     </div>
                 </div>
             </div>
-            {features.map((feature, featureIndex) => (
+            {includedFeatures.map((feature, featureIndex) => (
                 <div key={featureIndex} className="flex col-span-full gap-x-2">
                     <input
                         type="text"
                         value={feature}
-                        onChange={(e) => onChangeFeature(e, sectionName, itemIndex, featureIndex)}
+                        onChange={(e) => onChangeIncludedFeature(e, sectionName, itemIndex, featureIndex)}
                         className="px-2 flex-grow block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 mb-2"
                     />
                     <div className='flex gap-x-2 items-center justify-start mb-4 sm:mb-2'>
                         <button
                             type="button"
-                            onClick={() => onRemoveFeature(sectionName, itemIndex, featureIndex)}
+                            onClick={() => onRemoveIncludedFeature(sectionName, itemIndex, featureIndex)}
                             className=" text-red-600 hover:text-red-700"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -44,6 +43,6 @@ export default function FeatureInput({ features, sectionName, itemIndex, onAddFe
                     </div>
                 </div>
             ))}
-        </>
+        </div>
     );
 }

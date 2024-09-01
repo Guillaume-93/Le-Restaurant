@@ -9,14 +9,15 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import Link from 'next/link';
 
 import {
-    Bars3Icon, 
-    XMarkIcon, 
+    Bars3Icon,
+    XMarkIcon,
     HomeIcon,
     BeakerIcon,
     IdentificationIcon,
 } from '@heroicons/react/24/outline';
-import { MediaImageList, MultiplePages, HalfCookie, Cutlery } from 'iconoir-react';
+import { MediaImageList, MultiplePages, HalfCookie, Cutlery, CircleSpark } from 'iconoir-react';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image.js';
 
 const navigation = [
     { name: 'Tableau de bord', href: '/admin' },
@@ -26,8 +27,7 @@ const navigation = [
     { name: 'Plats', href: '/admin/gestion-plats' },
     { name: 'Desserts', href: '/admin/gestion-desserts' },
     { name: 'Vins', href: '/admin/gestion-vins' },
-    // { name: 'À propos', href: '/admin/gestion-a-propos' },
-    // { name: 'Contact', href: '/admin/gestion-contact' },
+    { name: 'Menu Spécial', href: '/admin/gestion-menu-special' },
 ];
 
 const userNavigation = [
@@ -43,8 +43,7 @@ const sectionNames = {
     '/admin/gestion-plats': { title: 'Gestion des Plats', icon: Cutlery },
     '/admin/gestion-desserts': { title: 'Gestion des Desserts', icon: HalfCookie },
     '/admin/gestion-vins': { title: 'Gestion des Vins', icon: BeakerIcon },
-    // '/admin/gestion-a-propos': { title: 'Gestion de la page À propos', icon: InformationCircleIcon },
-    // '/admin/gestion-contact': { title: 'Gestion de la page Contact', icon: PhoneIcon },
+    '/admin/gestion-menu-special': { title: 'Gestion du Menu Spécial', icon: CircleSpark },
 };
 
 const getSectionName = (pathname) => {
@@ -101,14 +100,17 @@ export default function AdminLayout({ children }) {
                             <div className="flex h-16 items-center justify-between px-4 sm:px-0">
                                 <div className="flex items-center">
                                     <div className="flex-shrink-0">
-                                        <img
+                                        <Image
                                             alt="Le Neuilly Logo"
                                             src="/images/logos/le-neuilly-white.webp"
-                                            className="h-8 cursor-pointer"
+                                            className="h-8 w-auto cursor-pointer"
                                             onClick={() => window.location.href = '/'}
+                                            width={120}
+                                            height={100}
+                                            priority
                                         />
                                     </div>
-                                    <div className="hidden lg:block">
+                                    <div className="hidden xl:block">
                                         <div className="ml-10 flex items-baseline space-x-4">
                                             {navigation.map((item) => (
                                                 <Link
@@ -128,7 +130,7 @@ export default function AdminLayout({ children }) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="hidden lg:block">
+                                <div className="hidden xl:block">
                                     <div className="ml-4 flex items-center md:ml-6">
                                         <Menu as="div" className="relative ml-3">
                                             <div>
@@ -136,7 +138,13 @@ export default function AdminLayout({ children }) {
                                                     <span className="absolute -inset-1.5" />
                                                     <span className="sr-only">Ouvrir le menu utilisateur</span>
                                                     <span className='px-2 text-slate-200'>{session.user.name}</span>
-                                                    <img alt="" src={session?.user?.image || "images/avatars/default-avatar.jpg"} className="h-8 w-8 rounded-full" />
+                                                    <Image
+                                                        alt=""
+                                                        src={session?.user?.image || "images/avatars/default-avatar.jpg"}
+                                                        className="h-8 w-8 rounded-full"
+                                                        width={32}
+                                                        height={32}
+                                                    />
                                                 </MenuButton>
                                             </div>
                                             <MenuItems
@@ -157,7 +165,7 @@ export default function AdminLayout({ children }) {
                                         </Menu>
                                     </div>
                                 </div>
-                                <div className="-mr-2 flex lg:hidden">
+                                <div className="-mr-2 flex xl:hidden">
                                     <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-slate-100 hover:text-slate-400 focus:outline-none focus:ring-1 focus:ring-white focus:ring-offset-1 focus:ring-offset-slate-100">
                                         <span className="absolute -inset-0.5" />
                                         <span className="sr-only">Ouvrir le menu principal</span>
@@ -168,7 +176,7 @@ export default function AdminLayout({ children }) {
                             </div>
                         </div>
                     </div>
-                    <DisclosurePanel className="border-b border-slate-700 lg:hidden">
+                    <DisclosurePanel className="border-b border-slate-700 xl:hidden">
                         <div className="space-y-1 px-2 py-3 sm:px-3">
                             {navigation.map((item) => (
                                 <Link
@@ -187,7 +195,13 @@ export default function AdminLayout({ children }) {
                         <div className="border-t border-slate-700 pb-3 pt-4">
                             <div className="flex items-center px-5">
                                 <div className="flex-shrink-0">
-                                    <img alt="" src={session?.user?.image || "/images/avatars/default-avatar.jpg"} className="h-10 w-10 rounded-full" />
+                                    <Image
+                                        alt=""
+                                        src={session?.user?.image || "/images/avatars/default-avatar.jpg"}
+                                        className="h-10 w-10 rounded-full"
+                                        width={40}
+                                        height={40}
+                                    />
                                 </div>
                                 <div className="ml-3">
                                     <div className="text-base font-medium leading-none text-slate-300">{session?.user?.name || "Utilisateur"}</div>
@@ -221,7 +235,7 @@ export default function AdminLayout({ children }) {
             <main className="-mt-32">
                 <div className="mx-auto max-w-7xl pb-12 sm:px-6 lg:px-8">
                     <div className="sm:rounded-lg bg-white px-1 py-6 shadow sm:px-6">
-                    {status === 'loading' ? <Loader /> : children}
+                        {status === 'loading' ? <Loader /> : children}
                     </div>
                 </div>
             </main>

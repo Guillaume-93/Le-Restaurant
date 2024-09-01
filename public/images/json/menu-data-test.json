@@ -305,6 +305,26 @@
       }
     ]
   },
+  "specialMenu": {
+    "description": "",
+    "dessert": "",
+    "price": "",
+    "includedFeatures": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "note": "",
+    "title": "",
+    "imageUrl": "",
+    "footerText": "",
+    "show": true
+  }
+}
+
+
+{
   "carousel": [
     {
       "id": 1,

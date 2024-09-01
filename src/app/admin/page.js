@@ -12,7 +12,7 @@ import {
     HomeIcon,
     BeakerIcon,
 } from '@heroicons/react/24/outline';
-import { MediaImageList, MultiplePages, HalfCookie, Cutlery } from 'iconoir-react';
+import { MediaImageList, MultiplePages, HalfCookie, Cutlery, CircleSpark } from 'iconoir-react';
 
 const adminSections = [
     { title: 'Gestion de la page d\'accueil', href: '/admin/gestion-accueil', description: 'Modifiez le contenu de la page d\'accueil de votre site.', icon: HomeIcon },
@@ -21,6 +21,7 @@ const adminSections = [
     { title: 'Gestion des plats', href: '/admin/gestion-plats', description: 'Ajoutez, modifiez ou supprimez les plats disponibles à la carte.', icon: Cutlery },
     { title: 'Gestion des desserts', href: '/admin/gestion-desserts', description: 'Ajoutez, modifiez ou supprimez les desserts disponibles à la carte', icon: HalfCookie },
     { title: 'Gestion des vins', href: '/admin/gestion-vins', description: 'Ajoutez, modifiez ou supprimez les vins disponibles à la carte', icon: BeakerIcon },
+    { title: 'Gestion du menu spécial', href: '/admin/gestion-menu-special', description: 'Modifiez le menu spécial affiché sur votre site.', icon: CircleSpark },
 ];
 
 function AdminDashboard() {

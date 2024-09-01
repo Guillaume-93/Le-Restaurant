@@ -49,6 +49,7 @@ const DishesCarousel = () => {
                                             alt={dish.name}
                                             width={400}
                                             height={400}
+                                            priority={true}
                                         />
                                     </CardContent>
                                 </Card>

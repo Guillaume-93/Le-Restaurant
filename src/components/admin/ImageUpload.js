@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import Loader from '@/components/Loader/Loader';
+import Image from 'next/image.js';
 
 export default function ImageUpload({ sectionName, index, imageUrl, onImageChange, imageIndex }) {
     const [temporaryImage, setTemporaryImage] = useState(imageUrl);
@@ -73,10 +74,13 @@ export default function ImageUpload({ sectionName, index, imageUrl, onImageChang
                             <Loader />
                         </div>
                     ) : (
-                        <img
+                        <Image
                             src={temporaryImage}
                             alt={`Current ${imageIndex !== undefined ? imageIndex + 1 : ''}`}
                             className={`mx-auto  rounded-md object-cover shadow-default ${sectionName === 'heroSection' ? 'h-20 w-20' : 'h-52 w-52'}`}
+                            width={200}
+                            height={200}
+                            priority={true}
                         />
                     )}
                     <div className="mt-4 flex flex-col text-sm leading-6 text-gray-600">

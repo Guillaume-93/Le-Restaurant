@@ -6,6 +6,7 @@ import {
     ChatBubbleBottomCenterTextIcon
 } from '@heroicons/react/24/outline'
 import Link from 'next/link';
+import Image from 'next/image';
 
 const stats = [
     { label: 'Fondé', value: '2022' },
@@ -21,10 +22,13 @@ export default function Example() {
                     <div className="mx-auto grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-16 sm:gap-y-24 lg:mx-0 lg:max-w-none lg:grid-cols-2">
                         <div className="lg:pr-4">
                             <div className="relative overflow-hidden rounded-3xl bg-slate-900 px-6 pb-9 pt-64 shadow-default sm:px-12 lg:max-w-lg lg:px-8 lg:pb-8 xl:px-10 xl:pb-10">
-                                <img
+                                <Image
                                     alt="Propriétaire du restaurant"
-                                    src="images/avatars/2024-02-14.webp"
+                                    src="/images/avatars/2024-02-14.webp"
                                     className="absolute inset-0 h-full w-full object-cover brightness-125 saturate-0"
+                                    width={400}
+                                    height={400}
+
                                 />
                                 <div className="absolute inset-0 bg-slate-600 mix-blend-multiply" />
                                 <div
