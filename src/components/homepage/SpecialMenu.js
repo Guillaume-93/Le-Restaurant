@@ -4,6 +4,7 @@ import { CheckIcon } from '@heroicons/react/20/solid'
 import Image from 'next/image'
 import Link from 'next/link.js'
 import { useEffect, useState } from 'react';
+import { StarSolid } from 'iconoir-react';
 
 export default function SpecialMenu() {
     const [menuData, setMenuData] = useState([]);
@@ -69,7 +70,6 @@ export default function SpecialMenu() {
                             {menuData[0]?.dessert || 'Dessert du jour'}
                         </p>
                         <div className="mt-8 flex items-center gap-x-2">
-                            <h4 className="flex-none text-sm font-medium leading-6 text-indigo-600">Ce qui est inclus</h4>
                             <div className="h-px flex-auto bg-gray-300" />
                         </div>
                         <ul
@@ -77,8 +77,8 @@ export default function SpecialMenu() {
                             className="mt-6 grid grid-cols-1 gap-3 text-sm leading-5 text-gray-600 sm:grid-cols-2 sm:gap-4"
                         >
                             {includedFeatures.map((feature) => (
-                                <li key={feature} className="flex gap-x-2">
-                                    <CheckIcon aria-hidden="true" className="h-5 w-5 flex-none text-indigo-600" />
+                                <li key={feature} className="flex gap-x-2 items-center">
+                                    <StarSolid aria-hidden="true" className="h-4 w-4 flex-none text-[#1c4d57]" />
                                     {feature}
                                 </li>
                             ))}
