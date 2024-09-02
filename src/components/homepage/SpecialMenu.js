@@ -34,16 +34,16 @@ export default function SpecialMenu() {
     const includedFeatures = menuData[0]?.includedFeatures || [];
 
     return (
-        <div className="relative bg-white py-8 sm:py-20">
+        <div className="relative bg-white py-8 sm:py-20 mb-24">
             {imageUrl && (
                 <div className="absolute inset-0 z-0 overflow-hidden">
                     <Image
                         src={imageUrl}
                         alt="Menu Spécial"
-                        style={{ objectFit: 'cover' }}
+                        style={{ objectFit: 'cover', objectPosition: 'center', width: '100%', height: '100%' }}
                         className="rounded-2xl opacity-40"
-                        width={1920}
-                        height={1080}
+                        fill="responsive"
+                        priority={true}
                     />
                 </div>
             )}

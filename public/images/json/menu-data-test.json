@@ -306,6 +306,7 @@
     ]
   },
   "specialMenu": [
+    {
     "description": "",
     "dessert": "",
     "price": "",
@@ -322,6 +323,7 @@
     "show": true
   }
 ]
+}
 
 
 {
