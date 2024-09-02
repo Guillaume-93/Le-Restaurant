@@ -7,8 +7,8 @@ import Loader from '@/components/Loader/Loader';
 import Image from 'next/image.js';
 
 export default function ImageUpload({ sectionName, index, imageUrl, onImageChange, imageIndex }) {
-    const [temporaryImage, setTemporaryImage] = useState(imageUrl);
-    const [loading, setLoading] = useState(true); // Ajouter un état pour le chargement
+    const [temporaryImage, setTemporaryImage] = useState(imageUrl || '/images/no-image.webp');
+    const [loading, setLoading] = useState(!imageUrl);
 
     useEffect(() => {
         if (imageUrl) {

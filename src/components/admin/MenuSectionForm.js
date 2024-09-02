@@ -6,11 +6,11 @@ import { toast } from 'react-toastify';
 import FormSection from './FormSection';
 import { Field, Label, Switch } from '@headlessui/react'
 
-const sectionTitles = {
-    menusPrices: "Menus",
-    menuCarte: "Plats",
-    dessertsMenu: "Desserts",
-    wineMenu: "Vins",
+const sectionSingleTitle = {
+    menusPrices: "Menu",
+    menuCarte: "Plat",
+    dessertsMenu: "Dessert",
+    wineMenu: "Vin",
     heroSection: "Accueil",
     specialMenu: "Menu Spécial",
 };
@@ -20,7 +20,7 @@ const normalizeItem = (sectionName) => {
         id: Date.now(),
         title: '',
         description: '',
-        imageUrl: '',
+        imageUrl: '/images/no-image.webp',
     };
 
     switch (sectionName) {
@@ -392,7 +392,7 @@ export default function MenuSectionForm({
                                 type="button"
                                 className="bg-indigo-600 text-white rounded-md px-2 py-1 hover:bg-indigo-500 flex items-center gap-x-2 ml-2"
                             >
-                                Ajouter un {sectionTitles[sectionName]}
+                                Ajouter un {sectionSingleTitle[sectionName]}
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                 </svg>
