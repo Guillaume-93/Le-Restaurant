@@ -79,20 +79,15 @@ export default function Header() {
                 <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-x-4">
                     {!isLoading && (
                         <>
-                            {session ? (
+                            {session && (
                                 <button
                                     onClick={() => signOut({ callbackUrl: '/' })}
                                     className="text-sm font-semibold leading-6 py-0.5 text-red-600 hover:text-red-900"
                                 >
                                     Déconnexion <span aria-hidden="true">&rarr;</span>
                                 </button>
-                            ) : (
-                                <div className="flex items-center">
-                                    <Link href="/auth/login" className="text-sm font-semibold leading-6 text-gray-900">
-                                        Se connecter <span aria-hidden="true">&rarr;</span>
-                                    </Link>
-                                </div>
                             )}
+
                         </>
                     )}
                 </div>
@@ -166,19 +161,14 @@ export default function Header() {
                             <div className="flex flex-col py-6 space-y-4">
                                 {!isLoading && (
                                     <>
-                                        {session ? (
+                                        {session && (
                                             <button
                                                 onClick={() => signOut({ callbackUrl: '/' })}
                                                 className="inline-flex justify-center text-sm font-semibold leading-6 text-red-600 hover:text-red-900"
                                             >
                                                 Déconnexion <span aria-hidden="true">&rarr;</span>
                                             </button>
-                                        ) : (
-                                            <div className="flex items-center justify-center">
-                                                <Link href="/auth/login" className="text-sm font-semibold leading-6 text-gray-900">
-                                                    Se connecter <span aria-hidden="true">&rarr;</span>
-                                                </Link>
-                                            </div>
+
                                         )}
                                     </>
                                 )}
