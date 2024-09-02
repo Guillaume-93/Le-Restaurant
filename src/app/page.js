@@ -8,6 +8,7 @@ import MenusPrices from "@/components/homepage/MenusPrices";
 import SecondaryFeaturesSection from "@/components/homepage/SecondaryFeaturesSection";
 import SpecialMenu from "@/components/homepage/SpecialMenu.js";
 import TestimonialsSection from "@/components/homepage/TestimonialsSection";
+// import TestimonialsTest from "@/components/homepage/TestimonialsTest";
 
 export default function Example() {
     return (
@@ -20,6 +21,7 @@ export default function Example() {
                 <SpecialMenu />
                 <SecondaryFeaturesSection />
                 <TestimonialsSection />
+                {/* <TestimonialsTest /> */}
                 <Faq />
             </main>
         </div>

@@ -44,7 +44,7 @@ const DishesCarousel = () => {
                                 <Card className="w-full h-full relative rounded-full">
                                     <CardContent className="flex items-center justify-center p-0">
                                         <Image
-                                            className="object-cover w-full h-full rounded-full shadow-default"
+                                            className="object-cover rounded-full shadow-default"
                                             src={dish.imageUrl1}
                                             alt={dish.name}
                                             width={400}

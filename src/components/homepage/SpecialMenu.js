@@ -40,8 +40,8 @@ export default function SpecialMenu() {
                     <Image
                         src={imageUrl}
                         alt="Menu Spécial"
-                        style={{ objectFit: 'cover', objectPosition: 'center', width: '100%', height: '100%' }}
-                        className="rounded-2xl opacity-40"
+                        style={{ objectFit: 'cover', objectPosition: 'center' }}
+                        className="opacity-40"
                         fill="responsive"
                         priority={true}
                     />
@@ -55,7 +55,7 @@ export default function SpecialMenu() {
                         {menuData[0]?.description || 'Découvrez notre menu spécial pour cette saison!'}
                     </p>
                 </div>
-                <div className="relative z-10 mx-auto mt-10 max-w-xl rounded-2xl sm:mt-14 lg:mx-0 lg:flex lg:max-w-none p-2 gap-x-2">
+                <div className="relative z-10 mx-auto mt-10 max-w-xl rounded-2xl sm:mt-14 lg:mx-0 lg:flex lg:max-w-none gap-x-2">
                     <div className="p-6 sm:p-8 lg:flex-auto bg-white bg-opacity-90 backdrop-blur-md rounded-2xl">
                         <h3 className="text-lg font-semibold tracking-tight text-gray-800">Entrée:</h3>
                         <p className="mt-2 text-sm leading-6 text-gray-600">

@@ -55,9 +55,8 @@ export default function HeroSection() {
                     <Image
                         alt={'Hero image'}
                         src="/images/backgrounds/le-neuilly-pattern-3.webp"
-                        className="absolute inset-0 -z-10 h-full w-full object-cover"
-                        width={1920}
-                        height={1080}
+                        className="absolute inset-0 -z-10 object-cover"
+                        fill="responsive"
                         priority
                     />
                     <div className="overflow-hidden">
@@ -111,7 +110,7 @@ export default function HeroSection() {
                                             <Image
                                                 alt={heroData.images[0]?.alt || 'Hero image'}
                                                 src={heroData.images[0]?.src}
-                                                className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
+                                                className="aspect-[2/3] rounded-xl bg-slate-900/5 object-cover shadow-default"
                                                 width={300}
                                                 height={450}
                                             />
@@ -128,7 +127,7 @@ export default function HeroSection() {
                                             <Image
                                                 alt={heroData.images[1]?.alt || 'Hero image'}
                                                 src={heroData.images[1]?.src}
-                                                className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
+                                                className="aspect-[2/3] rounded-xl bg-slate-900/5 object-cover shadow-default"
                                                 width={300}
                                                 height={450}
                                             />
@@ -143,7 +142,7 @@ export default function HeroSection() {
                                             <Image
                                                 alt={heroData.images[2]?.alt || 'Hero image'}
                                                 src={heroData.images[2]?.src}
-                                                className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
+                                                className="aspect-[2/3] rounded-xl bg-slate-900/5 object-cover shadow-default"
                                                 width={300}
                                                 height={450}
                                             />
@@ -160,7 +159,7 @@ export default function HeroSection() {
                                             <Image
                                                 alt={heroData.images[3]?.alt || 'Hero image'}
                                                 src={heroData.images[3]?.src}
-                                                className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
+                                                className="aspect-[2/3] rounded-xl bg-slate-900/5 object-cover shadow-default"
                                                 width={300}
                                                 height={450}
                                             />
@@ -175,7 +174,7 @@ export default function HeroSection() {
                                             <Image
                                                 alt={heroData.images[4]?.alt || 'Hero image'}
                                                 src={heroData.images[4]?.src}
-                                                className="aspect-[2/3] w-full rounded-xl bg-slate-900/5 object-cover shadow-default"
+                                                className="aspect-[2/3] rounded-xl bg-slate-900/5 object-cover shadow-default"
                                                 width={300}
                                                 height={450}
                                             />
