@@ -58,9 +58,9 @@ const DishesCarousel = () => {
                     ))}
                 </CarouselContent>
                 {/* Les icônes de navigation positionnées au-dessus du conteneur du carousel */}
-                <div className="absolute inset-0 flex items-center justify-between px-2">
-                    <CarouselPrevious className="bg-black bg-opacity-50 text-white p-2 rounded-full opacity-75 hover:opacity-100" />
-                    <CarouselNext className="bg-black bg-opacity-50 text-white p-2 rounded-full opacity-75 hover:opacity-100" />
+                <div className="absolute inset-0 flex items-center justify-between px-2 pointer-events-none">
+                    <CarouselPrevious className="bg-black bg-opacity-50 text-white p-2 rounded-full opacity-75 hover:opacity-100 pointer-events-auto z-10" />
+                    <CarouselNext className="bg-black bg-opacity-50 text-white p-2 rounded-full opacity-75 hover:opacity-100 pointer-events-auto z-10" />
                 </div>
             </Carousel>
         </div>
