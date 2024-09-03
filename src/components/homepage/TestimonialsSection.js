@@ -76,8 +76,8 @@ const TestimonialsSection = () => {
                     width={1440}
                     height={400}
                 />
-                <div className="mx-auto ">
-                    <div className="mx-auto max-w-xl sm:text-center">
+                <div className="mx-auto">
+                    <div className="mx-auto max-w-xl text-center px-2">
                         <h2 className="text-lg font-semibold leading-8 tracking-tight text-[#112E34]">
                             Avis
                         </h2>
