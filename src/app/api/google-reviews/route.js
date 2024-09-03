@@ -8,7 +8,7 @@ export async function GET() {
     let nextPageToken = '';
 
     const fetchReviews = async (pageToken = '') => {
-        const apiUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=reviews&language=${language}&key=${apiKey}` + (pageToken ? `&pagetoken=${pageToken}` : '');
+        const apiUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=reviews&language=${language}&key=${apiKey}`;
         
         console.log("Fetching URL:", apiUrl);
         

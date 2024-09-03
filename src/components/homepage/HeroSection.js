@@ -92,7 +92,7 @@ export default function HeroSection() {
                                             Réserver une table
                                         </Link>
                                         <Link
-                                            href="/contact"
+                                            href="/menu"
                                             className="after:transition-width relative text-sm font-semibold leading-6 text-slate-900 after:block after:h-0.5 after:w-0 after:bg-slate-900 after:duration-300 hover:after:w-full"
                                         >
                                             Voir le menu <span aria-hidden="true">→</span>

@@ -65,13 +65,13 @@ export default function MenuPrices() { // Renommé pour être spécifique
         <div className="py-24 sm:py-32">
             {/* Menus Prices */}
             <div className="mx-auto max-w-7xl lg:px-8">
-                <div className="mx-auto max-w-4xl text-center">
+                <div className="mx-auto max-w-4xl px-6 text-center">
                     <h2 className="text-base font-semibold leading-7 text-[#112E34]">Nos Menus</h2>
                     <p className="mt-2 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
                         Découvrez nos offres de menus pour tous les goûts
                     </p>
                 </div>
-                <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-slate-600">
+                <p className="px-6 mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-slate-600">
                     Que vous soyez de passage pour un déjeuner rapide ou pour une soirée gourmande, nous avons un menu qui répondra à vos attentes.
                 </p>
                 <div className="isolate mx-auto mt-16 grid max-w-md grid-cols-1 gap-y-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
