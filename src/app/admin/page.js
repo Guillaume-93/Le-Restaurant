@@ -2,17 +2,17 @@
 "use client";
 
 import AdminLayout from '@/components/admin/AdminLayout';
+import Loader from '@/components/Loader/LoaderFull.js';
+import { showToast } from '@/components/ui/ToastManager.js';
+import {
+    BeakerIcon,
+    HomeIcon,
+} from '@heroicons/react/24/outline';
+import { CircleSpark, Cutlery, HalfCookie, MediaImageList, MultiplePages } from 'iconoir-react';
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { toast } from 'react-toastify';
-import Loader from '@/components/Loader/LoaderFull.js';
-import {
-    HomeIcon,
-    BeakerIcon,
-} from '@heroicons/react/24/outline';
-import { MediaImageList, MultiplePages, HalfCookie, Cutlery, CircleSpark } from 'iconoir-react';
 
 const adminSections = [
     { title: 'Gestion de la page d\'accueil', href: '/admin/gestion-accueil', description: 'Modifiez le contenu de la page d\'accueil de votre site.', icon: HomeIcon },
@@ -49,7 +49,7 @@ export default function Admin() {
     useEffect(() => {
         if (status === 'authenticated') {
             if (session?.user?.role !== 'admin') {
-                toast.error("Vous n'êtes pas autorisé à accéder à cette page.");
+                showToast('Erreur !', `Vous n'êtes pas autorisé à accéder à cette page.`, 'error');
                 signOut({ callbackUrl: '/unauthorized' });  // Déconnexion forcée si l'utilisateur n'est plus admin
             }
         } else if (status === 'unauthenticated') {

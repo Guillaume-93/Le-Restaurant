@@ -1,100 +1,111 @@
-// app/legals/page.js
-
 "use client";
 
-import { IdentificationIcon, UserIcon, ClipboardDocumentListIcon, ServerIcon } from '@heroicons/react/20/solid';
+import { IdentificationIcon, ServerIcon } from '@heroicons/react/20/solid';
+
+// Variables dynamiques
+const legalVariables = {
+    siteName: "Le Neuilly",
+    siteUrl: "https://leneuilly.fr",
+    ownerName: "Nom du propriétaire",
+    ownerCompanyName: "Nom de la société",
+    ownerRegistrationNumber: "Numéro d'inscription au RCS",
+    ownerVatNumber: "Numéro de TVA intracommunautaire",
+    ownerAddress: "Adresse complète, Code postal, Pays",
+    ownerPhone: "Numéro de téléphone",
+    ownerEmail: "contact@leneuilly.com",
+    publicationDirectorName: "Nom du directeur de la publication",
+    hostName: "Nom de l'hébergeur",
+    hostCompanyName: "Raison sociale de l'hébergeur",
+    hostAddress: "Adresse complète de l'hébergeur, Code postal, Pays",
+    hostPhone: "Numéro de téléphone de l'hébergeur",
+    hostEmail: "support@hebergeur.com",
+    jurisdictionCity: "Ville de juridiction"
+};
 
 const legalData = [
     {
         title: "1. Présentation du site",
         content: [
-            "Conformément aux dispositions des articles 6-III et 19 de la Loi n° 2004-575 du 21 juin 2004 pour la Confiance dans l'Économie Numérique, dite L.C.E.N., il est porté à la connaissance des utilisateurs et visiteurs du site [nom-du-site] les présentes mentions légales.",
-            "La connexion et la navigation sur le site [nom-du-site] par l’utilisateur impliquent l'acceptation intégrale et sans réserve des présentes mentions légales.",
+            `Conformément aux dispositions des articles 6-III et 19 de la Loi n° 2004-575 du 21 juin 2004 pour la Confiance dans l'Économie Numérique, dite L.C.E.N., il est porté à la connaissance des utilisateurs et visiteurs du site <strong>${legalVariables.siteName}</strong> les présentes mentions légales.`,
+            `La connexion et la navigation sur le site <strong>${legalVariables.siteName}</strong> (<strong>${legalVariables.siteUrl}</strong>) par l’utilisateur impliquent l'acceptation intégrale et sans réserve des présentes mentions légales.`,
+        ],
+        details: []
+    },
+    {
+        title: "2. Éditeur",
+        content: [
+            `<strong>${legalVariables.siteName}</strong> est un site web, accessible par les utilisateurs à l’adresse URL suivante <strong>${legalVariables.siteUrl}</strong>, édité par :`,
         ],
         details: [
             {
                 icon: IdentificationIcon,
-                label: "Propriétaire du site",
-                description: "[Nom complet du propriétaire], Dénomination sociale : [Nom de la société], Forme juridique : [Forme juridique de la société], Adresse : [Adresse complète], Numéro de téléphone : [Numéro de téléphone], Adresse e-mail : [Adresse e-mail], Numéro d'immatriculation : [Numéro RCS ou RM], Capital social : [Montant du capital social]"
-            },
-            {
-                icon: UserIcon,
-                label: "Directeur de la publication",
-                description: "[Nom complet du directeur de la publication], Contact : [E-mail du directeur de la publication]"
-            },
-            {
-                icon: ServerIcon,
-                label: "Hébergement du site",
-                description: "Nom de l'hébergeur : [Nom de l'hébergeur], Raison sociale : [Raison sociale de l'hébergeur], Adresse de l'hébergeur : [Adresse complète de l'hébergeur], Numéro de téléphone : [Numéro de téléphone de l'hébergeur]"
-            },
+                label: "Éditeur (personne morale)",
+                description: `<strong>${legalVariables.ownerCompanyName}</strong>, N° d’immatriculation : <strong>${legalVariables.ownerRegistrationNumber}</strong>, Numéro de TVA intracommunautaire : <strong>${legalVariables.ownerVatNumber}</strong>, Adresse : <strong>${legalVariables.ownerAddress}</strong>, Téléphone : <strong>${legalVariables.ownerPhone}</strong>, Mail : <strong>${legalVariables.ownerEmail}</strong>`
+            }
         ]
     },
     {
-        title: "2. Propriété intellectuelle et contrefaçons",
+        title: "3. Directeur de la publication",
         content: [
-            "Le site [nom-du-site] est une œuvre de l'esprit protégée par les lois de la propriété intellectuelle. Tous les éléments accessibles sur le site, notamment les textes, images, graphismes, logo, icônes, sons, logiciels, sont la propriété exclusive de [nom-du-propriétaire], sauf mention contraire.",
-            "Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de [nom-du-propriétaire].",
+            `Identité : <strong>${legalVariables.publicationDirectorName}</strong>, Qualité : Directeur de la publication.`,
+        ],
+        details: []
+    },
+    {
+        title: "4. Hébergeur",
+        content: [
+            `<strong>${legalVariables.siteName}</strong> est hébergé par <strong>${legalVariables.hostName}</strong>, que vous pouvez contacter à l’adresse email <strong>${legalVariables.hostEmail}</strong> ou l’adresse postale suivante :`,
+        ],
+        details: [
+            {
+                icon: ServerIcon,
+                label: "Hébergeur",
+                description: `<strong>${legalVariables.hostCompanyName}</strong>, Adresse : <strong>${legalVariables.hostAddress}</strong>, Téléphone : <strong>${legalVariables.hostPhone}</strong>, Mail : <strong>${legalVariables.hostEmail}</strong>`
+            }
+        ]
+    },
+    {
+        title: "5. Propriété intellectuelle et contrefaçons",
+        content: [
+            `Le site <strong>${legalVariables.siteName}</strong> est une œuvre de l'esprit protégée par les lois de la propriété intellectuelle. Tous les éléments accessibles sur le site, notamment les textes, images, graphismes, logo, icônes, sons, logiciels, sont la propriété exclusive de <strong>${legalVariables.ownerName}</strong>, sauf mention contraire.`,
+            `Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de <strong>${legalVariables.ownerName}</strong>.`,
             "Toute exploitation non autorisée du site ou de l’un quelconque des éléments qu’il contient sera considérée comme constitutive d’une contrefaçon et poursuivie conformément aux dispositions des articles L.335-2 et suivants du Code de Propriété Intellectuelle."
         ],
         details: []
     },
     {
-        title: "3. Limitations de responsabilité",
+        title: "6. Limitations de responsabilité",
         content: [
-            "Le site [nom-du-site] ne pourra être tenu pour responsable des dommages directs et indirects causés au matériel de l’utilisateur, lors de l’accès au site [nom-du-site], et résultant soit de l’utilisation d’un matériel ne répondant pas aux spécifications indiquées, soit de l’apparition d’un bug ou d’une incompatibilité.",
-            "Le site [nom-du-site] ne pourra également être tenu pour responsable des dommages indirects (tels qu’une perte de marché ou perte d’une chance) consécutifs à l’utilisation du site [nom-du-site].",
-            "Des espaces interactifs (possibilité de poser des questions dans l’espace contact) sont à la disposition des utilisateurs. [nom-du-site] se réserve le droit de supprimer, sans mise en demeure préalable, tout contenu déposé dans cet espace qui contreviendrait à la législation applicable en France, en particulier aux dispositions relatives à la protection des données. Le cas échéant, [nom-du-site] se réserve également la possibilité de mettre en cause la responsabilité civile et/ou pénale de l’utilisateur, notamment en cas de message à caractère raciste, injurieux, diffamant, ou pornographique, quel que soit le support utilisé (texte, photographie …)."
+            `Le site <strong>${legalVariables.siteName}</strong> ne pourra être tenu pour responsable des dommages directs et indirects causés au matériel de l’utilisateur, lors de l’accès au site <strong>${legalVariables.siteName}</strong>, et résultant soit de l’utilisation d’un matériel ne répondant pas aux spécifications indiquées, soit de l’apparition d’un bug ou d’une incompatibilité.`,
+            `Le site <strong>${legalVariables.siteName}</strong> ne pourra également être tenu pour responsable des dommages indirects (tels qu’une perte de marché ou perte d’une chance) consécutifs à l’utilisation du site <strong>${legalVariables.siteName}</strong>.`,
+            "Le site ne contient pas de formulaire de contact, mais fournit des informations de contact directes par téléphone ou par email."
         ],
         details: []
     },
     {
-        title: "4. Gestion des données personnelles",
+        title: "7. Gestion des données personnelles et utilisation des cookies",
         content: [
-            "Aucune donnée personnelle n'est collectée ni traitée à l'insu des utilisateurs du site [nom-du-site]. Conformément à la loi informatique et libertés du 6 janvier 1978, modifiée par le règlement général sur la protection des données (RGPD), les utilisateurs disposent d’un droit d’accès, de rectification, de suppression et d’opposition de leurs données personnelles. Pour exercer ces droits, les utilisateurs peuvent contacter le responsable du traitement des données à l’adresse suivante : [adresse-email-de-contact].",
-            "Les utilisateurs sont informés de l'utilisation de cookies lors de la navigation sur le site [nom-du-site]. Ceux-ci peuvent être configurés dans le navigateur pour refuser les cookies, bien que cela puisse limiter l'accès à certaines fonctionnalités."
+            `Le site <strong>${legalVariables.siteName}</strong> utilise des cookies pour améliorer l'expérience utilisateur. Les cookies sont des fichiers de petite taille déposés sur votre appareil lors de la consultation du site, permettant de collecter des informations sur la navigation.`,
+            `Ces cookies ne collectent aucune donnée personnelle sans consentement. Vous pouvez configurer votre navigateur pour refuser les cookies, bien que cela puisse limiter certaines fonctionnalités du site.`,
+            `En ce qui concerne les administrateurs, les données personnelles stockées sont relatives à la gestion des sessions de connexion. Ces informations ne sont utilisées que dans le cadre de l'administration du site.`,
+            `Conformément à la loi informatique et libertés du 6 janvier 1978, modifiée par le RGPD, les utilisateurs disposent d’un droit d’accès, de rectification, de suppression et d’opposition de leurs données personnelles. Pour exercer ces droits, les utilisateurs peuvent contacter <strong>${legalVariables.ownerEmail}</strong>.`
         ],
         details: []
     },
     {
-        title: "5. Liens hypertextes et cookies",
+        title: "8. Droit applicable et attribution de juridiction",
         content: [
-            "Le site [nom-du-site] contient un certain nombre de liens hypertextes vers d’autres sites (partenaires, informations, etc.) mis en place avec l’autorisation de [nom-du-propriétaire]. Cependant, [nom-du-site] n’a pas la possibilité de vérifier le contenu des sites ainsi visités et décline donc toute responsabilité de ce fait quant aux risques éventuels de contenus illicites.",
-            "L’utilisateur est informé que lors de ses visites sur le site [nom-du-site], un ou des cookies sont susceptibles de s’installer automatiquement sur son ordinateur par l’intermédiaire de son logiciel de navigation. Un cookie est un bloc de données qui ne permet pas d’identifier l’utilisateur, mais qui enregistre des informations relatives à la navigation de celui-ci sur le site.",
-            "Le paramétrage du logiciel de navigation permet d’informer de la présence de cookies et éventuellement, de refuser ceux-ci de manière décrite à l’adresse suivante : [lien vers la page de la CNIL]. Le refus d’installation d’un cookie peut entraîner l’impossibilité d’accéder à certains services. L’utilisateur peut toutefois configurer son ordinateur de la manière suivante, pour refuser l’installation des cookies : [instructions de configuration selon le navigateur utilisé]."
+            `Tout litige en relation avec l’utilisation du site <strong>${legalVariables.siteName}</strong> est soumis au droit français. Il est fait attribution exclusive de juridiction aux tribunaux compétents de <strong>${legalVariables.jurisdictionCity}</strong>.`
         ],
         details: []
     },
     {
-        title: "6. Droit applicable et attribution de juridiction",
+        title: "9. Modification des mentions légales",
         content: [
-            "Tout litige en relation avec l’utilisation du site [nom-du-site] est soumis au droit français. Il est fait attribution exclusive de juridiction aux tribunaux compétents de [ville-de-juridiction]."
+            "Le site se réserve la possibilité de compléter ou modifier les présentes mentions légales à tout moment et sans préavis. Il est recommandé de consulter régulièrement les mentions légales."
         ],
         details: []
-    },
-    {
-        title: "7. Les principales lois concernées",
-        content: [],
-        details: [
-            {
-                icon: ClipboardDocumentListIcon,
-                label: "Loi n° 78-17 du 6 janvier 1978",
-                description: "Loi modifiée par la loi n° 2004-801 du 6 août 2004 relative à l'informatique, aux fichiers et aux libertés."
-            },
-            {
-                icon: ClipboardDocumentListIcon,
-                label: "Loi n° 2004-575 du 21 juin 2004",
-                description: "Loi pour la confiance dans l'économie numérique."
-            },
-        ]
-    },
-    {
-        title: "8. Lexique",
-        content: [
-            "Utilisateur : Internaute se connectant, utilisant le site susnommé.",
-            "Informations personnelles : « Les informations qui permettent, sous quelque forme que ce soit, directement ou non, l'identification des personnes physiques auxquelles elles s'appliquent » (article 4 de la loi n° 78-17 du 6 janvier 1978)."
-        ],
-        details: []
-    },
+    }
 ];
 
 function LegalSection({ title, content, details }) {
@@ -102,7 +113,7 @@ function LegalSection({ title, content, details }) {
         <div className="mb-8">
             <h2 className="text-2xl font-bold tracking-tight text-gray-900">{title}</h2>
             {content.map((paragraph, idx) => (
-                <p key={idx} className="mt-4 text-base leading-7 text-gray-700">{paragraph}</p>
+                <p key={idx} className="mt-4 text-base leading-7 text-gray-700" dangerouslySetInnerHTML={{ __html: paragraph }} />
             ))}
             {details.length > 0 && (
                 <ul role="list" className="mt-8 max-w-xl space-y-8 text-gray-600">
@@ -111,7 +122,7 @@ function LegalSection({ title, content, details }) {
                             <detail.icon aria-hidden="true" className="mt-1 h-5 w-5 flex-none text-[--link-color-background]" />
                             <span>
                                 <strong className="font-semibold text-gray-900">{detail.label}</strong>{": "}
-                                {detail.description}
+                                <span dangerouslySetInnerHTML={{ __html: detail.description }} />
                             </span>
                         </li>
                     ))}
@@ -123,24 +134,24 @@ function LegalSection({ title, content, details }) {
 
 export default function Legals() {
     return (
-            <div className="relative isolate overflow-hidden bg-white py-24 sm:py-32">
-                <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="mx-auto max-w-2xl lg:mx-0">
-                        <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Mentions Légales</h1>
-                    </div>
-                    <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:mt-10 lg:max-w-none lg:grid-cols-12">
-                        <div className="max-w-xl text-base leading-7 text-gray-700 lg:col-span-7">
-                            {legalData.map((section, idx) => (
-                                <LegalSection
-                                    key={idx}
-                                    title={section.title}
-                                    content={section.content}
-                                    details={section.details}
-                                />
-                            ))}
-                        </div>
+        <div className="relative isolate overflow-hidden bg-white py-24 sm:py-32">
+            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                <div className="mx-auto max-w-2xl lg:mx-0">
+                    <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Mentions Légales</h1>
+                </div>
+                <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:mt-10 lg:max-w-none lg:grid-cols-12">
+                    <div className="max-w-xl text-base leading-7 text-gray-700 lg:col-span-7">
+                        {legalData.map((section, idx) => (
+                            <LegalSection
+                                key={idx}
+                                title={section.title}
+                                content={section.content}
+                                details={section.details}
+                            />
+                        ))}
                     </div>
                 </div>
             </div>
+        </div>
     );
 }

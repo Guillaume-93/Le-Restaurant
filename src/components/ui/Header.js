@@ -1,12 +1,13 @@
 "use client";
 
+import Banners from '@/components/homepage/Banners';
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { signOut, useSession } from 'next-auth/react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 const navigation = [
     { name: "Accueil", href: "/" },
@@ -21,12 +22,36 @@ export default function Header() {
     const [activeLink, setActiveLink] = useState(router.pathname);
     const { data: session, status } = useSession();
     const isLoading = status === 'loading';
+    const [showBanner, setShowBanner] = useState(false); // État pour afficher la bannière
+    const [menuTitle, setMenuTitle] = useState('');
+    const [menuPrice, setMenuPrice] = useState('');
 
     useEffect(() => {
         if (router.pathname) {
             setActiveLink(router.pathname);
         }
     }, [router.pathname]);
+
+    useEffect(() => {
+        const fetchMenuData = async () => {
+            try {
+                const res = await fetch('/api/menu-data?page=gestion-menu-special');
+                if (!res.ok) throw new Error(`Failed to fetch special menu data: ${res.statusText}`);
+                const data = await res.json();
+                if (Array.isArray(data) && data.length > 0 && data[0]?.show) {
+                    setShowBanner(true); // Affiche la bannière si le menu spécial est affiché
+                    setMenuTitle(data[0]?.title); // Stocker le titre
+                    setMenuPrice(data[0]?.price); // Stocker le prix
+                } else {
+                    setShowBanner(false);
+                }
+            } catch (err) {
+                console.error("Error fetching special menu data:", err);
+                setShowBanner(false); // Ne pas afficher la bannière en cas d'erreur ou si le menu n'est pas disponible
+            }
+        };
+        fetchMenuData();
+    }, []); // Effet pour charger le menu spécial au montage du composant
 
     const handleNavigationChange = (href) => {
         setActiveLink(href);
@@ -43,7 +68,7 @@ export default function Header() {
                             alt="Image représentant le logo du restaurant Le Neuilly"
                             src="/images/logos/le-neuilly-canva.webp"
                             className="h-12 w-auto rounded-lg"
-                            width={100}
+                            width={200}
                             height={100}
                             priority
                         />
@@ -87,7 +112,6 @@ export default function Header() {
                                     Déconnexion <span aria-hidden="true">&rarr;</span>
                                 </button>
                             )}
-
                         </>
                     )}
                 </div>
@@ -136,8 +160,7 @@ export default function Header() {
                                         onClick={() => handleNavigationChange(item.href)}
                                     >
                                         <div
-                                            className={`relative text-sm font-semibold leading-6 text-slate-900 after:block after:h-0.5 ${activeLink === item.href ? "after:w-full" : "after:w-0"
-                                                } after:bg-gray-900`}
+                                            className={`relative text-sm font-semibold leading-6 text-slate-900 after:block after:h-0.5 ${activeLink === item.href ? "after:w-full" : "after:w-0"} after:bg-gray-900`}
                                         >
                                             {item.name}
                                         </div>
@@ -150,8 +173,7 @@ export default function Header() {
                                         onClick={() => handleNavigationChange('/admin')}
                                     >
                                         <div
-                                            className={`relative text-sm font-semibold leading-6 px-3 text-slate-100 bg-indigo-600 rounded-full after:block after:h-0.5 ${activeLink === '/admin' ? "after:w-full" : "after:w-0"
-                                                } after:bg-indigo-600`}
+                                            className={`relative text-sm font-semibold leading-6 px-3 text-slate-100 bg-indigo-600 rounded-full after:block after:h-0.5 ${activeLink === '/admin' ? "after:w-full" : "after:w-0"} after:bg-indigo-600`}
                                         >
                                             Tableau de bord
                                         </div>
@@ -177,6 +199,8 @@ export default function Header() {
                     </div>
                 </DialogPanel>
             </Dialog>
+
+            {showBanner && <Banners title={menuTitle} price={menuPrice} />} {/* Passer le titre et le prix à la bannière */}
         </header>
     );
 }

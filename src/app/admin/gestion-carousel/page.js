@@ -1,14 +1,13 @@
 // app/admin/gestion-carousel/page.js
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import ImageUpload from '@/components/admin/ImageUpload';
-import { toast } from 'react-toastify';
 import AdminLayout from '@/components/admin/AdminLayout';
+import ImageUpload from '@/components/admin/ImageUpload';
 import Loader from '@/components/Loader/Loader';
-import { useSession } from 'next-auth/react';
+import { showToast } from '@/components/ui/ToastManager.js';
+import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { signOut } from 'next-auth/react';
+import { useEffect, useState } from 'react';
 
 const CarouselAdminPage = () => {
     const { data: session, status } = useSession();
@@ -19,7 +18,7 @@ const CarouselAdminPage = () => {
     useEffect(() => {
         if (status === 'authenticated') {
             if (session?.user?.role !== 'admin') {
-                toast.error("Vous n'êtes pas autorisé à accéder à cette page.");
+                showToast('Erreur !', `Vous n'êtes pas autorisé à accéder à cette page.`, 'error');
                 signOut({ callbackUrl: '/unauthorized' });  // Déconnexion forcée si l'utilisateur n'est plus admin
             } else {
                 const fetchDishes = async () => {
@@ -30,7 +29,7 @@ const CarouselAdminPage = () => {
                         setLoading(false);  // Stop loading when data is fetched
                     } catch (error) {
                         console.error("Erreur lors du chargement des données du carousel:", error);
-                        toast.error("Erreur lors du chargement des données.");
+                        showToast('Erreur !', `Erreur lors du chargement des données du carousel.`, 'error');
                         setLoading(false);
                     }
                 };
@@ -60,13 +59,13 @@ const CarouselAdminPage = () => {
                     updatedDishes[index].imageUrl1 = data.imageUrl;
                     return updatedDishes;
                 });
-                toast.success('Image téléchargée avec succès.');
+                showToast('Succès !', `Image ${index + 1} du carousel mise à jour.`, 'success');
             } else {
-                toast.error('Erreur lors du téléchargement de l\'image.');
+                showToast('Erreur !', `Échec de la mise à jour de l'image.`, 'error');
             }
         } catch (error) {
             console.error('Erreur lors du téléchargement de l\'image:', error);
-            toast.error('Échec du téléchargement de l\'image.');
+            showToast('Erreur !', `Erreur lors du téléchargement de l'image.`, 'error');
         }
     };
 

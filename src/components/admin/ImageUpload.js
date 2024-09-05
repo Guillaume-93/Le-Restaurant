@@ -1,10 +1,10 @@
 // src/components/admin/ImageUpload.js
 "use client";
 
-import { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
 import Loader from '@/components/Loader/Loader';
+import { showToast } from '@/components/ui/ToastManager.js';
 import Image from 'next/image.js';
+import { useEffect, useState } from 'react';
 
 export default function ImageUpload({ sectionName, index, imageUrl, onImageChange, imageIndex }) {
     const [temporaryImage, setTemporaryImage] = useState(imageUrl || '/images/no-image.webp');
@@ -22,12 +22,12 @@ export default function ImageUpload({ sectionName, index, imageUrl, onImageChang
         if (file) {
             const validImageTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif'];
             if (!validImageTypes.includes(file.type)) {
-                toast.error('Seuls les fichiers PNG, JPG, WEBP, HEIC et HEIF sont acceptés.');
+                showToast('Erreur !', 'Seuls les fichiers PNG, JPG, WEBP, HEIC et HEIF sont acceptés.', 'error');
                 return;
             }
 
             if (file.size > 10 * 1024 * 1024) {
-                toast.error('La taille du fichier doit être inférieure à 10MB.');
+                showToast('Erreur !', 'La taille du fichier doit être inférieure à 10MB.', 'error');
                 return;
             }
 
@@ -46,7 +46,7 @@ export default function ImageUpload({ sectionName, index, imageUrl, onImageChang
                         convertedFile = new File([blob], `${file.name.split('.')[0]}.jpg`, { type: "image/jpeg" });
                     } catch (error) {
                         console.error('Erreur lors de la conversion HEIC/HEIF:', error);
-                        toast.error('Erreur lors de la conversion de l\'image. Veuillez réessayer.');
+                        showToast('Erreur !', 'Erreur lors de la conversion de l\'image. Veuillez réessayer.', 'error');
                         setLoading(false);
                         return;
                     }

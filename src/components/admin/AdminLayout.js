@@ -1,23 +1,24 @@
 // src/components/admin/AdminLayout.js
 "use client";
 
-import { useSession, signOut } from 'next-auth/react';
 import Loader from '@/components/Loader/LoaderFull.js';
-import { useEffect } from 'react';
-import { toast } from 'react-toastify';
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { showToast } from '@/components/ui/ToastManager.js';
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { useEffect } from 'react';
 
 import {
     Bars3Icon,
-    XMarkIcon,
-    HomeIcon,
     BeakerIcon,
+    HomeIcon,
     IdentificationIcon,
+    XMarkIcon,
 } from '@heroicons/react/24/outline';
-import { MediaImageList, MultiplePages, HalfCookie, Cutlery, CircleSpark } from 'iconoir-react';
-import { usePathname } from 'next/navigation';
+
+import { CircleSpark, Cutlery, HalfCookie, MediaImageList, MultiplePages } from 'iconoir-react';
 import Image from 'next/image.js';
+import { usePathname } from 'next/navigation';
 
 const navigation = [
     { name: 'Tableau de bord', href: '/admin' },
@@ -71,7 +72,7 @@ export default function AdminLayout({ children }) {
                     }
                 } catch (error) {
                     console.error('Erreur lors de la vérification du rôle:', error);
-                    toast.error("Votre session a expiré ou vous n'avez plus les droits requis.");
+                    showToast('Erreur !', 'Votre session a expiré ou vous n\'avez plus les droits requis.', 'error');
                     signOut({ callbackUrl: '/unauthorized' });
                 }
             }
@@ -103,9 +104,9 @@ export default function AdminLayout({ children }) {
                                         <Image
                                             alt="Le Neuilly Logo"
                                             src="/images/logos/le-neuilly-white.webp"
-                                            className="h-8 w-auto cursor-pointer"
+                                            className="h-12 w-auto rounded-lg cursor-pointer"
                                             onClick={() => window.location.href = '/'}
-                                            width={120}
+                                            width={200}
                                             height={100}
                                             priority
                                         />
@@ -205,7 +206,7 @@ export default function AdminLayout({ children }) {
                                 </div>
                                 <div className="ml-3">
                                     <div className="text-base font-medium leading-none text-slate-300">{session?.user?.name || "Utilisateur"}</div>
-                                    <div className="text-sm font-medium leading-none text-slate-500">{session?.user?.email || "Email inconnu"}</div>
+                                    <div className="mt-2 text-sm font-medium leading-none text-slate-500">{session?.user?.email || "Email inconnu"}</div>
                                 </div>
                             </div>
                             <div className="mt-3 space-y-1 px-2">

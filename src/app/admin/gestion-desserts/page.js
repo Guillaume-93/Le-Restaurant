@@ -1,14 +1,13 @@
 // app/admin/gestion-desserts/page.js
 "use client";
 
-import MenuSectionForm from '@/components/admin/MenuSectionForm';
 import AdminLayout from '@/components/admin/AdminLayout';
-import { useSession } from 'next-auth/react';
+import MenuSectionForm from '@/components/admin/MenuSectionForm';
+import Loader from '@/components/Loader/Loader';
+import { showToast } from '@/components/ui/ToastManager.js';
+import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import Loader from '@/components/Loader/Loader';
-import { signOut } from 'next-auth/react';
 
 const normalizeDessertsMenuItem = (item) => ({
     id: item.id || Date.now(),
@@ -27,7 +26,7 @@ export default function DessertsMenuPage() {
     useEffect(() => {
         if (status === 'authenticated') {
             if (session?.user?.role !== 'admin') {
-                toast.error("Vous n'êtes pas autorisé à accéder à cette page.");
+                showToast('Erreur !', `Vous n'êtes pas autorisé à accéder à cette page.`, 'error');
                 signOut({ callbackUrl: '/unauthorized' });
             } else {
                 fetch('/api/menu-data?page=gestion-desserts', { credentials: 'include' })
@@ -41,7 +40,7 @@ export default function DessertsMenuPage() {
                     })
                     .catch(err => {
                         console.error("Error fetching desserts menu data:", err);
-                        toast.error('Erreur lors du chargement des données du menu des desserts.');
+                        showToast('Erreur !', `Erreur lors du chargement des données des desserts.`, 'error');
                     });
             }
         } else if (status === 'unauthenticated') {
@@ -60,9 +59,9 @@ export default function DessertsMenuPage() {
         });
 
         if (res.ok) {
-            toast.success('Données mises à jour avec succès !');
+            showToast('Succès !', `Données mises à jour avec succès !`, 'success');
         } else {
-            toast.error('Échec de la mise à jour des données.');
+            showToast('Erreur !', `Échec de la mise à jour des données.`, 'error');
         }
     };
 
@@ -71,9 +70,6 @@ export default function DessertsMenuPage() {
 
     return (
         <AdminLayout>
-            {/* <header className="py-10">
-                <h1 className="text-3xl font-bold">Gestion des Desserts</h1>
-            </header> */}
             <main>
                 <MenuSectionForm
                     sectionData={menuData}

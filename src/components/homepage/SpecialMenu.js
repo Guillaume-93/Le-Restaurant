@@ -1,10 +1,9 @@
 "use client";
 
-import { CheckIcon } from '@heroicons/react/20/solid'
-import Image from 'next/image'
-import Link from 'next/link.js'
-import { useEffect, useState } from 'react';
 import { StarSolid } from 'iconoir-react';
+import Image from 'next/image';
+import Link from 'next/link.js';
+import { useEffect, useState } from 'react';
 
 export default function SpecialMenu() {
     const [menuData, setMenuData] = useState([]);

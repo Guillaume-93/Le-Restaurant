@@ -1,9 +1,9 @@
 "use client";
 
+import Loader from '@/components/Loader/LoaderFull.js';
 import { CheckIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import Loader from '@/components/Loader/LoaderFull.js';
+import { useEffect, useState } from 'react';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -162,6 +162,7 @@ export default function MenuPrices() { // Renommé pour être spécifique
                     ))}
                 </div>
             </div>
+            <div id="special-menu" className='py-10 sm:py-0'></div>
         </div>
     );
 }

@@ -1,14 +1,13 @@
 // app/admin/gestion-plats/page.js
 "use client";
 
-import MenuSectionForm from '@/components/admin/MenuSectionForm';
 import AdminLayout from '@/components/admin/AdminLayout';
-import { useSession } from 'next-auth/react';
+import MenuSectionForm from '@/components/admin/MenuSectionForm';
+import Loader from '@/components/Loader/Loader';
+import { showToast } from '@/components/ui/ToastManager.js';
+import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import Loader from '@/components/Loader/Loader';
-import { signOut } from 'next-auth/react';
 
 const normalizeMenuCarteItem = (item) => ({
     id: item.id || Date.now(),
@@ -27,7 +26,7 @@ export default function MenuCartePage() {
     useEffect(() => {
         if (status === 'authenticated') {
             if (session?.user?.role !== 'admin') {
-                toast.error("Vous n'êtes pas autorisé à accéder à cette page.");
+                showToast('Erreur !', `Vous n'êtes pas autorisé à accéder à cette page.`, 'error');
                 signOut({ callbackUrl: '/unauthorized' });
             } else {
                 fetch('/api/menu-data?page=gestion-plats', { credentials: 'include' })
@@ -41,7 +40,7 @@ export default function MenuCartePage() {
                     })
                     .catch(err => {
                         console.error("Error fetching menu carte data:", err);
-                        toast.error('Erreur lors du chargement des données de la carte.');
+                        showToast('Erreur !', `Erreur lors du chargement des données de la carte.`, 'error');
                     });
             }
         } else if (status === 'unauthenticated') {
@@ -60,9 +59,9 @@ export default function MenuCartePage() {
         });
 
         if (res.ok) {
-            toast.success('Données mises à jour avec succès !');
+            showToast('Succès !', `Données mises à jour avec succès !`, 'success');
         } else {
-            toast.error('Échec de la mise à jour des données.');
+            showToast('Erreur !', `Échec de la mise à jour des données.`, 'error');
         }
     };
 
@@ -71,9 +70,6 @@ export default function MenuCartePage() {
 
     return (
         <AdminLayout>
-            {/* <header className="py-10">
-                <h1 className="text-3xl font-bold">Gestion des Plats</h1>
-            </header> */}
             <main>
                 <MenuSectionForm
                     sectionData={menuData}

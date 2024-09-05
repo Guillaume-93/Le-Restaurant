@@ -1,10 +1,12 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { showToast } from '@/components/ui/ToastManager';
+import { Field, Label, Switch } from '@headlessui/react';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import { getSession, signIn } from 'next-auth/react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import FormSection from './FormSection';
-import { Field, Label, Switch } from '@headlessui/react'
 
 const sectionSingleTitle = {
     menusPrices: "Menu",
@@ -91,9 +93,9 @@ export default function MenuSectionForm({
                 return updatedSection;
             });
 
-            toast.success('Élément supprimé avec succès !');
+            showToast('Succès !', `Votre ${sectionSingleTitle[sectionName]} a été supprimé avec succès`, 'success');
         } catch (error) {
-            toast.error('Erreur lors de la suppression de l\'élément.');
+            showToast('Erreur !', `Erreur lors de la suppression du ${sectionSingleTitle[sectionName]}`, 'error');
         }
     };
 
@@ -136,49 +138,62 @@ export default function MenuSectionForm({
 
             if (saveRes.ok) {
                 setMenuData(updatedItems); // Mettre à jour l'état local avec les données mises à jour
-                toast.success('Élément ajouté avec succès !');
+                showToast('Succès !', `${sectionSingleTitle[sectionName]} ajouté avec succès !`, 'success');
             } else {
                 throw new Error('Échec de l\'ajout de l\'élément.');
             }
         } catch (error) {
             console.error('Erreur lors de l\'ajout de l\'élément:', error);
-            toast.error('Erreur lors de l\'ajout de l\'élément.');
+            showToast('Erreur !', `Erreur lors de l\'ajout du ${sectionSingleTitle[sectionName]}:`, 'error');
         }
     };
 
     const handleRemoveItem = (index) => {
         if (sectionName === 'heroSection') {
-            toast.error(`${sectionName} n'est pas un tableau.`);
+            showToast('Erreur !', `${sectionName} n'est pas un tableau.`, 'error');
             return;
         }
-
-        // Afficher un toast de confirmation
+    
         toast((t) => (
-            <div>
-                <p>Êtes-vous sûr de vouloir supprimer cet élément ?</p>
-                <div className="mt-2 flex justify-end gap-x-2">
+            <>
+                <div className="sm:flex sm:items-start">
+                    <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                        <ExclamationTriangleIcon aria-hidden="true" className="h-6 w-6 text-red-600" />
+                    </div>
+                    <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                        <h3 className="text-base font-semibold leading-6 text-gray-900">
+                            Supprimer l'élément
+                        </h3>
+                        <div className="mt-2">
+                            <p className="text-sm text-gray-500">
+                                Êtes-vous sûr de vouloir supprimer ce {sectionSingleTitle[sectionName]} ? Cette action est irréversible.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div className="mt-5 sm:mt-4 sm:flex sm:pl-4 sm:ml-10">
                     <button
                         onClick={() => {
-                            deleteItemFromDatabase(index); // Appel à l'API pour supprimer l'élément
+                            deleteItemFromDatabase(index);
                             toast.dismiss(t.id);
                         }}
-                        className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded"
+                        className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:w-auto"
                     >
                         Confirmer
                     </button>
                     <button
-                        onClick={() => toast.dismiss(t.id)}
-                        className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded"
+                        onClick={() => toast.dismiss(t.id)} // Annuler et fermer le toast
+                        className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:ml-3 sm:mt-0 sm:w-auto"
                     >
                         Annuler
                     </button>
                 </div>
-            </div>
+            </>
         ), {
             position: "top-center",
-            autoClose: false, // Ne pas fermer automatiquement
-            closeOnClick: false,
-            draggable: false,
+            autoClose: false,  // Ne pas fermer automatiquement
+            closeOnClick: false, // Ne pas fermer en cliquant
+            draggable: false, // Désactiver le glissement
         });
     };
 
@@ -320,7 +335,7 @@ export default function MenuSectionForm({
                     convertedFile = new File([blob], `${file.name.split('.')[0]}.jpg`, { type: "image/jpeg" });
                 } catch (error) {
                     console.error('Erreur lors de la conversion HEIC/HEIF:', error);
-                    toast.error('Erreur lors de la conversion de l\'image. Veuillez réessayer.');
+                    showToast('Erreur !', 'Erreur lors de la conversion de l\'image. Veuillez réessayer.', 'error');
                     return;
                 }
             }
@@ -353,13 +368,13 @@ export default function MenuSectionForm({
                     }
                 });
 
-                toast.success('Image téléchargée avec succès.');
+                showToast('Succès !', `Image téléchargée avec succès.`, 'success');
             } else {
-                toast.error('Échec du téléchargement de l\'image.');
+                showToast('Erreur !', `Echec du téléchargement de l\'image.`, 'error');
             }
         } catch (error) {
             console.error('Erreur lors du téléchargement de l\'image:', error);
-            toast.error('Échec du téléchargement de l\'image.');
+            showToast('Erreur !', `Echec du téléchargement de l\'image.`, 'error');
         }
     };
 
@@ -368,13 +383,13 @@ export default function MenuSectionForm({
 
         const session = await getSession();
         if (!session || session.expires <= new Date().toISOString()) {
-            toast.error('Votre session a expiré. Veuillez vous reconnecter.');
+            showToast('Erreur !', `Votre session a expiré. Veuillez vous reconnecter.`, 'error');
             signIn();
             return;
         }
 
         if (session.user.role !== 'admin') {
-            toast.error("Vous n'êtes pas autorisé à effectuer cette action.");
+            showToast('Erreur !', `Vous n'êtes pas autorisé à effectuer cette action.`, 'error');
             return;
         }
 

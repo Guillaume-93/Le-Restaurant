@@ -1,13 +1,12 @@
 "use client";
 
-import MenuSectionForm from '@/components/admin/MenuSectionForm';
 import AdminLayout from '@/components/admin/AdminLayout';
-import { useSession } from 'next-auth/react';
+import MenuSectionForm from '@/components/admin/MenuSectionForm';
+import Loader from '@/components/Loader/LoaderFull.js';
+import { showToast } from '@/components/ui/ToastManager.js';
+import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import Loader from '@/components/Loader/LoaderFull.js';
-import { signOut } from 'next-auth/react';
 
 export default function GestionSpecialMenuPage() {
     const { data: session, status } = useSession();
@@ -17,7 +16,7 @@ export default function GestionSpecialMenuPage() {
     useEffect(() => {
         if (status === 'authenticated') {
             if (session?.user?.role !== 'admin') {
-                toast.error("Vous n'êtes pas autorisé à accéder à cette page.");
+                showToast('Erreur !', `Vous n'êtes pas autorisé à accéder à cette page.`, 'error');
                 signOut({ callbackUrl: '/unauthorized' });
             } else {
                 fetch('/api/menu-data?page=gestion-menu-special', { credentials: 'include' })
@@ -30,7 +29,7 @@ export default function GestionSpecialMenuPage() {
                     })
                     .catch(err => {
                         console.error("Error fetching special menu data:", err);
-                        toast.error('Erreur lors du chargement des données du menu spécial.');
+                        showToast('Erreur !', `Erreur lors du chargement des données du menu spécial.`, 'error');
                     });
             }
         } else if (status === 'unauthenticated') {
@@ -49,9 +48,9 @@ export default function GestionSpecialMenuPage() {
         });
 
         if (res.ok) {
-            toast.success('Menu spécial mis à jour avec succès !');
+            showToast('Succès !', `Données mises à jour avec succès !`, 'success');
         } else {
-            toast.error('Échec de la mise à jour du menu spécial.');
+            showToast('Erreur !', `Échec de la mise à jour des données.`, 'error');
         }
     };
 

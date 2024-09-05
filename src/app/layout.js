@@ -1,7 +1,6 @@
 // app/layout.js
-import "./globals.css";
-import 'react-toastify/dist/ReactToastify.css';
 import ClientProvider from './client-provider';
+import "./globals.css";
 
 export const metadata = {
   title: 'Le Neuilly',
