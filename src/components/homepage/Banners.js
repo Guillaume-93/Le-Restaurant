@@ -19,10 +19,12 @@ export default function Banners({ title, price }) {
             // Si l'utilisateur est déjà sur la page du menu, utiliser scrollIntoView pour un scroll smooth
             const menuSection = document.querySelector('#special-menu');
             if (menuSection) {
+                setShowBanner(false); // Masquer la bannière avant de déplacer la vue
                 menuSection.scrollIntoView({ behavior: 'smooth' });
             }
         } else {
             // Sinon, rediriger vers la page du menu avec le hash
+            setShowBanner(false); // Masquer la bannière avant de naviguer
             router.push('/menu#special-menu');
         }
     };

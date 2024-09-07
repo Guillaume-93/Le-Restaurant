@@ -15,7 +15,7 @@ const stats = [
     { label: 'Clients servis', value: '1000+' },
 ];
 
-export default function Example() {
+export default function About() {
     return (
             <div className="py-24 sm:py-32">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
