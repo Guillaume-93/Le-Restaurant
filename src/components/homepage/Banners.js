@@ -78,7 +78,7 @@ export default function Banners({ title, price }) {
                     onClick={handleScrollToMenu} // Appel du gestionnaire pour le défilement smooth
                     className="flex-none rounded-full bg-[--link-color-background] px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-[--link-color-hover] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
                 >
-                    Voir l'offre <span aria-hidden="true">&rarr;</span>
+                    Voir l&apos;offre <span aria-hidden="true">&rarr;</span>
                 </a>
             </div>
             <div className="flex flex-1 justify-end">
