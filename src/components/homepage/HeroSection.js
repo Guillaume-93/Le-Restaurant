@@ -48,7 +48,7 @@ export default function HeroSection() {
     }
 
     return (
-            <main className="bg-gradient-to-br from-[var(--gradient-bg-from)] via-[var(--gradient-bg-via)] to-[var(--gradient-bg-to)]">
+            <main className="min-h-screen bg-gradient-to-br from-[var(--gradient-bg-from)] via-[var(--gradient-bg-via)] to-[var(--gradient-bg-to)]">
                 <div className="relative isolate">
                     <div className="overflow-hidden">
                         <div className="mx-auto max-w-7xl px-6 pb-20 pt-28 sm:pt-32 lg:px-8 lg:pt-12">
