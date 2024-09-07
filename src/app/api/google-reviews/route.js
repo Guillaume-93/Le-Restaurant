@@ -10,18 +10,13 @@ export async function GET() {
     const fetchReviews = async (pageToken = '') => {
         const apiUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=reviews&language=${language}&key=${apiKey}`;
         
-        console.log("Fetching URL:", apiUrl);
-        
         try {
             const response = await fetch(apiUrl);
             const data = await response.json();
     
-            console.log("API Response Data:", data);
-    
             if (data.status === 'OK') {
                 allReviews = [...allReviews, ...data.result.reviews];
                 nextPageToken = data.next_page_token || '';
-                console.log("Next Page Token:", nextPageToken);
             } else {
                 console.error(`API Error: ${data.status} - ${data.error_message || 'Unknown error'}`);
                 throw new Error(`API Error: ${data.status}`);
@@ -36,7 +31,6 @@ export async function GET() {
         await fetchReviews();
 
         while (nextPageToken) {
-            console.log('Waiting 3 seconds before fetching the next page...');
             await new Promise(resolve => setTimeout(resolve, 3000)); 
             await fetchReviews(nextPageToken);
         }

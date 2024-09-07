@@ -70,11 +70,11 @@ export default function Menu() {
 
     return (
         <>
-            {/* Menus Prices */}
-            <MenuPrices />
-
             {/* Menu Spécial */}
             <SpecialMenu />
+            
+            {/* Menus Prices */}
+            <MenuPrices />
 
             {/* Menu à la Carte */}
             <div id="a-la-carte" className="py-24 sm:py-32">

@@ -2,10 +2,13 @@
 
 import { ArrowUpIcon } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation'; // Pour détecter les changements de route
 
 export default function ScrollToTop() {
     const [isVisible, setIsVisible] = useState(false);
+    const pathname = usePathname(); // Utilisation de usePathname pour détecter les changements de route
 
+    // Fonction pour afficher/masquer le bouton en fonction du défilement
     const toggleVisibility = () => {
         if (window.scrollY > 800) {
             setIsVisible(true);
@@ -14,6 +17,7 @@ export default function ScrollToTop() {
         }
     };
 
+    // Fonction de défilement doux vers le haut
     const easeInOutQuad = (t) => {
         return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
     };
@@ -37,6 +41,12 @@ export default function ScrollToTop() {
         requestAnimationFrame(scroll);
     };
 
+    // Forcer le défilement en haut après la navigation
+    useEffect(() => {
+        window.scrollTo(0, 0); // Revenir en haut après chaque changement de route
+    }, [pathname]); // Déclenché à chaque changement de route
+
+    // Gérer la visibilité du bouton de retour en haut
     useEffect(() => {
         window.addEventListener('scroll', toggleVisibility);
         return () => {
@@ -48,15 +58,13 @@ export default function ScrollToTop() {
         <>
             {isVisible && (
                 <div className="fixed bottom-4 right-4 z-20">
-                    {isVisible && (
-                        <button
-                            onClick={scrollToTop}
-                            className="p-2 rounded-full bg-[--link-color-background] text-white shadow-lg hover:bg-[--link-color-hover]"
-                            aria-label="Scroll to top"
-                        >
-                            <ArrowUpIcon className="h-6 w-6" />
-                        </button>
-                    )}
+                    <button
+                        onClick={scrollToTop}
+                        className="p-2 rounded-full bg-[--link-color-background] text-white shadow-lg hover:bg-[--link-color-hover]"
+                        aria-label="Scroll to top"
+                    >
+                        <ArrowUpIcon className="h-6 w-6" />
+                    </button>
                 </div>
             )}
         </>

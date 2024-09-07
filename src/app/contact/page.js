@@ -27,9 +27,16 @@ export default function Contact() {
                             </ul>
                         </div>
                         <div className="grid grid-cols-1 gap-8 lg:col-span-2">
-                            <div className="rounded-2xl bg-[--background-color-primary] shadow-lg p-8">
-                                <h3 className="text-xl font-semibold leading-7 text-gray-900">Notre Adresse</h3>
-                                <p className="mt-4 text-base leading-7 text-gray-600">
+                            <div className="rounded-2xl bg-gradient-to-br from-[var(--gradient-bg-from)] via-[var(--gradient-bg-via)] to-[var(--gradient-bg-to)] shadow-lg p-8">
+                                <h3 className="text-xl font-semibold leading-7 text-gray-100">Numéro de Téléphone</h3>
+                                <p className="mt-4 text-base leading-7 text-gray-300">
+                                    Nous sommes disponibles pour répondre à vos questions ou prendre vos réservations par téléphone :
+                                </p>
+                                <p className="mt-2 font-semibold text-gray-100">09 84 15 23 70</p>
+                            </div>
+                            <div className="rounded-2xl bg-gradient-to-br from-[var(--gradient-bg-from)] via-[var(--gradient-bg-via)] to-[var(--gradient-bg-to)] shadow-lg p-8">
+                                <h3 className="text-xl font-semibold leading-7 text-gray-100">Notre Adresse</h3>
+                                <p className="mt-4 text-base leading-7 text-gray-300">
                                     2 Rue Louis Vannini, 93330 Neuilly-sur-Marne
                                 </p>
                                 <div className="mt-6 h-64 md:h-80 lg:h-96 w-full relative">
@@ -41,27 +48,20 @@ export default function Contact() {
                                         allowFullScreen=""
                                         loading="lazy"
                                         referrerPolicy="no-referrer-when-downgrade"
-                                        
+
                                     ></iframe>
                                 </div>
                             </div>
-                            <div className="rounded-2xl bg-[--background-color-primary] shadow-lg p-8">
-                                <h3 className="text-xl font-semibold leading-7 text-gray-900">Adresse Email</h3>
-                                <p className="mt-4 text-base leading-7 text-gray-600">
+                            <div className="rounded-2xl bg-gradient-to-br from-[var(--gradient-bg-from)] via-[var(--gradient-bg-via)] to-[var(--gradient-bg-to)] shadow-lg p-8">
+                                <h3 className="text-xl font-semibold leading-7 text-gray-100">Adresse Email</h3>
+                                <p className="mt-4 text-base leading-7 text-gray-300">
                                     Pour toute information ou réservation, contactez-nous à l&apos;adresse suivante :
                                 </p>
                                 <p className="mt-2">
-                                    <a href="mailto:leneuilly93@gmail.com" className="font-semibold text-indigo-600">
+                                    <a href="mailto:leneuilly93@gmail.com" className="font-semibold text-gray-300">
                                         leneuilly93@gmail.com
                                     </a>
                                 </p>
-                            </div>
-                            <div className="rounded-2xl bg-[--background-color-primary] shadow-lg p-8">
-                                <h3 className="text-xl font-semibold leading-7 text-gray-900">Numéro de Téléphone</h3>
-                                <p className="mt-4 text-base leading-7 text-gray-600">
-                                    Nous sommes disponibles pour répondre à vos questions ou prendre vos réservations par téléphone :
-                                </p>
-                                <p className="mt-2 font-semibold text-gray-900">09 84 15 23 70</p>
                             </div>
                         </div>
                     </div>

@@ -4,9 +4,9 @@
 
 import {
     ChatBubbleBottomCenterTextIcon
-} from '@heroicons/react/24/outline'
-import Link from 'next/link';
+} from '@heroicons/react/24/outline';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const stats = [
     { label: 'Fondé', value: '2022' },
@@ -28,9 +28,8 @@ export default function Example() {
                                     className="absolute inset-0 h-full w-full object-cover brightness-125 saturate-0"
                                     width={400}
                                     height={400}
-
                                 />
-                                <div className="absolute inset-0 bg-slate-600 mix-blend-multiply" />
+                                <div className="absolute inset-0 bg-gradient-to-br from-[var(--gradient-bg-from)] via-[var(--gradient-bg-via)] to-[var(--gradient-bg-to)] p-4 rounded-xl mix-blend-multiply" />
                                 <div
                                     aria-hidden="true"
                                     className="absolute left-1/2 top-1/2 -ml-16 -translate-x-1/2 -translate-y-1/2 transform-gpu blur-3xl"
@@ -44,7 +43,6 @@ export default function Example() {
                                     />
                                 </div>
                                 <figure className="relative isolate">
-                                    {/* <img alt="" src="https://tailwindui.com/img/logos/workcation-logo-white.svg" className="h-12 w-auto" /> */}
                                     <ChatBubbleBottomCenterTextIcon aria-hidden="true" className="mt-1 h-10 w-auto flex-none text-slate-100" />
                                     <blockquote className="mt-2 text-xl font-semibold leading-8 text-slate-100">
                                         <p>

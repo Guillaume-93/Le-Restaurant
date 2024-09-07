@@ -33,7 +33,8 @@ export default function SpecialMenu() {
     const includedFeatures = menuData[0]?.includedFeatures || [];
 
     return (
-        <div className="relative bg-white py-8 sm:py-20 mb-24">
+        <><div id="special-menu" className=''></div>
+        <div className="relative bg-white py-8 sm:py-28 mb-24">
             {imageUrl && (
                 <div className="absolute inset-0 z-0 overflow-hidden">
                     <Image
@@ -42,8 +43,7 @@ export default function SpecialMenu() {
                         style={{ objectFit: 'cover', objectPosition: 'center' }}
                         className="opacity-40"
                         fill="responsive"
-                        priority={true}
-                    />
+                        loading="lazy" />
                 </div>
             )}
 
@@ -105,6 +105,6 @@ export default function SpecialMenu() {
                 </div>
             </div>
             <div className="pb-16 sm:pb-24"></div>
-        </div>
+        </div></>
     );
 }

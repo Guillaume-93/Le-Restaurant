@@ -8,32 +8,46 @@ import { useEffect, useState } from "react";
 
 const TestimonialsSection = () => {
     const [testimonials, setTestimonials] = useState([]);
+    const CACHE_EXPIRATION = 30 * 24 * 60 * 60 * 1000; // 30 jours
 
     useEffect(() => {
         const fetchGoogleReviews = async () => {
-            try {
-                const response = await fetch('/api/google-reviews');
-                const reviews = await response.json();
-
-                if (reviews.length > 0) {
-                    const structuredReviews = reviews.map((review) => ({
-                        body: review.text,
-                        name: review.author_name,
-                        rating: review.rating,
-                        date: review.relative_time_description,
-                        img: review.profile_photo_url || '/images/avatars/default-avatar.webp',
-                        userReviewsCount: review.user_ratings_total || 0,
-                    }));
-
-                    setTestimonials(structuredReviews);
+            const cachedReviews = localStorage.getItem('google-reviews');
+            const cacheTimestamp = localStorage.getItem('google-reviews-timestamp');
+            const now = Date.now();
+    
+            // Vérifier si le cache est encore valide
+            if (cachedReviews && cacheTimestamp && now - cacheTimestamp < CACHE_EXPIRATION) {
+                setTestimonials(JSON.parse(cachedReviews));
+            } else {
+                try {
+                    const response = await fetch('/api/google-reviews');
+                    const reviews = await response.json();
+    
+                    if (reviews.length > 0) {
+                        const structuredReviews = reviews.map((review) => ({
+                            body: review.text,
+                            name: review.author_name,
+                            rating: review.rating,
+                            date: review.relative_time_description,
+                            img: review.profile_photo_url || '/images/avatars/default-avatar.webp',
+                            userReviewsCount: review.user_ratings_total || 0,
+                        }));
+    
+                        // Stocker les avis et l'horodatage dans localStorage
+                        localStorage.setItem('google-reviews', JSON.stringify(structuredReviews));
+                        localStorage.setItem('google-reviews-timestamp', now.toString());
+    
+                        setTestimonials(structuredReviews);
+                    }
+                } catch (error) {
+                    console.error('Failed to fetch Google reviews:', error);
                 }
-            } catch (error) {
-                console.error('Failed to fetch Google reviews:', error);
             }
         };
-
+    
         fetchGoogleReviews();
-    }, []);
+    }, []);    
 
     const renderStars = (rating) => {
         return (
@@ -63,7 +77,14 @@ const TestimonialsSection = () => {
             )}
         >
             <div className="flex items-center gap-2">
-                <Image className="rounded-full" width={32} height={32} alt={name} src={img} />
+                <Image
+                    className="rounded-full"
+                    width={32}
+                    height={32}
+                    alt={name}
+                    src={img}
+                    loading="lazy"
+                />
                 <div className="flex flex-col">
                     <figcaption className="text-sm font-medium dark:text-white">
                         {name}
@@ -80,16 +101,9 @@ const TestimonialsSection = () => {
     );
 
     return (
-        <div className="relative isolate mt-32 sm:pt-24 bg-[#F7ECE7]">
+        <div className="relative isolate mt-24 sm:pt-24">
             <div className="relative py-20">
-                {/* <Image
-                    className="absolute inset-0 -z-10 h-full w-full object-cover"
-                    src="/images/backgrounds/le-neuilly-pattern-3.webp"
-                    alt=""
-                    width={1440}
-                    height={400}
-                /> */}
-                <div className="mx-auto max-w-7xl">
+                <div className="relative mx-auto max-w-7xl">
                     <div className="mx-auto max-w-xl text-center px-6">
                         <h2 className="text-lg font-semibold leading-8 tracking-tight text-[#112E34]">
                             Avis
@@ -112,8 +126,8 @@ const TestimonialsSection = () => {
                                 <ReviewCard key={testimonial.name} {...testimonial} />
                             ))}
                         </Marquee>
-                        <div className="hidden sm:block pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-[#F7ECE7] dark:from-background"></div>
-                        <div className="hidden sm:block pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-[#F7ECE7] dark:from-background"></div>
+                        <div className="hidden sm:block pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-[#ffffff] dark:from-background"></div>
+                        <div className="hidden sm:block pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-[#ffffff] dark:from-background"></div>
                     </div>
                 </div>
             </div>

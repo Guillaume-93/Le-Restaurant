@@ -12,11 +12,6 @@ const RatingSummaryBox = () => {
         qualityPrice: 4.5
     });
 
-    useEffect(() => {
-        // Logique pour récupérer les données depuis une API ou une source de données réelle
-        // Pour l'exemple, nous avons utilisé des valeurs en dur
-    }, []);
-
     const renderStars = (rating) => {
         return (
             <div className="flex items-center">
@@ -37,21 +32,17 @@ const RatingSummaryBox = () => {
     };
 
     return (
-        <div className="bg-white p-6 rounded-lg shadow-default w-72 mt-6">
+        <div className="bg-white p-6 rounded-lg shadow-default w-72 mt-6 border border-gray-950/[.1]">
             <div className="text-center mb-4">
+                <p className='font-semibold text-xl mb-2'>Excellent</p>
                 <div className="text-4xl font-bold text-gray-800">{globalRating}</div>
                 <div className="flex justify-center items-center mt-1">
                     {renderStars(globalRating)}
                 </div>
                 <div className="text-sm text-gray-500 mt-2">
-                    <a 
-                        href="https://www.google.com/search?q=Le+Neuilly+Avis" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-indigo-600 hover:underline"
-                    >
-                        {totalReviews} avis
-                    </a>
+                    <p>
+                        Basé sur <span className='font-bold'>{totalReviews} avis</span>
+                    </p>
                 </div>
             </div>
             <div className="border-t pt-4">
@@ -72,9 +63,6 @@ const RatingSummaryBox = () => {
                     {renderStars(criteriaRatings.qualityPrice)}
                 </div>
             </div>
-            {/* <div className="mt-4 text-center text-xs text-gray-500">
-                100% avis vérifiés
-            </div> */}
         </div>
     );
 };

@@ -29,7 +29,7 @@ const DishesCarousel = () => {
     }, []);
 
     return (
-        <div className="relative mt-20">
+        <div className="relative my-32">
             <Carousel
                 className="relative"
                 opts={{
@@ -49,7 +49,7 @@ const DishesCarousel = () => {
                                             alt={dish.name}
                                             width={400}
                                             height={400}
-                                            priority={true}
+                                            loading="lazy"
                                         />
                                     </CardContent>
                                 </Card>

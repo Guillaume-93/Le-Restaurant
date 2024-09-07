@@ -35,7 +35,7 @@ const features = [
 
 const SecondaryFeaturesSection = () => {
   return (
-    <div className="sm:mt-32">
+    <div className="relative mt-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
           <h2 className="text-base font-semibold leading-7 text-[#112E34]">Tout ce dont vous avez besoin</h2>

@@ -11,7 +11,7 @@
     --link-color-visited: #8e44ad;
 
     /* Couleurs des backgrounds */
-    --background-color-primary: #F7ECE7;
+    --background-color-primary: #ffffff;
     --background-color-secondary: #f8f9fa;
     --background-color-tertiary: #ecf0f1;
     --background-color-accent: #2c3e50;
@@ -25,4 +25,9 @@
     --text-color-tertiary: #7f8c8d;
     --text-color-muted: #bdc3c7;
     --text-color-highlight: #e74c3c;
+
+    /* Couleurs des dégradés */
+    --gradient-bg-from: #1B4A4E;
+    --gradient-bg-via: #247B78;
+    --gradient-bg-to: #66C2BE;
 }

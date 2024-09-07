@@ -24,7 +24,7 @@ export const showToast = (message, description, type = 'success') => {
     );
 };
 
-// ToastContainer que vous pouvez utiliser dans le layout
+// ToastContainer pour afficher les toasts
 export function ToastProvider() {
     return (
         <ToastContainer

@@ -1,25 +1,31 @@
 // app/page.js
 
-import DishesCarousel from "@/components/homepage/DishesCarousel";
 import Faq from "@/components/homepage/Faq.js";
 import FeaturesSection from "@/components/homepage/FeaturesSection";
 import HeroSection from "@/components/homepage/HeroSection";
 import MenusPrices from "@/components/homepage/MenusPrices";
 import SecondaryFeaturesSection from "@/components/homepage/SecondaryFeaturesSection";
 import SpecialMenu from "@/components/homepage/SpecialMenu.js";
-import TestimonialsSection from "@/components/homepage/TestimonialsSection";
+import React, { Suspense } from 'react';
 
 export default function Example() {
+    const DishesCarousel = React.lazy(() => import('@/components/homepage/DishesCarousel'));
+    const TestimonialsSection = React.lazy(() => import('@/components/homepage/TestimonialsSection'));
+
     return (
         <div>
             <main>
                 <HeroSection />
                 <FeaturesSection />
-                <DishesCarousel />
+                <Suspense fallback={<div>Loading...</div>}>
+                    <DishesCarousel />
+                </Suspense>
                 <MenusPrices />
-                <SpecialMenu />
+                {/* <SpecialMenu /> */}
                 <SecondaryFeaturesSection />
-                <TestimonialsSection />
+                <Suspense fallback={<div>Loading...</div>}>
+                    <TestimonialsSection />
+                </Suspense>
                 <Faq />
             </main>
         </div>
