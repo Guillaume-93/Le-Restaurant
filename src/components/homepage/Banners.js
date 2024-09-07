@@ -32,60 +32,44 @@ export default function Banners({ title, price }) {
     }
 
     return (
-        <div className="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
-            <div
-                aria-hidden="true"
-                className="absolute left-[max(-7rem,calc(50%-52rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
-            >
-                <div
-                    style={{
-                        clipPath:
-                            'polygon(74.8% 41.9%, 97.2% 73.2%, 100% 34.9%, 92.5% 0.4%, 87.5% 0%, 75% 28.6%, 58.5% 54.6%, 50.1% 56.8%, 46.9% 44%, 48.3% 17.4%, 24.7% 53.9%, 0% 27.9%, 11.9% 74.2%, 24.9% 54.1%, 68.6% 100%, 74.8% 41.9%)',
-                    }}
-                    className="aspect-[577/310] w-[36.0625rem] bg-gradient-to-r from-[#ff80b5] to-[#9089fc] opacity-30"
-                />
-            </div>
-            <div
-                aria-hidden="true"
-                className="absolute left-[max(45rem,calc(50%+8rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
-            >
-                <div
-                    style={{
-                        clipPath:
-                            'polygon(74.8% 41.9%, 97.2% 73.2%, 100% 34.9%, 92.5% 0.4%, 87.5% 0%, 75% 28.6%, 58.5% 54.6%, 50.1% 56.8%, 46.9% 44%, 48.3% 17.4%, 24.7% 53.9%, 0% 27.9%, 11.9% 74.2%, 24.9% 54.1%, 68.6% 100%, 74.8% 41.9%)',
-                    }}
-                    className="aspect-[577/310] w-[36.0625rem] bg-gradient-to-r from-[#ff80b5] to-[#9089fc] opacity-30"
-                />
-            </div>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-                <div className="inline-flex items-center gap-x-2 rounded-md py-1 text-sm leading-6 text-gray-900 font-medium">
-                    <svg viewBox="0 0 6 6" aria-hidden="true" className="h-1.5 w-1.5 fill-green-400">
-                        <circle r={3} cx={3} cy={3} />
-                    </svg>
-                    <strong className="font-semibold">En ce moment :</strong>
+        <div className='absolute left-1/2 transform -translate-x-1/2 sm:top-[120%] w-full sm:max-w-lg bg-gradient-to-r from-[#407cff] via-[#cecece] to-[#ff4040] sm:rounded-full shadow-default'>
+            <div className="bg-white sm:rounded-full px-4 py-2 sm:py-0 my-0.5 sm:m-0.5">
+                {/* Utilisation de flex pour aligner le contenu sur une seule ligne */}
+                <div className="flex items-center justify-between gap-x-4">
+                    {/* Texte et offre */}
+                    <div className="flex flex-wrap items-center gap-x-2">
+                        <div className="inline-flex items-center gap-x-2 rounded-md py-1 text-sm leading-6 text-gray-900 font-medium">
+                            <svg viewBox="0 0 6 6" aria-hidden="true" className="h-1.5 w-1.5 fill-green-400">
+                                <circle r={3} cx={3} cy={3} />
+                            </svg>
+                            <strong className="font-semibold">En ce moment :</strong>
+                        </div>
+                        <p className="text-sm leading-6 text-gray-900">
+                            <svg viewBox="0 0 2 2" aria-hidden="true" className="mx-2 inline h-0.5 w-0.5 fill-current">
+                                <circle r={1} cx={1} cy={1} />
+                            </svg>
+                            {title}
+                            <svg viewBox="0 0 2 2" aria-hidden="true" className="mx-2 inline h-0.5 w-0.5 fill-current">
+                                <circle r={1} cx={1} cy={1} />
+                            </svg> 
+                            {price}
+                        </p>
+                        <a
+                            href="#"
+                            onClick={handleScrollToMenu} // Appel du gestionnaire pour le défilement smooth
+                            className="flex-none rounded-full  px-3.5 py-1 text-sm font-bold text-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
+                        >
+                            Voir l&apos;offre <span aria-hidden="true">&rarr;</span>
+                        </a>
+                    </div>
+                    {/* Bouton de fermeture toujours aligné avec le texte */}
+                    <div className="flex justify-end">
+                        <button type="button" className="-m-3 p-3 focus-visible:outline-offset-[-4px]" onClick={handleClose}>
+                            <span className="sr-only">Dismiss</span>
+                            <XMarkIcon aria-hidden="true" className="h-5 w-5 text-gray-900" />
+                        </button>
+                    </div>
                 </div>
-                <p className="text-sm leading-6 text-gray-900">
-                    <svg viewBox="0 0 2 2" aria-hidden="true" className="mx-2 inline h-0.5 w-0.5 fill-current">
-                        <circle r={1} cx={1} cy={1} />
-                    </svg>
-                    {title}
-                    <svg viewBox="0 0 2 2" aria-hidden="true" className="mx-2 inline h-0.5 w-0.5 fill-current">
-                        <circle r={1} cx={1} cy={1} />
-                    </svg> {price}
-                </p>
-                <a
-                    href="#"
-                    onClick={handleScrollToMenu} // Appel du gestionnaire pour le défilement smooth
-                    className="flex-none rounded-full bg-[--link-color-background] px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-[--link-color-hover] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
-                >
-                    Voir l&apos;offre <span aria-hidden="true">&rarr;</span>
-                </a>
-            </div>
-            <div className="flex flex-1 justify-end">
-                <button type="button" className="-m-3 p-3 focus-visible:outline-offset-[-4px]" onClick={handleClose}>
-                    <span className="sr-only">Dismiss</span>
-                    <XMarkIcon aria-hidden="true" className="h-5 w-5 text-gray-900" />
-                </button>
             </div>
         </div>
     );
