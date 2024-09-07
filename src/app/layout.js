@@ -19,7 +19,7 @@ export const metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/restaurant.jpg', // Image utilisée pour les aperçus
+        url: '/images/restaurant.webp', // Image utilisée pour les aperçus
         width: 800,
         height: 600,
         alt: 'Le Neuilly - Restaurant',
