@@ -12,7 +12,7 @@ const legalVariables = {
     ownerVatNumber: "Numéro de TVA intracommunautaire",
     ownerAddress: "Adresse complète, Code postal, Pays",
     ownerPhone: "Numéro de téléphone",
-    ownerEmail: "contact@leneuilly.com",
+    ownerEmail: "leneuilly93@gmail.com",
     publicationDirectorName: "Nom du directeur de la publication",
     hostName: "Nom de l'hébergeur",
     hostCompanyName: "Raison sociale de l'hébergeur",
@@ -85,10 +85,9 @@ const legalData = [
     {
         title: "7. Gestion des données personnelles et utilisation des cookies",
         content: [
-            `Le site <strong>${legalVariables.siteName}</strong> utilise des cookies pour améliorer l'expérience utilisateur. Les cookies sont des fichiers de petite taille déposés sur votre appareil lors de la consultation du site, permettant de collecter des informations sur la navigation.`,
-            `Ces cookies ne collectent aucune donnée personnelle sans consentement. Vous pouvez configurer votre navigateur pour refuser les cookies, bien que cela puisse limiter certaines fonctionnalités du site.`,
-            `En ce qui concerne les administrateurs, les données personnelles stockées sont relatives à la gestion des sessions de connexion. Ces informations ne sont utilisées que dans le cadre de l'administration du site.`,
-            `Conformément à la loi informatique et libertés du 6 janvier 1978, modifiée par le RGPD, les utilisateurs disposent d’un droit d’accès, de rectification, de suppression et d’opposition de leurs données personnelles. Pour exercer ces droits, les utilisateurs peuvent contacter <strong>${legalVariables.ownerEmail}</strong>.`
+            `Le site <strong>${legalVariables.siteName}</strong> n'utilise pas de cookies pour collecter des informations personnelles sur les visiteurs. Toutefois, des cookies de session sont utilisés pour les administrateurs lorsqu'ils se connectent à l'espace d'administration du site.`,
+            `Ces cookies de session sont nécessaires pour la gestion sécurisée des sessions des administrateurs et pour permettre la gestion des contenus du site.`,
+            `Les visiteurs non-administrateurs peuvent naviguer sur le site sans que des informations personnelles soient collectées via des cookies. Aucune forme de suivi des visiteurs n'est effectuée.`,
         ],
         details: []
     },

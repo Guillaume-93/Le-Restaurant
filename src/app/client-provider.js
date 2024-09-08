@@ -7,6 +7,7 @@ import ScrollToTop from '@/components/ui/ScrollToTop';
 import { ToastProvider } from '@/components/ui/ToastManager';
 import { SessionProvider } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
+import CookiesBanner from '@/components/ui/CookiesBanner.js';
 
 export default function ClientProvider({ children }) {
     const pathname = usePathname();
@@ -20,6 +21,7 @@ export default function ClientProvider({ children }) {
             {!isAdminRoute && !isAuthRoute && <Footer />}
             <ScrollToTop />
             <ToastProvider />
+            <CookiesBanner />
         </SessionProvider>
     );
 }
