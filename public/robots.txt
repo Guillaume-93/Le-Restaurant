@@ -1,0 +1,23 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: *
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /api/*
+
+# Googlebot
+User-agent: Googlebot
+Allow: /
+
+# Bingbot
+User-agent: Bingbot
+Allow: /
+
+# Host
+Host: https://le-neuilly.netlify.app
+
+# Sitemaps
+Sitemap: https://le-neuilly.netlify.app/sitemap.xml

@@ -6,6 +6,7 @@ module.exports = {
     changefreq: 'daily', // Fréquence de mise à jour
     priority: 0.7, // Priorité par défaut des pages
     generateIndexSitemap: true, // Génère un index des sitemaps
+    exclude: ['/admin*', '/api*'], // Exclure toutes les routes admin et API du sitemap
     robotsTxtOptions: {
         policies: [
             {
@@ -14,7 +15,7 @@ module.exports = {
             },
             {
                 userAgent: '*',
-                disallow: '/admin', // Bloque toutes les routes commençant par /admin
+                disallow: ['/admin', '/admin/*', '/api/*'], // Bloque l'accès aux pages admin et API dans robots.txt
             },
             {
                 userAgent: 'Googlebot',
