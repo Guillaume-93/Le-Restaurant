@@ -15,7 +15,7 @@ const TestimonialsSection = () => {
             const cachedReviews = localStorage.getItem('google-reviews');
             const cacheTimestamp = localStorage.getItem('google-reviews-timestamp');
             const now = Date.now();
-    
+
             // Vérifier si le cache est encore valide
             if (cachedReviews && cacheTimestamp && now - cacheTimestamp < CACHE_EXPIRATION) {
                 setTestimonials(JSON.parse(cachedReviews));
@@ -23,7 +23,7 @@ const TestimonialsSection = () => {
                 try {
                     const response = await fetch('/api/google-reviews');
                     const reviews = await response.json();
-    
+
                     if (reviews.length > 0) {
                         const structuredReviews = reviews.map((review) => ({
                             body: review.text,
@@ -33,11 +33,11 @@ const TestimonialsSection = () => {
                             img: review.profile_photo_url || '/images/avatars/default-avatar.webp',
                             userReviewsCount: review.user_ratings_total || 0,
                         }));
-    
+
                         // Stocker les avis et l'horodatage dans localStorage
                         localStorage.setItem('google-reviews', JSON.stringify(structuredReviews));
                         localStorage.setItem('google-reviews-timestamp', now.toString());
-    
+
                         setTestimonials(structuredReviews);
                     }
                 } catch (error) {
@@ -45,9 +45,9 @@ const TestimonialsSection = () => {
                 }
             }
         };
-    
+
         fetchGoogleReviews();
-    }, []);    
+    }, []);
 
     const renderStars = (rating) => {
         return (
@@ -92,6 +92,15 @@ const TestimonialsSection = () => {
                     <div className="flex items-center">
                         {renderStars(rating)}
                     </div>
+                </div>
+                <div className="absolute top-2 right-2">
+                    <Image
+                        src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+                        alt="Logo Google"
+                        width={24}
+                        height={24}
+                        className="w-6 h-6"
+                    />
                 </div>
             </div>
             <blockquote className="mt-2 text-sm">

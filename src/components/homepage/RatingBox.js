@@ -1,6 +1,7 @@
 "use client";
 import { StarSolid } from 'iconoir-react';
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 const RatingSummaryBox = () => {
     const [globalRating, setGlobalRating] = useState(4.7);
@@ -43,6 +44,15 @@ const RatingSummaryBox = () => {
                     <p>
                         Basé sur <span className='font-bold'>{totalReviews} avis</span>
                     </p>
+                </div>
+                <div className="flex justify-center mt-4">
+                    <Image
+                        src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg"
+                        alt="Logo Google"
+                        width={60}
+                        height={20}
+                        className="w-20 h-auto"
+                    />
                 </div>
             </div>
             <div className="border-t pt-4">
