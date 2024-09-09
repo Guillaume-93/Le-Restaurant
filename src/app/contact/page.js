@@ -11,7 +11,7 @@ export default function Contact() {
                 <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
                     <div className="grid grid-cols-1 gap-x-8 gap-y-16 lg:grid-cols-3">
                         <div className=' px-6'>
-                            <h2 className="text-3xl font-bold tracking-tight text-gray-900">Contactez-nous</h2>
+                            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Contactez-nous</h1>
                             <p className="mt-4 text-lg leading-8 text-gray-600">
                                 Nous serions ravis de vous accueillir dans notre restaurant. Vous trouverez ici toutes les informations nécessaires pour nous contacter. Pour toute question ou réservation, n&apos;hésitez pas à nous joindre par email ou par téléphone. Notre équipe est à votre disposition pour répondre à toutes vos demandes.
                             </p>

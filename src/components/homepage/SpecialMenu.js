@@ -49,7 +49,7 @@ export default function SpecialMenu() {
 
             <div className="relative z-10 mx-auto max-w-6xl lg:px-6">
                 <div className="mx-auto max-w-xl sm:text-center px-2">
-                    <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{menuData[0]?.title || 'Menu Spécial'}</h2>
+                    <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{menuData[0]?.title || 'Menu Spécial'}</h1>
                     <p className="mt-4 text-base leading-7 text-gray-700 font-medium">
                         {menuData[0]?.description || 'Découvrez notre menu spécial pour cette saison!'}
                     </p>

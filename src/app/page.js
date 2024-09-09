@@ -5,7 +5,6 @@ import FeaturesSection from "@/components/homepage/FeaturesSection";
 import HeroSection from "@/components/homepage/HeroSection";
 import MenusPrices from "@/components/homepage/MenusPrices";
 import SecondaryFeaturesSection from "@/components/homepage/SecondaryFeaturesSection";
-import SpecialMenu from "@/components/homepage/SpecialMenu.js";
 import React, { Suspense } from 'react';
 
 export default function Example() {
@@ -21,7 +20,6 @@ export default function Example() {
                     <DishesCarousel />
                 </Suspense>
                 <MenusPrices />
-                {/* <SpecialMenu /> */}
                 <SecondaryFeaturesSection />
                 <Suspense fallback={<div>Loading...</div>}>
                     <TestimonialsSection />
