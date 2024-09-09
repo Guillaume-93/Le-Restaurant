@@ -43,7 +43,7 @@ export default function SpecialMenu() {
                         style={{ objectFit: 'cover', objectPosition: 'center' }}
                         className="opacity-40"
                         fill="responsive"
-                        loading="lazy" />
+                        priority="true" />
                 </div>
             )}
 

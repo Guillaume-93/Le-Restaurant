@@ -6,7 +6,7 @@ const navigation = {
     main: [
         { name: 'Accueil', href: '/' },
         { name: 'Menu', href: '/menu' },
-        { name: 'À propos', href: '/about' },
+        { name: 'À propos', href: '/a-propos' },
         { name: 'Contact', href: '/contact' },
     ],
     social: [
@@ -95,7 +95,7 @@ export default function Footer() {
                 ))}
             </div>
             <p className="mt-10 text-center text-xs leading-5 text-slate-600">
-                &copy; 2024 Le Neuilly. Tous droits réservés. | <Link href="/legals" className="text-slate-600 hover:text-slate-800">Mentions légales</Link> | <Link href="/privacy-policy" className="text-slate-600 hover:text-slate-800">Politique de confidentialité</Link>
+                &copy; 2024 Le Neuilly. Tous droits réservés. | <Link href="/mentions-legales" className="text-slate-600 hover:text-slate-800">Mentions légales</Link> | <Link href="/politique-de-confidentialite" className="text-slate-600 hover:text-slate-800">Politique de confidentialité</Link>
             </p>
         </footer>
     )

@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 const navigation = [
     { name: "Accueil", href: "/" },
     { name: "Menu", href: "/menu" },
-    { name: "À propos", href: "/about" },
+    { name: "À propos", href: "/a-propos" },
     { name: "Contact", href: "/contact" },
 ];
 
