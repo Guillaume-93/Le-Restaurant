@@ -34,7 +34,7 @@ export default function SpecialMenu() {
 
     return (
         <><div id="special-menu" className=''></div>
-        <div className="relative bg-white py-32 sm:py-28 mb-24">
+        <div className="relative bg-white py-32 sm:py-28">
             {imageUrl && (
                 <div className="absolute inset-0 z-0 overflow-hidden">
                     <Image

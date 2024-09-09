@@ -133,7 +133,7 @@ function LegalSection({ title, content, details }) {
 
 export default function Legals() {
     return (
-        <div className="relative isolate overflow-hidden bg-white py-24 sm:py-32">
+        <div className="relative isolate overflow-hidden bg-white py-28 sm:py-32">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-2xl lg:mx-0">
                     <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Mentions Légales</h1>

@@ -34,7 +34,7 @@ export default function Banners({ title, price }) {
     }
 
     return (
-        <div className='absolute left-1/2 transform -translate-x-1/2 sm:top-[120%] w-full sm:max-w-lg bg-gradient-to-r from-[#407cff] via-[#cecece] to-[#ff4040] sm:rounded-full shadow-default'>
+        <div className='absolute left-1/2 transform -translate-x-1/2 sm:top-[120%] w-full sm:max-w-lg bg-gradient-to-r from-[#407cff] via-[#cecece] to-[#ff4040] sm:rounded-full shadow-default z-50'>
             <div className="bg-white sm:rounded-full px-4 py-2 sm:py-0 my-0.5 sm:m-0.5">
                 {/* Utilisation de flex pour aligner le contenu sur une seule ligne */}
                 <div className="flex items-center justify-between gap-x-4">
