@@ -38,7 +38,7 @@ const SecondaryFeaturesSection = () => {
     <div className="relative mt-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-[#112E34]">Tout ce dont vous avez besoin</h2>
+          <h2 className="text-base font-semibold leading-7 text-[--link-color-background]">Tout ce dont vous avez besoin</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
             Un service sans faille
           </p>
@@ -52,7 +52,7 @@ const SecondaryFeaturesSection = () => {
             {features.map((feature) => (
               <div key={feature.name} className="relative pl-16">
                 <dt className="text-base font-semibold leading-7 text-slate-900">
-                  <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-[#112E34] shadow-default">
+                  <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-[--link-color-background] shadow-default">
                     <feature.icon aria-hidden="true" className="h-6 w-6 text-slate-100" />
                   </div>
                   {feature.name}

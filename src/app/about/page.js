@@ -17,11 +17,11 @@ const stats = [
 
 export default function About() {
     return (
-            <div className="py-24 sm:py-32">
-                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="pb-24 sm:py-32">
+                <div className="mx-auto max-w-7xl lg:px-8">
                     <div className="mx-auto grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-16 sm:gap-y-24 lg:mx-0 lg:max-w-none lg:grid-cols-2">
                         <div className="lg:pr-4">
-                            <div className="relative overflow-hidden rounded-3xl bg-slate-900 px-6 pb-9 pt-64 shadow-default sm:px-12 lg:max-w-lg lg:px-8 lg:pb-8 xl:px-10 xl:pb-10">
+                            <div className="relative overflow-hidden sm:rounded-3xl bg-slate-900 px-6 pb-9 pt-64 shadow-default sm:px-12 lg:max-w-lg lg:px-8 lg:pb-8 xl:px-10 xl:pb-10">
                                 <Image
                                     alt="Propriétaire du restaurant"
                                     src="/images/avatars/2024-02-14.webp"
@@ -29,7 +29,7 @@ export default function About() {
                                     width={400}
                                     height={400}
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-br from-[var(--gradient-bg-from)] via-[var(--gradient-bg-via)] to-[var(--gradient-bg-to)] p-4 rounded-xl mix-blend-multiply" />
+                                <div className="absolute inset-0 bg-slate-600 mix-blend-multiply" />
                                 <div
                                     aria-hidden="true"
                                     className="absolute left-1/2 top-1/2 -ml-16 -translate-x-1/2 -translate-y-1/2 transform-gpu blur-3xl"
@@ -55,7 +55,7 @@ export default function About() {
                                 </figure>
                             </div>
                         </div>
-                        <div>
+                        <div className=' px-6'>
                             <div className="text-base leading-7 text-slate-700 lg:max-w-lg">
                                 <p className="text-base font-semibold leading-7 text-[#112E34]">À propos de nous</p>
                                 <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">

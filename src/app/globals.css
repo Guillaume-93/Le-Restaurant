@@ -4,10 +4,10 @@
 
 :root {
     /* Couleurs des liens */
-    --link-color-background: #112E34;
+    --link-color-background: #111827;
     --link-color-text: #F1F5EA;
     --link-color-tertiary: #F1F5EA;
-    --link-color-hover: #1c4d57;
+    --link-color-hover: #242d41;
     --link-color-visited: #8e44ad;
 
     /* Couleurs des backgrounds */

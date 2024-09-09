@@ -90,14 +90,14 @@ export default function MenuPrices() { // Renommé pour être spécifique
                                     <h3
                                         id={menu.id}
                                         className={classNames(
-                                            menu.mostPopular ? 'text-[#112E34]' : 'text-slate-900',
+                                            menu.mostPopular ? 'text-[--link-color-background]' : 'text-slate-900',
                                             'text-lg font-semibold leading-8',
                                         )}
                                     >
                                         {menu.name}
                                     </h3>
                                     {menu.mostPopular ? (
-                                        <p className="rounded-full bg-[#112E34] px-2.5 py-1 text-xs font-semibold leading-5 text-slate-100">
+                                        <p className="rounded-full bg-[--link-color-background] px-2.5 py-1 text-xs font-semibold leading-5 text-slate-100">
                                             Populaire
                                         </p>
                                     ) : null}
@@ -114,7 +114,7 @@ export default function MenuPrices() { // Renommé pour être spécifique
                                 <ul role="list" className="mt-8 space-y-3 text-sm leading-6 text-slate-600">
                                     {menu.features && menu.features.map((feature, idx) => (
                                         <li key={idx} className="flex gap-x-3">
-                                            <CheckIcon aria-hidden="true" className="h-6 w-5 flex-none text-[#112E34]" />
+                                            <CheckIcon aria-hidden="true" className="h-6 w-5 flex-none text-[--link-color-background]" />
                                             {feature}
                                         </li>
                                     ))}
@@ -123,25 +123,25 @@ export default function MenuPrices() { // Renommé pour être spécifique
                                 {/* Afficher les données de Plat du Jour */}
                                 {menu.platDuJour && (
                                     <>
-                                        <p className="mt-4 text-sm font-semibold leading-6 text-[#112E34]">Plat du jour:</p>
+                                        <p className="mt-4 text-sm font-semibold leading-6 text-[--link-color-background]">Plat du jour:</p>
                                         <p className="mt-1 text-sm leading-6 text-slate-600">{menu.platDuJour}</p>
                                     </>
                                 )}
                                 {menu.poissonDuJour && (
                                     <>
-                                        <p className="mt-4 text-sm font-semibold leading-6 text-[#112E34]">Poisson du jour:</p>
+                                        <p className="mt-4 text-sm font-semibold leading-6 text-[--link-color-background]">Poisson du jour:</p>
                                         <p className="mt-1 text-sm leading-6 text-slate-600">{menu.poissonDuJour}</p>
                                     </>
                                 )}
                                 {menu.accompagnements && (
                                     <>
-                                        <p className="mt-4 text-sm font-semibold leading-6 text-[#112E34]">Accompagnements:</p>
+                                        <p className="mt-4 text-sm font-semibold leading-6 text-[--link-color-background]">Accompagnements:</p>
                                         <p className="mt-1 text-sm leading-6 text-slate-600">{menu.accompagnements}</p>
                                     </>
                                 )}
                                 {menu.desserts && (
                                     <>
-                                        <p className="mt-4 text-sm font-semibold leading-6 text-[#112E34]">Desserts:</p>
+                                        <p className="mt-4 text-sm font-semibold leading-6 text-[--link-color-background]">Desserts:</p>
                                         <p className="mt-1 text-sm leading-6 text-slate-600">{menu.desserts}</p>
                                     </>
                                 )}
@@ -151,8 +151,8 @@ export default function MenuPrices() { // Renommé pour être spécifique
                                 aria-describedby={menu.id}
                                 className={classNames(
                                     menu.mostPopular
-                                        ? 'bg-[#112E34] text-white hover:bg-[#1c4d57]'
-                                        : 'text-[#112E34] ring-1 ring-inset ring-[#112E34] hover:ring-[#297c8d]',
+                                        ? 'bg-[--link-color-background] text-white hover:bg-[#242d41]'
+                                        : 'text-[--link-color-background] ring-1 ring-inset ring-[--link-color-background] hover:ring-[#242d41]',
                                     'mt-8 block rounded-md px-3 py-2 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 shadow-default transition-all duration-200 active:scale-95 active:shadow-inner',
                                 )}
                             >

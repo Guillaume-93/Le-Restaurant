@@ -92,7 +92,7 @@ export default function SpecialMenu() {
                                 </p>
                                 <Link
                                     href="/contact"
-                                    className="mt-8 block w-full rounded-md px-3 py-2 text-center text-sm font-semibold bg-[#112E34] text-white hover:bg-[#1c4d57] shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                    className="mt-8 block w-full rounded-md px-3 py-2 text-center text-sm font-semibold bg-[--link-color-background] text-white hover:bg-[--link-color-hover] shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     Réserver une table
                                 </Link>

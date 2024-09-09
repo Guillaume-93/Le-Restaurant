@@ -1,13 +1,26 @@
 import { XMarkIcon } from '@heroicons/react/20/solid'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
 export default function CookieBanner() {
-    const [isBannerVisible, setIsBannerVisible] = useState(true);
+    const [isBannerVisible, setIsBannerVisible] = useState(false);
+
+    // Utilisez useEffect pour vérifier l'état de localStorage après le montage côté client
+    useEffect(() => {
+        // Vérifiez si localStorage est disponible
+        if (typeof window !== 'undefined') {
+            const bannerDismissed = localStorage.getItem('cookieBannerDismissed');
+            if (!bannerDismissed) {
+                setIsBannerVisible(true); // Afficher la bannière si elle n'a pas encore été fermée
+            }
+        }
+    }, []);
 
     const handleDismiss = () => {
         setIsBannerVisible(false);
-        localStorage.setItem('cookieBannerDismissed', 'true');
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('cookieBannerDismissed', 'true');
+        }
     };
 
     if (!isBannerVisible) {
@@ -39,5 +52,5 @@ export default function CookieBanner() {
                 </div>
             </div>
         </>
-    )
+    );
 }

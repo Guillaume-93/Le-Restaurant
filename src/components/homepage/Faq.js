@@ -33,7 +33,7 @@ const faqs = [
 
 export default function Faq() {
     return (
-        <div className="mx-auto py-32 max-w-7xl mb-32 px-6 lg:px-8 bg-gradient-to-br from-[var(--gradient-bg-from)] via-[var(--gradient-bg-via)] to-[var(--gradient-bg-to)] rounded-xl">
+        <div className="mx-auto py-32 mb-32 px-6 lg:px-8 bg-gradient-to-br from-[var(--gradient-bg-from)] via-[var(--gradient-bg-via)] to-[var(--gradient-bg-to)]">
             <div className="mx-auto max-w-4xl divide-y divide-gray-900/10">
                 <h2 className="text-2xl font-bold leading-10 tracking-tight text-gray-900">Questions fréquentes</h2>
                 <dl className="mt-10 space-y-6 divide-y divide-gray-900/10">

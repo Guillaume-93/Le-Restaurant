@@ -101,7 +101,7 @@ const TestimonialsSection = () => {
     );
 
     return (
-        <div className="relative isolate mt-24 sm:pt-24">
+        <div className="relative isolate mt-24 sm:py-24">
             <div className="relative py-20">
                 <div className="relative mx-auto max-w-7xl">
                     <div className="mx-auto max-w-xl text-center px-6">
