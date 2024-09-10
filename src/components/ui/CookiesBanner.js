@@ -37,7 +37,7 @@ export default function CookieBanner() {
                             <circle r={1} cx={1} cy={1} />
                         </svg>
                         En poursuivant votre navigation, vous acceptez l&apos;utilisation des cookies.&nbsp;
-                        <Link href="/privacy-policy" className="underline hover:text-gray-300">
+                        <Link href="/politique-de-confidentialite" className="underline hover:text-gray-300">
                             En savoir plus
                         </Link>
                     </p>

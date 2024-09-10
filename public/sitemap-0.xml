@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://le-neuilly.netlify.app/about</loc><lastmod>2024-09-08T16:40:47.692Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://le-neuilly.netlify.app/auth/login</loc><lastmod>2024-09-08T16:40:47.693Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://le-neuilly.netlify.app/contact</loc><lastmod>2024-09-08T16:40:47.693Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://le-neuilly.netlify.app/auth/logout</loc><lastmod>2024-09-08T16:40:47.693Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://le-neuilly.netlify.app/legals</loc><lastmod>2024-09-08T16:40:47.693Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://le-neuilly.netlify.app/menu</loc><lastmod>2024-09-08T16:40:47.693Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://le-neuilly.netlify.app/unauthorized</loc><lastmod>2024-09-08T16:40:47.693Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://le-neuilly.netlify.app</loc><lastmod>2024-09-08T16:40:47.693Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://le-neuilly.netlify.app/a-propos</loc><lastmod>2024-09-09T20:27:38.155Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://le-neuilly.netlify.app/auth/login</loc><lastmod>2024-09-09T20:27:38.155Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://le-neuilly.netlify.app/auth/logout</loc><lastmod>2024-09-09T20:27:38.155Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://le-neuilly.netlify.app/contact</loc><lastmod>2024-09-09T20:27:38.155Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://le-neuilly.netlify.app/menu</loc><lastmod>2024-09-09T20:27:38.155Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://le-neuilly.netlify.app/mentions-legales</loc><lastmod>2024-09-09T20:27:38.155Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://le-neuilly.netlify.app/unauthorized</loc><lastmod>2024-09-09T20:27:38.155Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://le-neuilly.netlify.app/politique-de-confidentialite</loc><lastmod>2024-09-09T20:27:38.155Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://le-neuilly.netlify.app</loc><lastmod>2024-09-09T20:27:38.155Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 </urlset>
