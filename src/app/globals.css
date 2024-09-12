@@ -31,3 +31,7 @@
     --gradient-bg-via: #247B78;
     --gradient-bg-to: #66C2BE;
 }
+
+html {
+    color-scheme: light;
+}
