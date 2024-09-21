@@ -4,15 +4,15 @@ import { IdentificationIcon, ServerIcon } from '@heroicons/react/20/solid';
 
 // Variables dynamiques
 const legalVariables = {
-    siteName: "Le Neuilly",
-    siteUrl: "https://leneuilly.fr",
+    siteName: "Le Restaurant",
+    siteUrl: "https://restaurant.fr",
     ownerName: "Nom du propriétaire",
     ownerCompanyName: "Nom de la société",
     ownerRegistrationNumber: "Numéro d'inscription au RCS",
     ownerVatNumber: "Numéro de TVA intracommunautaire",
     ownerAddress: "Adresse complète, Code postal, Pays",
     ownerPhone: "Numéro de téléphone",
-    ownerEmail: "leneuilly93@gmail.com",
+    ownerEmail: "lerestaurant@gmail.com",
     publicationDirectorName: "Nom du directeur de la publication",
     hostName: "Nom de l'hébergeur",
     hostCompanyName: "Raison sociale de l'hébergeur",

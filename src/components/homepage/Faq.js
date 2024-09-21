@@ -5,7 +5,7 @@ import { MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/24/outline'
 
 const faqs = [
     {
-        question: "Quels sont les plats les plus populaires au restaurant Le Neuilly ?",
+        question: "Quels sont les plats les plus populaires au restaurant Le Restaurant ?",
         answer:
             "Nos plats les plus populaires incluent le magret de canard avec sa sauce aux fruits rouges, et notre célèbre soupe à l'oignon gratinée.",
     },

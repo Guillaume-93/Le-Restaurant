@@ -32,17 +32,17 @@ export default function Contact() {
                                 <p className="mt-4 text-base leading-7 text-gray-600">
                                     Nous sommes disponibles pour répondre à vos questions ou prendre vos réservations par téléphone :
                                 </p>
-                                <p className="mt-2 font-semibold text-gray-900">09 84 15 23 70</p>
+                                <p className="mt-2 font-semibold text-gray-900">01 23 45 67 89</p>
                             </div>
                             <div className="sm:rounded-2xl px-6 py-8">
                                 <h3 className="text-xl font-semibold leading-7 text-gray-900">Notre Adresse</h3>
                                 <p className="mt-4 text-base leading-7 text-gray-600">
-                                    2 Rue Louis Vannini, 93330 Neuilly-sur-Marne
+                                    1 rue de la Paix, 75002 Paris
                                 </p>
                                 <div className="mt-6 h-64 md:h-80 lg:h-96 w-full relative">
                                     <iframe
                                         ref={iframeRef}
-                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.992300320199!2d2.5287343156748314!3d48.8512635792875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e610aa949c585f%3A0x52a19f0072e1186e!2s2%20Rue%20Louis%20Vannini%2C%2093330%20Neuilly-sur-Marne%2C%20France!5e0!3m2!1sen!2sfr!4v1693840820000!5m2!1sen!2sfr"
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.992300320199!2d2.5287343156748314!3d48.8512635792875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e610aa949c585f%3A0x52a19f0072e1186e!2s1%20Rue%20de%20paris%2C%2075002%20Paris%2C%20France!5e0!3m2!1sen!2sfr!4v1693840820000!5m2!1sen!2sfr"
                                         className={`w-full h-full transition-opacity duration-500 rounded-lg`}
                                         style={{ border: 0 }}
                                         allowFullScreen=""
@@ -58,8 +58,8 @@ export default function Contact() {
                                     Pour toute information ou réservation, contactez-nous à l&apos;adresse suivante :
                                 </p>
                                 <p className="mt-2">
-                                    <a href="mailto:leneuilly93@gmail.com" className="font-semibold text-gray-900">
-                                        leneuilly93@gmail.com
+                                    <a href="mailto:lerestaurant@gmail.com" className="font-semibold text-gray-900">
+                                        lerestaurant@gmail.com
                                     </a>
                                 </p>
                             </div>

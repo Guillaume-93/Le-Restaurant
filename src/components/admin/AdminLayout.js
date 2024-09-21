@@ -102,9 +102,9 @@ export default function AdminLayout({ children }) {
                                 <div className="flex items-center">
                                     <div className="flex-shrink-0">
                                         <Image
-                                            alt="Le Neuilly Logo"
-                                            src="/images/logos/le-neuilly-white.webp"
-                                            className="h-12 w-auto rounded-lg cursor-pointer"
+                                            alt="Le Restaurant Logo"
+                                            src="/images/logos/le-restaurant.png"
+                                            className="h-8 w-auto rounded-lg cursor-pointer"
                                             onClick={() => window.location.href = '/'}
                                             width={200}
                                             height={100}

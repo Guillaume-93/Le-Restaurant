@@ -61,8 +61,8 @@ export default function Header() {
                         <span className="sr-only">Le Neuilly</span>
                         <Image
                             alt="Image représentant le logo du restaurant Le Neuilly"
-                            src="/images/logos/le-neuilly-white.webp"
-                            className="h-12 w-auto rounded-lg"
+                            src="/images/logos/le-restaurant.png"
+                            className="h-8 w-auto rounded-lg"
                             width={200}
                             height={100}
                             priority
@@ -130,8 +130,8 @@ export default function Header() {
                             <span className="sr-only">Le Neuilly</span>
                             <Image
                                 alt="Le Neuilly"
-                                src="/images/logos/le-neuilly-canva.webp"
-                                className="sm:hidden h-12 w-auto rounded-lg"
+                                src="/images/logos/le-restaurant-black.png"
+                                className="sm:hidden h-8 w-auto rounded-lg"
                                 width={100}
                                 height={100}
                             />

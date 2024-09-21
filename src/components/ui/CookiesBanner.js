@@ -24,7 +24,7 @@ export default function CookieBanner() {
     };
 
     if (!isBannerVisible) {
-        return null; // Ne rien afficher si la bannière est fermée
+        return null;
     }
 
     return (
@@ -40,7 +40,7 @@ export default function CookieBanner() {
                         <Link href="/politique-de-confidentialite" className="underline hover:text-gray-300">
                             En savoir plus
                         </Link>
-                        <p className="mt-1 text-xs text-gray-400">Photos et textes actuellement non contractuelles, site en cours de développement.</p>
+                        {/* <p className="mt-1 text-xs text-gray-400">Photos et textes actuellement non contractuelles, site en cours de développement.</p> */}
                     </div>
                     <button
                         type="button"

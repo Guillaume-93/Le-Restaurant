@@ -4,7 +4,7 @@ export default function PrivacyPolicy() {
             <h1 className="text-3xl font-bold text-gray-900 mb-4">Politique de confidentialité</h1>
 
             <p className="text-gray-700 mb-6">
-                Le site <strong>Le Neuilly</strong> respecte votre vie privée et ne collecte aucune donnée personnelle lors de votre navigation sur ce site internet. Nous n&apos;utilisons pas de formulaires, de newsletters, ni d&apos;outils de suivi des visiteurs pour collecter des informations personnelles.
+                Le site <strong>Le Restaurant</strong> respecte votre vie privée et ne collecte aucune donnée personnelle lors de votre navigation sur ce site internet. Nous n&apos;utilisons pas de formulaires, de newsletters, ni d&apos;outils de suivi des visiteurs pour collecter des informations personnelles.
             </p>
 
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Cookies de session pour les administrateurs</h2>
@@ -27,10 +27,10 @@ export default function PrivacyPolicy() {
                 Si vous avez des questions concernant cette politique de confidentialité ou la gestion des données des administrateurs, vous pouvez nous contacter à l&apos;adresse suivante :
             </p>
             <p className="text-gray-700">
-                <strong>Le Neuilly</strong><br />
-                2 Rue Louis Vannini<br />
-                93330 Neuilly-sur-Marne, France<br />
-                Email : <a href="mailto:leneuilly93@gmail.com" className="underline">leneuilly93@gmail.com</a>
+                <strong>Le Restaurant</strong><br />
+                1 Rue De La Paix<br />
+                75002 Paris, France<br />
+                Email : <a href="mailto:lerestaurant@gmail.com" className="underline">lerestaurant@gmail.com</a>
             </p>
         </div>
     );

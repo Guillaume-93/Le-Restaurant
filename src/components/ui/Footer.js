@@ -95,7 +95,7 @@ export default function Footer() {
                 ))}
             </div>
             <p className="mt-10 text-center text-xs leading-5 text-slate-600">
-                &copy; 2024 Le Neuilly. Tous droits réservés. | <Link href="/mentions-legales" className="text-slate-600 hover:text-slate-800">Mentions légales</Link> | <Link href="/politique-de-confidentialite" className="text-slate-600 hover:text-slate-800">Politique de confidentialité</Link>
+                &copy; 2024 Le Restaurant. Tous droits réservés. | <Link href="/mentions-legales" className="text-slate-600 hover:text-slate-800">Mentions légales</Link> | <Link href="/politique-de-confidentialite" className="text-slate-600 hover:text-slate-800">Politique de confidentialité</Link>
             </p>
         </footer>
     )

@@ -24,7 +24,7 @@ export default function About() {
                             <div className="relative overflow-hidden sm:rounded-3xl bg-slate-900 px-6 pb-9 pt-64 shadow-default sm:px-12 lg:max-w-lg lg:px-8 lg:pb-8 xl:px-10 xl:pb-10">
                                 <Image
                                     alt="Propriétaire du restaurant"
-                                    src="/images/avatars/2024-02-14.webp"
+                                    src="/images/avatars/uifaces-popular-image.webp"
                                     className="absolute inset-0 h-full w-full object-cover brightness-125 saturate-0"
                                     width={400}
                                     height={400}
@@ -50,7 +50,7 @@ export default function About() {
                                         </p>
                                     </blockquote>
                                     <figcaption className="mt-6 text-sm leading-6 text-slate-300">
-                                        <strong className="font-semibold text-white">Farida Belaidi,</strong> Propriétaire du restaurant Le Neuilly
+                                        <strong className="font-semibold text-white">Jane Doe,</strong> Propriétaire du restaurant
                                     </figcaption>
                                 </figure>
                             </div>
@@ -63,13 +63,13 @@ export default function About() {
                                 </h1>
                                 <div className="max-w-xl">
                                     <p className="mt-6">
-                                        Le Neuilly est un restaurant familial situé au cœur de la ville, offrant une cuisine française authentique avec une touche moderne. Nous sommes fiers de notre histoire et de notre engagement à utiliser des ingrédients locaux et de saison.
+                                    Le Restaurant est un restaurant familial situé au cœur de la ville, offrant une cuisine française authentique avec une touche moderne. Nous sommes fiers de notre histoire et de notre engagement à utiliser des ingrédients locaux et de saison.
                                     </p>
                                     <p className="mt-8">
                                         Depuis notre ouverture en 2022, nous nous efforçons de créer une atmosphère conviviale où nos clients peuvent se détendre et profiter de repas délicieux. Notre menu varié met en avant les saveurs traditionnelles françaises tout en y apportant une touche contemporaine.
                                     </p>
                                     <p className="mt-8">
-                                        Situé au 2 Rue Louis Vanini, 93330 Neuilly-sur-Marne, Le Neuilly est plus qu&apos;un simple restaurant, c&apos;est un lieu de rencontre pour les amis et la famille, où chaque plat est préparé avec passion et souci du détail.
+                                        Situé au 1 Rue de la Paix, 75002 Paris, Le Restaurant est plus qu&apos;un simple restaurant, c&apos;est un lieu de rencontre pour les amis et la famille, où chaque plat est préparé avec passion et souci du détail.
                                     </p>
                                 </div>
                             </div>

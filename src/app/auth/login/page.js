@@ -14,8 +14,8 @@ export default function SignIn() {
             <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-md gap-y-4">
                 <Image
                     className='sm:h-32 w-auto'
-                    src="/images/logos/le-neuilly-canva.webp"
-                    alt="Le Neuilly Logo"
+                    src="/images/logos/le-restaurant-black.png"
+                    alt="Le Restaurant Logo"
                     width={400}
                     height={400}
                 />
