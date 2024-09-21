@@ -29,7 +29,7 @@ export async function DELETE(req) {
         }
 
         const { pathname } = new URL(req.url);
-        const itemId = Number(pathname.split('/').pop()); // Conversion de l'ID en nombre
+        const itemId = Number(pathname.split('/').pop());
         // console.log('itemId:', itemId);
 
         const { searchParams } = new URL(req.url);
