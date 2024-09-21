@@ -24,7 +24,7 @@ export default function About() {
                             <div className="relative overflow-hidden sm:rounded-3xl bg-slate-900 px-6 pb-9 pt-64 shadow-default sm:px-12 lg:max-w-lg lg:px-8 lg:pb-8 xl:px-10 xl:pb-10">
                                 <Image
                                     alt="Propriétaire du restaurant"
-                                    src="/images/avatars/uifaces-popular-image.webp"
+                                    src="/images/avatars/uifaces-popular-image-_5_.webp"
                                     className="absolute inset-0 h-full w-full object-cover brightness-125 saturate-0"
                                     width={400}
                                     height={400}
