@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-    siteUrl: process.env.SITE_URL || 'https://le-neuilly.netlify.app', // L'URL de base de votre site
+    siteUrl: process.env.SITE_URL || 'https://restaurant-site-name.netlify.app/', // L'URL de base de votre site
     generateRobotsTxt: true, // Génère un fichier robots.txt automatiquement
     sitemapSize: 7000, // Limite de pages par fichier sitemap
     changefreq: 'daily', // Fréquence de mise à jour
@@ -27,7 +27,7 @@ module.exports = {
             },
         ],
         additionalSitemaps: [
-            'https://le-neuilly.netlify.app/sitemap.xml', // Lien vers votre sitemap principal
+            'https://restaurant-site-name.netlify.app/sitemap.xml', // Lien vers votre sitemap principal
         ],
     },
 };
