@@ -50,7 +50,7 @@ export default function About() {
                                         </p>
                                     </blockquote>
                                     <figcaption className="mt-6 text-sm leading-6 text-slate-300">
-                                        <strong className="font-semibold text-white">Jane Doe,</strong> Propriétaire du restaurant
+                                        <strong className="font-semibold text-white">John Doe,</strong> Propriétaire du restaurant
                                     </figcaption>
                                 </figure>
                             </div>
