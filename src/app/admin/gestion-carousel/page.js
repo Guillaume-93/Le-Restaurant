@@ -26,7 +26,7 @@ const CarouselAdminPage = () => {
                         const res = await fetch('/api/carousel-data');
                         const data = await res.json();
                         setDishes(data);
-                        setLoading(false);  // Stop loading when data is fetched
+                        setLoading(false);
                     } catch (error) {
                         console.error("Erreur lors du chargement des données du carousel:", error);
                         showToast('Erreur !', `Erreur lors du chargement des données du carousel.`, 'error');
