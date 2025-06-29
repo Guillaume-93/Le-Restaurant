@@ -14,7 +14,7 @@ export async function POST(req) {
     try {
         const formData = await req.formData();
         const section = formData.get('section');
-        const index = parseInt(formData.get('index'), 10);
+        const indexOrKey = formData.get('index');
         const file = formData.get('image');
 
         if (!file) {
@@ -23,7 +23,7 @@ export async function POST(req) {
 
         const arrayBuffer = await file.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
-        const fileName = `image-${index}-${Date.now()}.${file.type.split('/')[1]}`;
+        const fileName = `image-${indexOrKey}-${Date.now()}.${file.type.split('/')[1]}`;
 
         const bucket = getStorage().bucket();
         const fileRef = bucket.file(`${section}/${fileName}`);
@@ -49,11 +49,19 @@ export async function POST(req) {
 
         const currentData = docSnap.data();
         if (section === 'heroSection') {
-            const heroSection = currentData.heroSection || { images: [] };
-            while (heroSection.images.length <= index) {
-                heroSection.images.push({});
+            const heroSection = currentData.heroSection || { images: [], backgroundImage: {} };
+            if (indexOrKey === 'background') {
+                heroSection.backgroundImage = { ...heroSection.backgroundImage, src: downloadURL };
+            } else {
+                const index = parseInt(indexOrKey, 10);
+                if (isNaN(index)) {
+                    return NextResponse.json({ message: "Index invalide pour l'image." }, { status: 400 });
+                }
+                while (heroSection.images.length <= index) {
+                    heroSection.images.push({});
+                }
+                heroSection.images[index].src = downloadURL;
             }
-            heroSection.images[index].src = downloadURL;
             try {
                 await documentRef.update({ heroSection });
             } catch (error) {
@@ -61,6 +69,10 @@ export async function POST(req) {
                 return NextResponse.json({ message: "Erreur lors de la mise à jour des données de la section Hero. Veuillez réessayer." }, { status: 500 });
             }
         } else {
+            const index = parseInt(indexOrKey, 10);
+             if (isNaN(index)) {
+                return NextResponse.json({ message: "Index invalide pour l'image." }, { status: 400 });
+            }
             const sectionData = currentData[section] || [];
             while (sectionData.length <= index) {
                 sectionData.push({});

@@ -22,6 +22,14 @@ export default function HomePage() {
             { src: "", alt: "" },
             { src: "", alt: "" }
         ],
+        backgroundImage: { src: "", alt: "" },
+        titleColor: '#FFFFFF',
+        subtitleColor: '#FFFFFF',
+        primaryButtonTextColor: '#FFFFFF',
+        primaryButtonBackgroundColor: '#000000',
+        primaryButtonHoverBackgroundColor: '#333333',
+        secondaryButtonTextColor: '#FFFFFF',
+        secondaryButtonLineColor: '#FFFFFF',
     });
 
     useEffect(() => {

@@ -357,27 +357,37 @@ export default function MenuSectionForm({
                 const imageUrlFromServer = data.imageUrl;
 
                 setMenuData(prevData => {
-                    if (sectionName === 'heroSection' && imageIndex !== null) {
-                        const updatedImages = [...prevData.images];
-                        updatedImages[imageIndex].src = imageUrlFromServer;
-                        return { ...prevData, images: updatedImages };
+                    if (sectionName === 'heroSection') {
+                        if (imageIndex === 'background') {
+                            const updatedBackgroundImage = { ...(prevData.backgroundImage || {}), src: imageUrlFromServer };
+                            return { ...prevData, backgroundImage: updatedBackgroundImage };
+                        }
+                        if (imageIndex !== null) {
+                            const updatedImages = [...prevData.images];
+                            updatedImages[imageIndex].src = imageUrlFromServer;
+                            return { ...prevData, images: updatedImages };
+                        }
+                        return prevData;
                     } else {
-                        const updatedSection = [...menuData];
-                        updatedSection[index].imageUrl = imageUrlFromServer;
+                        const updatedSection = [...prevData];
+                        if (updatedSection[index]) {
+                            updatedSection[index].imageUrl = imageUrlFromServer;
+                        }
                         return updatedSection;
                     }
                 });
 
                 showToast('Succès !', `Image téléchargée avec succès.`, 'success');
             } else {
-                showToast('Erreur !', `Echec du téléchargement de l\'image.`, 'error');
+                showToast('Erreur !', `Echec du téléchargement de l'image.`, 'error');
             }
         } catch (error) {
             console.error('Erreur lors du téléchargement de l\'image:', error);
-            showToast('Erreur !', `Echec du téléchargement de l\'image.`, 'error');
+            showToast('Erreur !', `Echec du téléchargement de l'image.`, 'error');
         }
     };
 
+// ...
     const handleSave = async (e) => {
         e.preventDefault();
 
