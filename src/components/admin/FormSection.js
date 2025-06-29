@@ -138,7 +138,7 @@ export default function FormSection({
                         </div>
                     </div>
                     <div className="sm:col-span-6 mt-6">
-                        <label className="block text-sm font-medium leading-6 text-gray-900">Image d'arrière plan</label>
+                        <label className="block text-sm font-medium leading-6 text-gray-900">Image d&apos;arrière plan</label>
                         <div className="mt-2">
                             <ImageUpload
                                 sectionName={sectionName}
@@ -418,7 +418,7 @@ export default function FormSection({
                     )}
                     {sectionName === 'heroSection' && (
                         <div className="sm:col-span-6 mt-6">
-                            <label className="block text-sm font-medium leading-6 text-gray-900">Image d'arrière plan</label>
+                            <label className="block text-sm font-medium leading-6 text-gray-900">Image d&apos;arrière plan</label>
                             <div className="mt-2">
                                 <ImageUpload
                                     sectionName={sectionName}
