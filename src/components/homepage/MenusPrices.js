@@ -62,16 +62,16 @@ export default function MenuPrices() { // Renommé pour être spécifique
     }
 
     return (
-        <div className="relative py-24 sm:py-32 bg-gradient-to-br from-[var(--gradient-bg-from)] via-[var(--gradient-bg-via)] to-[var(--gradient-bg-to)]">
+        <div className="relative py-24 sm:py-32 bg-[#111827]">
             {/* Menus Prices */}
             <div className="mx-auto max-w-7xl lg:px-8">
                 <div className="mx-auto max-w-4xl px-6 text-center">
-                    <h2 className="text-base font-semibold leading-7 text-slate-900">Nos Menus</h2>
-                    <p className="mt-2 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+                    <h2 className="text-base font-semibold leading-7 text-[--text-color-quaternary]">Nos Menus</h2>
+                    <p className="mt-2 text-4xl font-bold tracking-tight text-[--text-color-quaternary] sm:text-5xl">
                         Découvrez nos offres de menus pour tous les goûts
                     </p>
                 </div>
-                <p className="px-6 mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-[--text-color-secondary]">
+                <p className="px-6 mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-[--text-color-quaternary]">
                     Que vous soyez de passage pour un déjeuner rapide ou pour une soirée gourmande, nous avons un menu qui répondra à vos attentes.
                 </p>
                 <div className="isolate mx-auto mt-16 grid max-w-md grid-cols-1 gap-y-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
